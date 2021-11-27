@@ -16,7 +16,31 @@ public class HomePageController {
     private Button settingButton;
     @FXML
     private Button savedButton;
+    @FXML
+    private Button recipesHistoryButton;
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Button supermarketButton;
+    @FXML
+    private Button plusButton;
 
+    @FXML
+    public int showRecipesHistory(){
+        return 1;
+    }
+    @FXML
+    public int showSavedRecipes(){
+        return 1;
+    }
+    @FXML
+    public int showSupermarkets(){
+        return 1;
+    }
+    @FXML
+    public int plusaction(){
+        return 1;
+    }
     @FXML
     public void gotoweeklyplan() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("weeklyplan.fxml"));

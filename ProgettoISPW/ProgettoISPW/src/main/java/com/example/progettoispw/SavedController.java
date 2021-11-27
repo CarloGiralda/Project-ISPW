@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,6 +17,13 @@ public class SavedController {
     private Button settingButton;
     @FXML
     private Button homeButton;
+    @FXML
+    private TextField search;
+
+    @FXML
+    public int gosearch(){
+        return 1;
+    }
 
     @FXML
     public void gotoweeklyplan() throws IOException {

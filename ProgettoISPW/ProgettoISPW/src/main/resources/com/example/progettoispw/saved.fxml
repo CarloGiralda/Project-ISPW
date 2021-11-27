@@ -112,13 +112,12 @@
             <Image url="@../../../images/restaurant.png" />
          </image>
       </ImageView>
-      <TextField layoutX="9.0" layoutY="71.0" prefHeight="25.0" prefWidth="220.0" style="-fx-background-color: #9c9c9c;" />
+      <TextField fx:id="search" layoutX="9.0" layoutY="71.0" onAction="#gosearch" prefHeight="25.0" prefWidth="220.0" promptText="Search" style="-fx-background-color: #9c9c9c;" />
       <Label layoutX="28.0" layoutY="115.0" text="Recipes that you liked the most!">
          <font>
             <Font name="Leelawadee UI Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="28.0" layoutY="75.0" text="Search" />
       <Label layoutX="6.0" layoutY="200.0" prefHeight="45.0" prefWidth="226.0" text="You haven’t added any recipes to your favorites yet">
          <font>
             <Font size="10.0" />

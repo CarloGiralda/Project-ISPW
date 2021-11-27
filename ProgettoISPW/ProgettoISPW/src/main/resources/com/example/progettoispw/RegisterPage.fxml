@@ -13,16 +13,16 @@
             <Font name="Microsoft New Tai Lue Bold" size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="11.0" layoutY="81.0" />
-      <TextField layoutX="11.0" layoutY="132.0" />
-      <TextField layoutX="11.0" layoutY="183.0" />
+      <TextField fx:id="emailField" layoutX="11.0" layoutY="81.0" onAction="#setEmail" />
+      <TextField fx:id="passwordField" layoutX="11.0" layoutY="132.0" onAction="#setPassword" />
+      <TextField fx:id="usernameField" layoutX="11.0" layoutY="183.0" onAction="#setUsername" />
       <Button fx:id="registerButton" layoutX="166.0" layoutY="340.0" mnemonicParsing="false" onAction="#gotoHome" text="Register" />
       <Label layoutX="11.0" layoutY="64.0" text="Email" />
       <Label layoutX="11.0" layoutY="115.0" text="Password" />
       <Label layoutX="11.0" layoutY="166.0" text="Username" />
       <Label layoutX="11.0" layoutY="217.0" text="CookingLevel" />
       <Label layoutX="11.0" layoutY="268.0" text="Age" />
-      <TextField layoutX="11.0" layoutY="237.0" />
-      <TextField layoutX="11.0" layoutY="286.0" />
+      <TextField fx:id="cookingLevelField" layoutX="11.0" layoutY="237.0" onAction="#setCookingLevel" />
+      <TextField fx:id="ageField" layoutX="11.0" layoutY="286.0" onAction="#setAge" />
    </children>
 </Pane>

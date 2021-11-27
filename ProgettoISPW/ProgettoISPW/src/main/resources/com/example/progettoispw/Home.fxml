@@ -16,7 +16,7 @@
    <children>
       <Pane layoutX="19.0" layoutY="136.0" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Button layoutX="15.0" layoutY="17.0" minHeight="0.0" minWidth="50.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+            <Button fx:id="recipesHistoryButton" layoutX="15.0" layoutY="17.0" minHeight="0.0" minWidth="50.0" mnemonicParsing="false" onAction="#showRecipesHistory" prefHeight="80.0" prefWidth="80.0">
                <graphic>
                   <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <cursor>
@@ -31,7 +31,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="110.0" layoutY="17.0" minHeight="0.0" minWidth="50.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-radius: 0;">
+            <Button fx:id="saveButton" layoutX="110.0" layoutY="17.0" minHeight="0.0" minWidth="50.0" mnemonicParsing="false" onAction="#showSavedRecipes" prefHeight="80.0" prefWidth="80.0" style="-fx-background-radius: 0;">
                <graphic>
                   <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -45,7 +45,7 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button layoutX="110.0" layoutY="106.0" minHeight="0.0" minWidth="50.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #65a879;" text="+">
+            <Button fx:id="plusButton" layoutX="110.0" layoutY="106.0" minHeight="0.0" minWidth="50.0" mnemonicParsing="false" onAction="#plusaction" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #65a879;" text="+">
                <font>
                   <Font size="37.0" />
                </font>
@@ -53,7 +53,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="15.0" layoutY="106.0" minHeight="0.0" minWidth="50.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+            <Button fx:id="supermarketButton" layoutX="15.0" layoutY="106.0" minHeight="0.0" minWidth="50.0" mnemonicParsing="false" onAction="#showSupermarkets" prefHeight="80.0" prefWidth="80.0">
                <graphic>
                   <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>

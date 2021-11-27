@@ -18,32 +18,32 @@
             <Font size="26.0" />
          </font>
       </Label>
-      <Button layoutX="200.0" layoutY="80.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="&gt;">
+      <Button fx:id="cookingLevelButton" layoutX="200.0" layoutY="80.0" mnemonicParsing="false" onAction="#gotoCookingLevel" style="-fx-background-color: #FFFFFF;" text="&gt;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
       <Label layoutX="25.0" layoutY="80.0" text="Cooking Level" />
       <Label layoutX="25.0" layoutY="110.0" text="Privacy" />
-      <Button layoutX="200.0" layoutY="110.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="&gt;">
+      <Button fx:id="privacyButton" layoutX="200.0" layoutY="110.0" mnemonicParsing="false" onAction="#gotoPrivacy" style="-fx-background-color: #FFFFFF;" text="&gt;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
       <Label layoutX="25.0" layoutY="140.0" text="Account" />
-      <Button layoutX="200.0" layoutY="140.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="&gt;">
+      <Button fx:id="accountButton" layoutX="200.0" layoutY="140.0" mnemonicParsing="false" onAction="#gotoAccount" style="-fx-background-color: #FFFFFF;" text="&gt;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button layoutX="200.0" layoutY="170.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="&gt;">
+      <Button fx:id="termsButton" layoutX="200.0" layoutY="170.0" mnemonicParsing="false" onAction="#gotoTerms" style="-fx-background-color: #FFFFFF;" text="&gt;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
       <Label layoutX="25.0" layoutY="170.0" text="Terms of Use" />
       <Label layoutX="25.0" layoutY="200.0" text="Tutorial" />
-      <Button layoutX="200.0" layoutY="200.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="&gt;">
+      <Button fx:id="tutorialButton" layoutX="210.0" layoutY="206.0" mnemonicParsing="false" onAction="#gotoTutorial" style="-fx-background-color: #FFFFFF;" text="&gt;">
          <font>
             <Font size="10.0" />
          </font>

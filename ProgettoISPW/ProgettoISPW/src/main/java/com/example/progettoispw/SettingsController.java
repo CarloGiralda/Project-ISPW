@@ -16,7 +16,36 @@ public class SettingsController {
     private Button homeButton;
     @FXML
     private Button savedButton;
-
+    @FXML
+    private Button cookingLevelButton;
+    @FXML
+    private Button privacyButton;
+    @FXML
+    private Button accountButton;
+    @FXML
+    private Button termsButton;
+    @FXML
+    private Button tutorialButton;
+    @FXML
+    public int gotoCookingLevel(){
+        return 1;
+    }
+    @FXML
+    public int gotoPrivacy(){
+        return 1;
+    }
+    @FXML
+    public int gotoAccount(){
+        return 1;
+    }
+    @FXML
+    public int gotoTerms(){
+        return 1;
+    }
+    @FXML
+    public int gotoTutorial(){
+        return 1;
+    }
     @FXML
     public void gotoweeklyplan() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("weeklyplan.fxml"));
