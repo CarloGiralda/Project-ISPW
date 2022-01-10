@@ -1,0 +1,13 @@
+Pattern da aggiungere:
+*Adapter per schermate interfacce nuove (secondo tipo di interfaccia)
+  client=controllerA-->interagisce con classe astratta target= --> adapter=nuova  classe implementa target prende le bean vecchie e le adatta a bean nuove e le passa a adaptee --> adaptee=vista(classe bean ,controllerG e filefxml)
+*AF per creazione sia di interfaccia tipo 2 
+  HelloAp-->login-->a seconda di ruolo setto un diverso controller che ha diverse caratteristiche sullo stesso file home.fxml e anche creo una label/bottone diverso da mettere in questa schermata scena home 
+  abstract factory (classe astratta)-->a seconda di ruolo-->controllerG factory e initial label factory-->creano diversi controllerG e etichette--> controllerG carica home con pulsanti cliccabili o non e etichette di prima"
+  client=controllerG del login.
+*Singleton con connection(anche per general scenes e dao) chiamo la classe connection che è sigleton.
+*Facade facade=HomeController -->mi porta attivando dei metodi su dei bottoni in parti del sottosistema diverso ex. add recipe,plan ecc...
+*Decorator su weekly plan schermata scorre
+  concrete component=Pane wrappate dentro una classe concrete component che lo crea di weekly plan,concretedecoratorA=scrollpaneDecorator su weekly plan,due classi astratte decorator e component,concerte decoratorb=tasto modifica e menù a tendina per selezionare giorno e pranzo colazione o cena per cambiare ricetta dentro.
+*Factory creazione meal in weekly plan--> facciamo meal per pranzo meal per cena meal per colazione che vengono creati da una factory ,tutti implementano interfaccia meal 
+  client=user-->controllerG-->controllerA , factory= meal factory,ConcreteProducts=mealP,mealC,mealColazione,interfaccia o classe astratta meal.
