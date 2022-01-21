@@ -64,7 +64,7 @@
 											"top": 372,
 											"width": 196.3798828125,
 											"height": 13,
-											"text": "DatabaseAddRecipeBoundary"
+											"text": "RecipeBoundary"
 										},
 										{
 											"_type": "LabelView",
@@ -368,7 +368,7 @@
 											"top": 602,
 											"width": 226.54150390625,
 											"height": 13,
-											"text": "-sendRecipeToDB(Recipe recipe)",
+											"text": "-sendRecipeToB(Recipe recipe)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -3372,7 +3372,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "DatabaseAddRecipeBoundary",
+					"name": "RecipeBoundary",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -3547,7 +3547,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF9kKtBac7i0dw="
 							},
-							"name": "sendRecipeToDB",
+							"name": "sendRecipeToB",
 							"visibility": "private",
 							"parameters": [
 								{
@@ -3556,8 +3556,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF9kNOWJc/JUKE="
 									},
-									"name": "Recipe recipe",
-									"type": ""
+									"name": "Recipe recipe"
 								}
 							]
 						}
