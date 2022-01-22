@@ -1,7 +1,0 @@
-organization=carlogiralda
-projectKey=CarloGiralda_Project-ISPW
-serverUrl=https://sonarcloud.io
-serverVersion=8.0.0.26204
-dashboardUrl=https://sonarcloud.io/dashboard?id=CarloGiralda_Project-ISPW
-ceTaskId=AX6BYiTEPUxGj_I9SK8L
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AX6BYiTEPUxGj_I9SK8L

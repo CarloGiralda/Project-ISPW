@@ -12,6 +12,7 @@
     <properties>
         <sonar.organization>carlogiralda</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <property name="sonar.java.binaries" value="target"/>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.7.1</junit.version>
     </properties>
