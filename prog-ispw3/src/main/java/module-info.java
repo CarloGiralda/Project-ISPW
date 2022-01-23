@@ -6,8 +6,8 @@ module com.example.progettoispw {
 
 
     opens com.example.progettoispw to javafx.fxml;
-    opens com.example.progettoispw.RecipeModel to javafx.fxml;
+    opens com.example.progettoispw.recipeModel to javafx.fxml;
 
     exports com.example.progettoispw;
-    exports com.example.progettoispw.RecipeModel;
+    exports com.example.progettoispw.recipeModel;
 }

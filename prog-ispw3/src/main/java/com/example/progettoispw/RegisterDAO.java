@@ -19,7 +19,7 @@ public class RegisterDAO {
         return instance;
     }
 
-    public void registerdao(LogBean log) throws Exception{
+    public void registerdao(LogBean log) throws MyException {
         try {
 
             if(log.getCL().equalsIgnoreCase("beginner")){
@@ -34,14 +34,11 @@ public class RegisterDAO {
             if (!rs.first()) { // rs empty
                 SimpleQueries.insertUser(log.getUser(), log.getPass(), i, log.getEmail(), log.getSpec(), conn);
             }else{
-                Exception e = new Exception("User already registered: " + log.getUser());
-                throw e;
+                throw new MyException("User already registered: " + log.getUser());
             }
             rs.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 }

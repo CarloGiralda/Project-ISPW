@@ -13,39 +13,31 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AlimentarPreferencesController {
-    @FXML
-    private Button goBackButton;
-    @FXML
-    private Label selectedButtonLabel1;
-    @FXML
-    private Button confirmButton;
-    @FXML
-    private RadioButton rb1;
-    @FXML
-    private RadioButton rb2;
-    @FXML
-    private RadioButton rb3;
-    @FXML
-    private RadioButton rb4;
-    @FXML
-    private RadioButton rb5;
-    @FXML
-    private RadioButton rb6;
-    @FXML
-    private RadioButton fd1;
-    @FXML
-    private RadioButton fd2;
-    @FXML
-    private RadioButton fd3;
-    @FXML
-    private Button clear;
+    @FXML private Button goBackButton;
+    @FXML private Label selectedButtonLabel1;
+    @FXML private Button confirmButton;
+    @FXML private RadioButton rb1;
+    @FXML private RadioButton rb2;
+    @FXML private RadioButton rb3;
+    @FXML private RadioButton rb4;
+    @FXML private RadioButton rb5;
+    @FXML private RadioButton rb6;
+    @FXML private RadioButton fd1;
+    @FXML private RadioButton fd2;
+    @FXML private RadioButton fd3;
+    @FXML private Button clear;
 
-    private final String[] allergies ={"Dried fruit","Fish","Eggs","Milk","Meat","No allergies"};
+    private String no="No allergies";
+    private final String[] allergies ={"Dried fruit","Fish","Eggs","Milk","Meat",no};
     private AlimentarPreferencesControllerA apca;
     private final BackControllerA bca;
+    private static Logger logger=Logger.getLogger(AlimentarPreferencesController.class.getName());
 
     public AlimentarPreferencesController() throws IOException, ClassNotFoundException {
         apca = new AlimentarPreferencesControllerA();
@@ -62,7 +54,7 @@ public class AlimentarPreferencesController {
             fd3.setSelected(true);
         }
 
-        ArrayList<String> all=apca.getAll();
+        List<String> all=apca.getAll();
         for(int i=0; i<all.size(); i++){
             switch (all.get(i)) {
                 case "Dried fruit" -> rb1.setSelected(true);
@@ -71,7 +63,7 @@ public class AlimentarPreferencesController {
                 case "Milk" -> rb4.setSelected(true);
                 case "Meat" -> rb5.setSelected(true);
                 case "No Allergies" -> rb6.setSelected(true);
-                default -> rb6.setSelected(true);
+                default -> selectedButtonLabel1.getText();
             }
         }
     }
@@ -79,13 +71,12 @@ public class AlimentarPreferencesController {
 
     @FXML
     public void goBack() throws IOException, ClassNotFoundException {
+        Stage window = (Stage) goBackButton.getScene().getWindow();
         if (bca.getSpecialization().equalsIgnoreCase("User") || bca.getSpecialization().equalsIgnoreCase("Premium")) {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Home.fxml")));
-            Stage window = (Stage) goBackButton.getScene().getWindow();
             window.setScene(GeneralScene.getHome(root));
         }else{
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomeChef.fxml")));
-            Stage window = (Stage) goBackButton.getScene().getWindow();
             window.setScene(new Scene(root, 850, 594));
         }
     }
@@ -95,10 +86,10 @@ public class AlimentarPreferencesController {
         RadioButton rb = (RadioButton) actionEvent.getSource();
         if(rb.isSelected()){
             selectedButtonLabel1.setText(((RadioButton)actionEvent.getSource()).getText());
-            System.out.println(selectedButtonLabel1.getText()+" selected");
+            logger.log(Level.INFO, selectedButtonLabel1.getText()+" selected");
         }
         else {
-            System.out.println("Deselected");
+            logger.log(Level.INFO, "Deselected");
         }
     }
 
@@ -121,14 +112,13 @@ public class AlimentarPreferencesController {
         for(int i=0;i<6;i++){
             if(allRB[i].isSelected()){
                 listOfAllergies.add(allergies[i]);
-                if(allRB[i].getText().equals("No allergies")){
+                if(allRB[i].getText().equals(no)){
                     listOfAllergies.clear();
-                    listOfAllergies.add("No allergies");
+                    listOfAllergies.add(no);
                 }
             }
         }
         apca.setPref(selectedButtonLabel1.getText(), listOfAllergies);
-        System.out.println(preferences+"\n"+listOfAllergies);
+        logger.log(Level.INFO, preferences, listOfAllergies);
     }
-
 }

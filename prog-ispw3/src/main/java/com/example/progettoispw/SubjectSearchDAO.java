@@ -8,17 +8,17 @@ import java.util.Vector;
 public abstract class SubjectSearchDAO {
     private List<ObserverRecipeDAO> observers;
 
-    public SubjectSearchDAO() {
+    protected SubjectSearchDAO() {
         this((ObserverRecipeDAO) null);
     }
 
-    public SubjectSearchDAO(ObserverRecipeDAO obs) {
+    protected SubjectSearchDAO(ObserverRecipeDAO obs) {
         this(new Vector<ObserverRecipeDAO>());
         if (obs != null)
             this.observers.add(obs);
     }
 
-    public SubjectSearchDAO(List<ObserverRecipeDAO> list) {
+    protected SubjectSearchDAO(List<ObserverRecipeDAO> list) {
         this.observers = list;
     }
 
@@ -34,11 +34,10 @@ public abstract class SubjectSearchDAO {
         List<ObserverRecipeDAO> observersLocal = null;
 
         if (this.isThereAnythingToNotify())
-            observersLocal = new ArrayList<ObserverRecipeDAO>(this.observers);
+            observersLocal = new ArrayList<>(this.observers);
 
         if (observersLocal != null) {
             for (ObserverRecipeDAO obs : observersLocal) {
-                System.out.println("Updating Observer from the Subject");
                 obs.update();
             }
         }

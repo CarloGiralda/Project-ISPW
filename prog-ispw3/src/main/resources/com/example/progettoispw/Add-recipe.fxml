@@ -23,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="594.0" prefWidth="850.0" stylesheets="@../../../Style/MapsButtonStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.progettoispw.AddRecipeController">
+<AnchorPane fx:id="anch" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="594.0" prefWidth="850.0" stylesheets="@../../../Style/MapsButtonStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.progettoispw.AddRecipeController">
    <children>
       <AnchorPane fx:id="anchor" disable="true" opacity="0.0" prefHeight="594.0" prefWidth="850.0" style="-fx-background-color: #09911a;">
          <children>
@@ -32,7 +32,7 @@
                   <Font name="Century Gothic" size="40.0" />
                </font>
             </Label>
-            <Button layoutX="387.0" layoutY="445.0" mnemonicParsing="false" onAction="#goBackHome" stylesheets="@../../../Style/RecipeStyles/ConfirmButtonStyle.css" text="Back">
+            <Button layoutX="387.0" layoutY="445.0" mnemonicParsing="false" onAction="#goBack" stylesheets="@../../../Style/RecipeStyles/ConfirmButtonStyle.css" text="Back">
                <font>
                   <Font name="Century Gothic" size="26.0" />
                </font>
@@ -223,32 +223,32 @@
                               <Font name="Century Gothic" size="16.0" />
                            </font>
                         </Text>
-                        <RadioButton fx:id="rb1" mnemonicParsing="false" text="Dried fruit">
+                        <RadioButton fx:id="r1" mnemonicParsing="false" text="Dried fruit">
                            <font>
                               <Font name="Century Gothic" size="15.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton fx:id="rb2" layoutX="10.0" layoutY="56.0" mnemonicParsing="false" text="Fish">
+                        <RadioButton fx:id="r2" layoutX="10.0" layoutY="56.0" mnemonicParsing="false" text="Fish">
                            <font>
                               <Font name="Century Gothic" size="15.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton fx:id="rb3" layoutX="10.0" layoutY="73.0" mnemonicParsing="false" text="Eggs">
+                        <RadioButton fx:id="r3" layoutX="10.0" layoutY="73.0" mnemonicParsing="false" text="Eggs">
                            <font>
                               <Font name="Century Gothic" size="15.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton fx:id="rb4" mnemonicParsing="false" text="Milk">
+                        <RadioButton fx:id="r4" mnemonicParsing="false" text="Milk">
                            <font>
                               <Font name="Century Gothic" size="15.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton fx:id="rb5" mnemonicParsing="false" text="Meat">
+                        <RadioButton fx:id="r5" mnemonicParsing="false" text="Meat">
                            <font>
                               <Font name="Century Gothic" size="15.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton fx:id="rb6" mnemonicParsing="false" text="No allergies">
+                        <RadioButton fx:id="r6" mnemonicParsing="false" text="No allergies">
                            <font>
                               <Font name="Century Gothic" size="15.0" />
                            </font>

@@ -1,8 +1,7 @@
 package com.example.progettoispw;
 
-import com.example.progettoispw.RecipeModel.Ingredient;
+import com.example.progettoispw.recipeModel.Ingredient;
 
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -45,7 +44,7 @@ public class SearchDAO extends SubjectSearchDAO{
         return instance;
     }
 
-    public ArrayList<Recipe> searchRec(String name, String CL, String AP, String username) throws Exception{
+    public ArrayList<Recipe> searchRec(String name, String CL, String AP, String username) throws MyException {
         int num;
 
         try {
@@ -91,7 +90,8 @@ public class SearchDAO extends SubjectSearchDAO{
                 blob=pq.getBlob("IMG");
 
                 image=blob.getBytes(1, (int) blob.length());
-                recipes.add(new Recipe(ric, nome, image, type, ck, desc, cT, ingredients.get(z)));
+                recipes.add(new Recipe(ric, image, type, ck, desc, cT, ingredients.get(z)));
+                recipes.get(num).setChef(nome);
                 StringTokenizer st = new StringTokenizer(allergies);
                 while (st.hasMoreTokens()) {
                     recipes.get(num).addAll(st.nextToken());
@@ -109,7 +109,7 @@ public class SearchDAO extends SubjectSearchDAO{
         return recipes;
     }
 
-    public ArrayList<Recipe> searchRecipe(String time, String CL, String AP, String username) throws Exception{
+    public ArrayList<Recipe> searchRecipe(String time, String CL, String AP, String username) throws MyException {
         int num;
         ResultSet pq;
 
@@ -163,7 +163,8 @@ public class SearchDAO extends SubjectSearchDAO{
                     blob = pq.getBlob("IMG");
 
                     image = blob.getBytes(1, (int) blob.length());
-                    recipes.add(new Recipe(ric, nome, image, type, ck, desc, cT, ingredients.get(z)));
+                    recipes.add(new Recipe(ric, image, type, ck, desc, cT, ingredients.get(z)));
+                    recipes.get(num).setChef(nome);
                     StringTokenizer st = new StringTokenizer(allergies);
                     while (st.hasMoreTokens()) {
                         recipes.get(num).addAll(st.nextToken());
@@ -185,7 +186,7 @@ public class SearchDAO extends SubjectSearchDAO{
         return recipes;
     }
 
-    public ArrayList<Recipe> searchRecipeIngr(String ingr, String CL, String AP, String username) throws Exception{
+    public ArrayList<Recipe> searchRecipeIngr(String ingr, String CL, String AP, String username) throws MyException{
         int num;
         ResultSet pq;
 
@@ -239,7 +240,8 @@ public class SearchDAO extends SubjectSearchDAO{
                     blob = pq.getBlob("IMG");
 
                     image = blob.getBytes(1, (int) blob.length());
-                    recipes.add(new Recipe(ric, nome, image, type, ck, desc, cT, ingredients.get(z)));
+                    recipes.add(new Recipe(ric, image, type, ck, desc, cT, ingredients.get(z)));
+                    recipes.get(num).setChef(nome);
                     StringTokenizer st = new StringTokenizer(allergies);
                     while (st.hasMoreTokens()) {
                         recipes.get(num).addAll(st.nextToken());
@@ -261,7 +263,7 @@ public class SearchDAO extends SubjectSearchDAO{
         return recipes;
     }
 
-    public ArrayList<Recipe> searchRecipeType(String type, String CL, String AP, String username) throws Exception{
+    public ArrayList<Recipe> searchRecipeType(String type, String CL, String AP, String username) throws MyException{
         int num;
         ResultSet pq;
 
@@ -315,7 +317,8 @@ public class SearchDAO extends SubjectSearchDAO{
                     blob = pq.getBlob("IMG");
 
                     image = blob.getBytes(1, (int) blob.length());
-                    recipes.add(new Recipe(ric, nome, image, type, ck, desc, cT, ingredients.get(z)));
+                    recipes.add(new Recipe(ric, image, type, ck, desc, cT, ingredients.get(z)));
+                    recipes.get(num).setChef(nome);
                     StringTokenizer st = new StringTokenizer(allergies);
                     while (st.hasMoreTokens()) {
                         recipes.get(num).addAll(st.nextToken());

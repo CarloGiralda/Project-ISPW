@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class RecipeTemplateController {
@@ -47,7 +48,6 @@ public class RecipeTemplateController {
     private int i=0;
     private RecipeTemplateControllerA rtca;
     private RecipeBean rb;
-    private ArrayList<RecipeBean> rbs;
 
     public RecipeTemplateController(){
         bca=new BackControllerA();
@@ -55,6 +55,7 @@ public class RecipeTemplateController {
     }
 
     public void initialize() throws IOException, ClassNotFoundException {
+        List<RecipeBean> rbs;
         if(IndexTrace.getFive()==0) {
             rb = rtca.getRecipe();
         }else if(IndexTrace.getFive()==1){
@@ -75,8 +76,8 @@ public class RecipeTemplateController {
         cookingTime.setText(rb.getCT());
         dishType.setText(rb.getType());
         iw.setImage(new Image(new ByteArrayInputStream(rb.getImage())));
-        for(int i=0; i<rb.getIngredient().size(); i++) {
-            ingredientBox.getChildren().add(new Text(rb.getIngredient().get(i).getName()+" "+rb.getIngredient().get(i).getAmount()));
+        for(int j=0; j<rb.getIngredient().size(); j++) {
+            ingredientBox.getChildren().add(new Text(rb.getIngredient().get(j).getName()+" "+rb.getIngredient().get(j).getAmount()));
         }
 
         if(IndexTrace.timeget()==2){
@@ -144,8 +145,8 @@ public class RecipeTemplateController {
         cookingTime.setText(rb.getCT());
         dishType.setText(rb.getType());
         iw.setImage(new Image(new ByteArrayInputStream(rb.getImage())));
-        for(int i=0; i<rb.getIngredient().size(); i++) {
-            ingredientBox.getChildren().add(new Text(rb.getIngredient().get(i).getName()+" "+rb.getIngredient().get(i).getAmount()));
+        for(int j=0; j<rb.getIngredient().size(); j++) {
+            ingredientBox.getChildren().add(new Text(rb.getIngredient().get(j).getName()+" "+rb.getIngredient().get(j).getAmount()));
         }
     }
 }

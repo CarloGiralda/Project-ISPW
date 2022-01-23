@@ -2,9 +2,10 @@ package com.example.progettoispw;
 
 import java.util.Random;
 
+import static com.example.progettoispw.SendMail.send;
+
 public class ForgotPasswordControllerA {
     private String random;
-    private int num;
     private ForgotDAO dao;
     private String password="";
     private String email;
@@ -12,9 +13,9 @@ public class ForgotPasswordControllerA {
     public void sendMail(String email){
         this.email=email;
         Random rand = new Random();
-        num = rand.nextInt(100, 1000);
+        int num = rand.nextInt(100, 1000);
         random = Integer.toString(num);
-        SendMail.send(random, email);
+        send(random, email);
     }
 
     public String checkOTP(String otp) throws ExceptionPass {

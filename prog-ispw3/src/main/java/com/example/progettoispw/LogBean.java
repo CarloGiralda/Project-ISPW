@@ -2,6 +2,7 @@ package com.example.progettoispw;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LogBean implements Serializable {
     private String user;
@@ -10,7 +11,7 @@ public class LogBean implements Serializable {
     private String email;
     private String cl;
     private int check=0;
-    private String AP;
+    private String ap;
     private ArrayList<String> all=new ArrayList<>();
     private boolean prem=false;
 
@@ -69,13 +70,13 @@ public class LogBean implements Serializable {
 
     public void desetCheck() { check =0; }
 
-    public void setAP(String AP){ this.AP=AP; }
+    public void setAP(String ap){ this.ap=ap; }
 
-    public String getAP(){ return AP; }
+    public String getAP(){ return ap; }
 
     public void addAll(String all){ this.all.add(all); }
 
-    public ArrayList<String> getAll(){ return all; }
+    public List<String> getAll(){ return all; }
 
     public void setPremium(){ prem=true; }
 

@@ -19,6 +19,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class HomePageController {
@@ -83,8 +84,6 @@ public class HomePageController {
     @FXML
     private Label labelerr;
 
-
-
     @FXML private Button monBreak;
     @FXML private Button tueBreak;
     @FXML private Button wedBreak;
@@ -112,15 +111,17 @@ public class HomePageController {
     private final ArrayList<Button> buttons=new ArrayList<>();
     private ArrayList<AnchorPane> aps;
     private LogBean login;
-    private ArrayList<RecipeBean> recipes;
     private WeeklyPlanControllerA wpca;
     private FileController fl;
+    private List<RecipeBean> recipes;
+    private String template="Recipetemplate.fxml";
 
     public HomePageController() throws IOException, ClassNotFoundException {
         sra=new SearchRecipeA();
         sca=new SavedControllerA();
         wpca=new WeeklyPlanControllerA();
         aps=new ArrayList<>();
+        recipes=new ArrayList<>();
         fl=new FileController();
         login=fl.getLog();
     }
@@ -175,7 +176,7 @@ public class HomePageController {
     }
 
     @FXML
-    public void handleSideBar(ActionEvent event) throws Exception {
+    public void handleSideBar(ActionEvent event) throws IOException, ClassNotFoundException {
         Object source = event.getSource();
         if(source.equals(homeButton)) {
             if (checkPaneState(paneHome)) {
@@ -191,8 +192,6 @@ public class HomePageController {
 
                 general=paneHome.getParent();
                 GeneralScene.refreshHome(general);
-            } else {
-                System.out.println("Remain");
             }
         }
 
@@ -216,103 +215,30 @@ public class HomePageController {
                 buttons.clear();
                 savedBox.getChildren().clear();
                 savedBox.setSpacing(20);
-                if(recipes!=null && recipes.size()>0){
-                    for(int i = 0; i< recipes.size(); i++) {
-                        buttons.add(new Button(recipes.get(i).getName()));
-                        buttons.get(i).setPrefSize(300, 50);
-                        buttons.get(i).setFont(Font.font("Centhury Gothic", 20));
-                        buttons.get(i).getStyleClass().add("button2");
-                        buttons.get(i).setCursor(Cursor.HAND);
-
-
-                        int finalI = i;
-                        buttons.get(i).setOnAction(new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent event) {
-                                IndexTrace.preset(finalI);
-                                IndexTrace.setFive(2);
-                                Parent root = null;
-                                try {
-                                    root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Recipetemplate.fxml")));
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                Stage window=(Stage) paneHome.getScene().getWindow();
-                                window.setScene(GeneralScene.getRecipe(root));
-                            }
-                        });
-
-                        aps.add(new AnchorPane());
-                        aps.get(i).getChildren().addAll(buttons.get(i));
-                        aps.get(i).setLeftAnchor(buttons.get(i), 10.0);
-                        aps.get(i).setTopAnchor(buttons.get(i), 10.0);
-
-                        savedBox.getChildren().add(buttons.get(i));
-                    }
+                if(recipes!=null && recipes.size()>0) {
+                    this.createButton(recipes);
                 }
             }
-            else {
-                System.out.println("Remain");
-            }
-
         }
 
         else if(source.equals(planButton)) {
-
-            if (!(paneWeeklyPlan.getOpacity() == 1)){
-                if(wpca.getPremiumUser() && !wpca.getFiles()){
-                    manageButtonEffect(2);
-                    enablePane(paneSaved,false);
-                    enablePane(paneHome,false);
-                    enablePane(paneSearchRecipe,false);
-                    enablePane(panePremiumUser,false);
-                    enablePane(paneCalc, true);
-                    enablePane(paneWeeklyPlan, false);
-                }else if(wpca.getPremiumUser() && wpca.getFiles()){
-                    manageButtonEffect(2);
-                    enablePane(paneSaved,false);
-                    enablePane(paneHome,false);
-                    enablePane(paneSearchRecipe,false);
-                    enablePane(paneCalc, false);
-                    enablePane(panePremiumUser,false);
-                    enablePane(paneWeeklyPlan,true);
-                }
-                else{
-                    manageButtonEffect(2);
-                    enablePane(paneSaved,false);
-                    enablePane(paneHome,false);
-                    enablePane(paneSearchRecipe,false);
-                    enablePane(paneCalc, false);
-                    enablePane(panePremiumUser,true);
-                    enablePane(paneWeeklyPlan,false);
-                }
-            }
-            else {
-                System.out.println("Remain");
-            }
+            this.weekPlan();
             general=paneHome.getParent();
             GeneralScene.refreshHome(general);
         }
 
-        else if(source.equals(recipeButton)) {
+        else if(source.equals(recipeButton) && checkPaneState(paneSearchRecipe)) {
+            manageButtonEffect(3);
 
-            if(checkPaneState(paneSearchRecipe)) {
+            enablePane(paneSearchRecipe,true);
+            enablePane(paneSaved,false);
+            enablePane(paneWeeklyPlan,false);
+            enablePane(panePremiumUser,false);
+            enablePane(paneCalc, false);
+            enablePane(paneHome,false);
 
-                manageButtonEffect(3);
-
-                enablePane(paneSearchRecipe,true);
-                enablePane(paneSaved,false);
-                enablePane(paneWeeklyPlan,false);
-                enablePane(panePremiumUser,false);
-                enablePane(paneCalc, false);
-                enablePane(paneHome,false);
-
-                general=paneHome.getParent();
-                GeneralScene.refreshHome(general);
-            }
-            else{
-                System.out.println("Remain");
-            }
+            general=paneHome.getParent();
+            GeneralScene.refreshHome(general);
         }
     }
 
@@ -331,7 +257,6 @@ public class HomePageController {
             GeneralScene.refreshHome(general);
         }
     }
-
 
     @FXML
     public void gotoPremiumPayment() throws IOException {
@@ -355,7 +280,7 @@ public class HomePageController {
     }
 
     private boolean checkPaneState(AnchorPane pane){
-        return !(pane.getOpacity() == 1);
+        return pane.getOpacity() != 1;
     }
 
     private void manageButtonEffect(int index) {
@@ -372,12 +297,12 @@ public class HomePageController {
     }
 
     @FXML
-    public void addDynamicElement() throws Exception {
+    public void addDynamicElement() throws IOException, ClassNotFoundException {
         RecipeBean rb;
         ArrayList<Button> bt = new ArrayList<>();
         ArrayList<Label> lb = new ArrayList<>();
         ArrayList<ImageView> iw = new ArrayList<>();
-        ArrayList<RecipeBean> rbs = new ArrayList<>();
+        List<RecipeBean> rbs = new ArrayList<>();
 
         recipeBox.getChildren().clear();
         try {
@@ -389,17 +314,17 @@ public class HomePageController {
                 ingredient.setSelected(false);
                 type.setSelected(false);
             } else if (time.isSelected()) {
-                String tm=searchField.getText();
-                rbs=sra.searchRecipeTime(tm);
+                String tm = searchField.getText();
+                rbs = sra.searchRecipeTime(tm);
                 ingredient.setSelected(false);
                 type.setSelected(false);
             } else if (ingredient.isSelected()) {
-                String ingr=searchField.getText();
-                rbs=sra.searchRecipeIngr(ingr);
+                String ingr = searchField.getText();
+                rbs = sra.searchRecipeIngr(ingr);
                 type.setSelected(false);
             } else if (type.isSelected()) {
-                String type=searchField.getText();
-                rbs=sra.searchRecipeType(type);
+                String t = searchField.getText();
+                rbs = sra.searchRecipeType(t);
             }
             aps = new ArrayList<>();
             for (int i = 0; i < rbs.size(); i++) {
@@ -417,29 +342,29 @@ public class HomePageController {
                         IndexTrace.setFive(0);
                         Parent root = null;
                         try {
-                            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Recipetemplate.fxml")));
+                            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(template)));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        Stage window=(Stage) paneHome.getScene().getWindow();
+                        Stage window = (Stage) paneHome.getScene().getWindow();
                         window.setScene(GeneralScene.getRecipe(root));
                     }
                 });
 
-                lb.add(new Label("Chef: "+rbs.get(i).getChef()));
+                lb.add(new Label("Chef: " + rbs.get(i).getChef()));
                 lb.get(i).setMaxSize(100, 20);
                 iw.add(new ImageView());
                 iw.get(i).setImage(new Image(new ByteArrayInputStream(rbs.get(i).getImage())));
                 iw.get(i).setFitHeight(75);
                 iw.get(i).setFitWidth(100);
                 aps.add(new AnchorPane());
-                if((i%2)==0) {
+                if ((i % 2) == 0) {
                     aps.get(i).setStyle("-fx-background-color: #FFFFFF");
-                }else{
+                } else {
                     aps.get(i).setStyle("-fx-background-color: #16b229");
                 }
                 aps.get(i).getChildren().addAll(bt.get(i), lb.get(i), iw.get(i));
-                aps.get(i).setMaxSize(564,75);
+                aps.get(i).setMaxSize(564, 75);
                 aps.get(i).setLeftAnchor(bt.get(i), 10.0);
                 aps.get(i).setTopAnchor(bt.get(i), 10.0);
                 aps.get(i).setLeftAnchor(lb.get(i), 15.0);
@@ -448,12 +373,11 @@ public class HomePageController {
                 aps.get(i).setTopAnchor(iw.get(i), 0.0);
                 recipeBox.getChildren().add(aps.get(i));
             }
-        }catch(MyException e){
+        } catch (MyException e) {
             labelerr.setText("Ricetta o immagine relativa non trovata");
         }
     }
 
-    //TODO
     @FXML
     public void handlePlan(ActionEvent e) throws IOException {
         IndexTrace.setFive(3);
@@ -480,8 +404,74 @@ public class HomePageController {
         }else if(source.toString().contains("Dinner")){
             IndexTrace.timeset(3);
         }
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Recipetemplate.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(template)));
         Stage window=(Stage) premiumButton.getScene().getWindow();
         window.setScene(GeneralScene.getRecipe(root));
+    }
+
+    private void createButton(List<RecipeBean> recipes){
+        for(int i = 0; i< recipes.size(); i++) {
+            buttons.add(new Button(recipes.get(i).getName()));
+            buttons.get(i).setPrefSize(300, 50);
+            buttons.get(i).setFont(Font.font("Centhury Gothic", 20));
+            buttons.get(i).getStyleClass().add("button2");
+            buttons.get(i).setCursor(Cursor.HAND);
+
+
+            int finalI = i;
+            buttons.get(i).setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    IndexTrace.preset(finalI);
+                    IndexTrace.setFive(2);
+                    Parent root = null;
+                    try {
+                        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(template)));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Stage window=(Stage) paneHome.getScene().getWindow();
+                    window.setScene(GeneralScene.getRecipe(root));
+                }
+            });
+
+            aps.add(new AnchorPane());
+            aps.get(i).getChildren().addAll(buttons.get(i));
+            aps.get(i).setLeftAnchor(buttons.get(i), 10.0);
+            aps.get(i).setTopAnchor(buttons.get(i), 10.0);
+
+            savedBox.getChildren().add(buttons.get(i));
+        }
+    }
+
+    private void weekPlan() throws IOException, ClassNotFoundException {
+        if (paneWeeklyPlan.getOpacity() != 1){
+            if(wpca.getPremiumUser() && !wpca.getFiles()){
+                manageButtonEffect(2);
+                enablePane(paneSaved,false);
+                enablePane(paneHome,false);
+                enablePane(paneSearchRecipe,false);
+                enablePane(panePremiumUser,false);
+                enablePane(paneCalc, true);
+                enablePane(paneWeeklyPlan, false);
+            }else if(wpca.getPremiumUser() && wpca.getFiles()){
+                manageButtonEffect(2);
+                enablePane(paneSaved,false);
+                enablePane(paneHome,false);
+                enablePane(paneSearchRecipe,false);
+                enablePane(paneCalc, false);
+                enablePane(panePremiumUser,false);
+                enablePane(paneWeeklyPlan,true);
+            }
+            else{
+                manageButtonEffect(2);
+                enablePane(paneSaved,false);
+                enablePane(paneHome,false);
+                enablePane(paneSearchRecipe,false);
+                enablePane(paneCalc, false);
+                enablePane(panePremiumUser,true);
+                enablePane(paneWeeklyPlan,false);
+            }
+        }
     }
 }

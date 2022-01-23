@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.ClosedFileSystemException;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CookingLevelController {
 
@@ -26,7 +28,6 @@ public class CookingLevelController {
     @FXML private RadioButton r3;
 
     private CookingLevelControllerA clca;
-    private LogBean login;
     private FileController fl;
     private BackControllerA bca;
 
@@ -37,14 +38,16 @@ public class CookingLevelController {
     }
 
     public void initialize() throws IOException, ClassNotFoundException {
-        login=fl.getLog();
+        LogBean login=fl.getLog();
         if(bca.getSpecialization().equalsIgnoreCase("User") || bca.getSpecialization().equalsIgnoreCase("Premium")) {
             if (login != null && login.getCL() != null) {
                 String cl = login.getCL();
-                switch (cl.toLowerCase()) {
-                    case "beginner" -> r1.setSelected(true);
-                    case "intermediate" -> r2.setSelected(true);
-                    case "advanced" -> r3.setSelected(true);
+                if(cl.toLowerCase().equalsIgnoreCase("beginner")) {
+                    r1.setSelected(true);
+                }else if(cl.toLowerCase().equalsIgnoreCase("intermediate")) {
+                    r2.setSelected(true);
+                }else if(cl.toLowerCase().equalsIgnoreCase("advanced")){
+                    r3.setSelected(true);
                 }
             }
         }else{
@@ -68,8 +71,9 @@ public class CookingLevelController {
 
     @FXML
     public void handleCookingLevel(ActionEvent actionEvent){
+        Logger logger=Logger.getLogger(AddRecipeController.class.getName());
         selectedButtonLabel.setText(((RadioButton)actionEvent.getSource()).getText());
-        System.out.println(selectedButtonLabel.getText() + " selected");
+        logger.log(Level.INFO, selectedButtonLabel.getText() + " selected");
     }
 
     @FXML

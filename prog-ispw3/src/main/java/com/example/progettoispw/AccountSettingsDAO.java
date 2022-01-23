@@ -1,12 +1,13 @@
 package com.example.progettoispw;
 
 import java.sql.*;
-import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AccountSettingsDAO {
-    private MyException e;
     private Conn con;
     private Connection conn;
+    private static Logger logger=Logger.getLogger(AccountSettingsDAO.class.getName());
     private static AccountSettingsDAO instance=null;
 
     private AccountSettingsDAO(){
@@ -14,7 +15,7 @@ public class AccountSettingsDAO {
         conn=con.connect();
     }
 
-    public synchronized static AccountSettingsDAO getInstance(){
+    public static synchronized AccountSettingsDAO getInstance(){
         if (AccountSettingsDAO.instance == null)
             AccountSettingsDAO.instance = new AccountSettingsDAO();
         return instance;
@@ -28,10 +29,11 @@ public class AccountSettingsDAO {
         }
     }
 
-    public void changePass(String username, String pass) throws Exception {
+    public void changePass(String username, String pass) throws ExceptionPass {
         try {
+            MyException e;
             if(pass.equals("")){
-                System.out.println("Password non valida");
+                logger.log(Level.INFO, "Password non valida");
                 e=new MyException(pass);
                 throw e;
             }
@@ -41,8 +43,7 @@ public class AccountSettingsDAO {
             throwables.printStackTrace();
         } catch (MyException e){
             e.printStackTrace();
-            ExceptionPass ex=new ExceptionPass(pass, e.getMessage());
-            throw  ex; //password non valida
+            throw new ExceptionPass(pass, e.getMessage()); //password non valida
         }
     }
 }

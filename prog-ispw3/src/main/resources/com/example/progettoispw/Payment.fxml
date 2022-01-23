@@ -130,7 +130,7 @@
                               <Insets bottom="12.0" />
                            </padding>
                         </VBox>
-                        <TextField fx:id="CVV" layoutX="10.0" layoutY="195.0" prefHeight="29.0" prefWidth="256.0">
+                        <TextField fx:id="cvv" layoutX="10.0" layoutY="195.0" prefHeight="29.0" prefWidth="256.0">
                            <font>
                               <Font name="Century Gothic" size="14.0" />
                            </font>

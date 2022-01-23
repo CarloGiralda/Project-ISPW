@@ -1,6 +1,5 @@
 package com.example.progettoispw;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,29 +20,22 @@ public class PaymentController {
 
     @FXML
     private AnchorPane successPane;
-
     @FXML
     private AnchorPane paymentPane;
-
     @FXML
     private AnchorPane errorePane;
 
 
     @FXML
     private Button goBackButton;
-
     @FXML
     private Button confirmButton;
-
     @FXML
     private TextField nameField;
-
     @FXML
     private TextField numberCardField;
-
     @FXML
-    private TextField CVV;
-
+    private TextField cvv;
     @FXML
     private DatePicker data;
 
@@ -62,31 +54,22 @@ public class PaymentController {
 
     @FXML
     public void handleData() throws IOException {
-        String name = nameField.getText();
-        String number = numberCardField.getText();
-        LocalDate localDate = data.getValue();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
-        String data = localDate.format(formatter);
-        String cvv = CVV.getText();
-
         Random rand = new Random();
         int upperbound = 10;
-        int int_random = rand.nextInt(upperbound);
-        if(int_random%2 == 0){
+        int intrandom = rand.nextInt(upperbound);
+        if(intrandom%2 == 0){
             successPane.setOpacity(1);
             successPane.setDisable(false);
             paymentPane.setOpacity(0);
             paymentPane.setDisable(false);
 
             pca.setPremiumUser();
-            //TODO cambio scena
         }else{
             errorePane.setOpacity(1);
             errorePane.setDisable(false);
 
             paymentPane.setOpacity(0);
             paymentPane.setDisable(false);
-            //TODO cambio scena
         }
 
 

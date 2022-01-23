@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class HistoryController {
@@ -24,8 +25,7 @@ public class HistoryController {
     private Button clear;
 
     private HistoryControllerA hca;
-    private ArrayList<RecipeBean> rbs;
-    private ArrayList<Button> buttons;
+    private List<Button> buttons;
 
     public HistoryController(){
         hca=new HistoryControllerA();
@@ -39,7 +39,7 @@ public class HistoryController {
     }
 
     public void initialize() throws IOException, ClassNotFoundException {
-        rbs=hca.getRecipes();
+        List<RecipeBean> rbs=hca.getRecipes();
         buttons.clear();
         anchor.getChildren().clear();
         if (rbs != null) {

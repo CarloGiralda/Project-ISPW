@@ -21,7 +21,7 @@
             <Font name="Century Gothic" size="62.0" />
          </font>
       </Text>
-      <Label fx:id="Wrong" layoutX="28.0" layoutY="100.0" opacity="0.0" text="Wrong username and/or password" textFill="RED" />
+      <Label fx:id="wrong" layoutX="28.0" layoutY="100.0" opacity="0.0" text="Wrong username and/or password" textFill="RED" />
       <VBox alignment="CENTER" layoutX="468.0" layoutY="115.0" prefHeight="171.0" prefWidth="263.0" spacing="20.0">
          <children>
             <VBox prefHeight="64.0" prefWidth="100.0">

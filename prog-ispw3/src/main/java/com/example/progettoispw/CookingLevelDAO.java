@@ -3,7 +3,6 @@ package com.example.progettoispw;
 import java.sql.*;
 
 public class CookingLevelDAO {
-    private int num;
     private static CookingLevelDAO instance=null;
     private Conn con;
     private Connection conn;
@@ -19,12 +18,15 @@ public class CookingLevelDAO {
         return instance;
     }
 
-    public void insertCL(String CL, String username){
+    public void insertCL(String cl, String username){
+        int num=0;
         try {
-            switch (CL.toLowerCase()) {
-                case "beginner" -> num = 1;
-                case "intermediate" -> num = 2;
-                case "advanced" -> num = 3;
+            if (cl.toLowerCase().equalsIgnoreCase("beginner")) {
+                num = 1;
+            } else if (cl.toLowerCase().equalsIgnoreCase("intermediate")) {
+                num = 2;
+            }else if(cl.toLowerCase().equalsIgnoreCase("advanced")){
+                num = 3;
             }
 
             SimpleQueries.insertCookingLevel(num, username, conn);

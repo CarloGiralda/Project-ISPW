@@ -5,8 +5,6 @@ import java.io.IOException;
 public class StarterControllerA {
     private StarterDAO dao;
     private FileInterDAO filedao;
-    private LogBean lb;
-    private String spec;
 
     public StarterControllerA(){
         dao=StarterDAO.getInstance();
@@ -14,16 +12,16 @@ public class StarterControllerA {
     }
 
     public LogBean getSpec() throws IOException, ClassNotFoundException {
-        lb=Convert.ConvertEntityToBean(filedao.ReadLog());
+        LogBean lb=Convert.convertEntityToBean(filedao.readLog());
         if(lb==null){
             return null;
         }
-        spec=dao.getSpec(lb.getUser());
+        String spec=dao.getSpec(lb.getUser());
         if(spec==null){
             return null;
         }
         lb.setSpec(spec);
-        filedao.WriteLog(Convert.ConvertBeanToEntity(lb));
+        filedao.writeLog(Convert.convertBeanToEntity(lb));
         return lb;
     }
 }

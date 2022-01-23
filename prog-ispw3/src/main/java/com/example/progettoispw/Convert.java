@@ -1,20 +1,15 @@
 package com.example.progettoispw;
 
-import com.example.progettoispw.RecipeModel.Ingredient;
+import com.example.progettoispw.recipeModel.Ingredient;
 
 public class Convert {
-    private static Recipe recipe;
-    private static RecipeBean recb;
-    private static Login login;
-    private static LogBean logb;
-    private static Ingredient ing;
-    private static IngredientBean ib;
+    private Convert(){}
 
-    public static Recipe ConvertBeanToEntity(RecipeBean rb){
+    public static Recipe convertBeanToEntity(RecipeBean rb){
         if(rb==null){
             return null;
         }
-        recipe=new Recipe(rb.getName());
+        Recipe recipe=new Recipe(rb.getName());
         if(rb.getAP()!=null) {
             recipe.setAP(rb.getAP());
         }
@@ -46,11 +41,11 @@ public class Convert {
         return recipe;
     }
 
-    public static RecipeBean ConvertEntityToBean(Recipe rec){
+    public static RecipeBean convertEntityToBean(Recipe rec){
         if(rec==null){
             return null;
         }
-        recb=new RecipeBean(rec.getName());
+        RecipeBean recb=new RecipeBean(rec.getName());
         if(rec.getAP()!=null) {
             recb.setAP(rec.getAP());
         }
@@ -82,11 +77,11 @@ public class Convert {
         return recb;
     }
 
-    public static Login ConvertBeanToEntity(LogBean lb){
+    public static Login convertBeanToEntity(LogBean lb){
         if(lb==null){
             return null;
         }
-        login = new Login(lb.getUser(), lb.getPass());
+        Login login = new Login(lb.getUser(), lb.getPass());
         if(lb.getUser()!=null) {
             login.setUser(lb.getUser());
         }
@@ -120,11 +115,11 @@ public class Convert {
         return login;
     }
 
-    public static LogBean ConvertEntityToBean(Login login){
+    public static LogBean convertEntityToBean(Login login){
         if(login==null){
             return null;
         }
-        logb = new LogBean(login.getUser(), login.getPass());
+        LogBean logb = new LogBean(login.getUser(), login.getPass());
         if(login.getUser()!=null) {
             logb.setUser(login.getUser());
         }
@@ -158,11 +153,11 @@ public class Convert {
         return logb;
     }
 
-    public static Ingredient ConvertBeanToEntity(IngredientBean ib){
+    public static Ingredient convertBeanToEntity(IngredientBean ib){
         if(ib==null){
             return null;
         }
-        ing = new Ingredient(ib.getName(),ib.getAmount());
+        Ingredient ing = new Ingredient(ib.getName(),ib.getAmount());
         if(ib.getName()!=null) {
             ing.setName(ib.getName());
         }
@@ -172,11 +167,11 @@ public class Convert {
         return ing;
     }
 
-    public static IngredientBean ConvertEntityToBean(Ingredient ing){
+    public static IngredientBean convertEntityToBean(Ingredient ing){
         if(ing==null){
             return null;
         }
-        ib = new IngredientBean(ing.getName(), ing.getAmount());
+        IngredientBean ib = new IngredientBean(ing.getName(), ing.getAmount());
         if(ing.getName()!=null) {
             ib.setName(ing.getName());
         }

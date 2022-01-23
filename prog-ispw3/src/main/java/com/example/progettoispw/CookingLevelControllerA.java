@@ -3,7 +3,6 @@ package com.example.progettoispw;
 import java.io.IOException;
 
 public class CookingLevelControllerA {
-    private Login login;
     private CookingLevelDAO dao;
     private FileInterDAO filedao;
 
@@ -12,11 +11,11 @@ public class CookingLevelControllerA {
         filedao=FileInterDAO.getInstance();
     }
 
-    public void setCL(String CL) throws IOException, ClassNotFoundException {
-        login=filedao.ReadLog();
+    public void setCL(String cl) throws IOException, ClassNotFoundException {
+        Login login=filedao.readLog();
         String username=login.getUser();
-        dao.insertCL(CL, username);
-        login.setCL(CL);
-        filedao.WriteLog(login);
+        dao.insertCL(cl, username);
+        login.setCL(cl);
+        filedao.writeLog(login);
     }
 }

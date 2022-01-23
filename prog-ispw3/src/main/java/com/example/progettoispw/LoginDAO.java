@@ -19,12 +19,11 @@ public class LoginDAO {
         return instance;
     }
 
-    public Login Login(String user) {
+    public Login enter(String user) {
         try {
             ResultSet rs = SimpleQueries.selectUserFromName(user, conn);
             if (!rs.first()) { // rs empty
-                Exception e = new Exception("No User Found matching with name: " + user);
-                throw e;
+                throw new MyException("No User Found matching with name: " + user);
             }
             rs.first();
             do {
@@ -38,9 +37,7 @@ public class LoginDAO {
             rs.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
+        } catch (MyException e) {
             e.printStackTrace();
         }
         return a;

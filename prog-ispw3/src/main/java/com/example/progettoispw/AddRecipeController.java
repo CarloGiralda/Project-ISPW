@@ -1,6 +1,5 @@
 package com.example.progettoispw;
 
-import com.example.progettoispw.RecipeModel.Ingredient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -19,7 +17,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AddRecipeController {
     @FXML private TextArea insertTitle;
@@ -45,34 +44,31 @@ public class AddRecipeController {
     @FXML private Button goBackButton;
     @FXML private Button confirmRecipeButton;
 
-    @FXML private AnchorPane root;
+    @FXML private AnchorPane anch;
     @FXML private ScrollPane upper;
     @FXML private AnchorPane anchor;
-    @FXML private RadioButton rb1;
-    @FXML private RadioButton rb2;
-    @FXML private RadioButton rb3;
-    @FXML private RadioButton rb4;
-    @FXML private RadioButton rb5;
-    @FXML private RadioButton rb6;
-    @FXML private RadioButton fd1;
-    @FXML private RadioButton fd2;
-    @FXML private RadioButton fd3;
+    @FXML private RadioButton r1;
+    @FXML private RadioButton r2;
+    @FXML private RadioButton r3;
+    @FXML private RadioButton r4;
+    @FXML private RadioButton r5;
+    @FXML private RadioButton r6;
     @FXML private Label selectedButtonLabel1;
     @FXML private Label error;
     @FXML private ProgressIndicator prog;
 
+    private String sel="selected";
+    private String no="No allergies";
     private AddRecipeControllerA arca;
     private String cookingLevel;
     private ArrayList<Text> ingredient;
     private ArrayList<TextField> name;
     private ArrayList<TextField> amount;
     private int i;
-    private Stage window;
-    private Button Add;
     private ArrayList<IngredientBean> ingredients;
     private File file;
-    private final String[] allergies ={"Dried fruit","Fish","Eggs","Milk","Meat","No allergies"};
-    private String aP;
+    private static Logger logger=Logger.getLogger(AddRecipeController.class.getName());
+    private final String[] allergies ={"Dried fruit","Fish","Eggs","Milk","Meat",no};
 
     public AddRecipeController() throws IOException, ClassNotFoundException {
         arca=new AddRecipeControllerA();
@@ -80,7 +76,6 @@ public class AddRecipeController {
         name=new ArrayList<>();
         amount=new ArrayList<>();
         i=IndexTrace.get();
-        Add=new Button();
         ingredients=new ArrayList<>();
         IndexTrace.reset();
     }
@@ -97,13 +92,13 @@ public class AddRecipeController {
     public void handleDishType(ActionEvent actionEvent){
         dtype.setText(((MenuItem)actionEvent.getSource()).getText());
         dtypeMenu.setText(dtype.getText());
-        System.out.println(dtype.getText() + " selected");
+        logger.log(Level.INFO, dtype.getText() + " "+ sel);
     }
 
     @FXML
     public void handleDifficult(ActionEvent actionEvent){
         selectedButton.setText(((RadioButton)actionEvent.getSource()).getText());
-        System.out.println(selectedButton.getText() + " selected");
+        logger.log(Level.INFO, selectedButton.getText() + " "+sel);
         if(selectedButton.getText().equals("B")){
             cookingLevel="Beginner";
         }else if(selectedButton.getText().equals("I")){
@@ -115,7 +110,6 @@ public class AddRecipeController {
 
     @FXML
     public void goBack() throws IOException {
-        //TODO Forse è possibile usare pattern GOF state per tornare nella home, nello stato recipe.
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomeChef.fxml")));
         Stage window = (Stage) goBackButton.getScene().getWindow();
         window.setScene(new Scene(root, 850, 594));
@@ -127,10 +121,10 @@ public class AddRecipeController {
         RadioButton rb = (RadioButton) actionEvent.getSource();
         if(rb.isSelected()){
             selectedButtonLabel1.setText(((RadioButton)actionEvent.getSource()).getText());
-            System.out.println(selectedButtonLabel1.getText()+" selected");
+            logger.log(Level.INFO, selectedButtonLabel1.getText()+" "+sel);
         }
         else {
-            System.out.println("Deselected");
+            logger.log(Level.INFO, "Deselected");
         }
     }
 
@@ -147,6 +141,7 @@ public class AddRecipeController {
 
     @FXML
     public void commitRecipe() throws IOException, ClassNotFoundException {
+        String aP;
         try {
             String title = insertTitle.getText();
             String description = addDescription.getText();
@@ -158,33 +153,31 @@ public class AddRecipeController {
             }
             String cT = cookingTime.getText();
 
-            final RadioButton[] allRB = {rb1, rb2, rb3, rb4, rb5, rb6};
-            String preferences = selectedButtonLabel1.getText();
+            final RadioButton[] allRB = {r1, r2, r3, r4, r5, r6};
             ArrayList<String> listOfAllergies = new ArrayList<>();
-            for (int i = 0; i < 6; i++) {
-                if (allRB[i].isSelected()) {
-                    listOfAllergies.add(allergies[i]);
-                    if (allRB[i].getText().equals("No allergies")) {
+            for (int j = 0; j < 6; j++) {
+                if (allRB[j].isSelected()) {
+                    listOfAllergies.add(allergies[j]);
+                    if (allRB[j].getText().equals(no)) {
                         listOfAllergies.clear();
-                        listOfAllergies.add("No allergies");
+                        listOfAllergies.add(no);
                     }
                 }
             }
 
             IngredientBean ing = new IngredientBean(ingredientName.getText(), ingredientAmount.getText());
             ingredients.add(ing);
-            for (int i = 1; i < IndexTrace.get() + 1; i++) {
-                ingredients.add(arca.createBean(name.get(i - 1).getText(), amount.get(i - 1).getText()));
+            for (int j = 1; j < IndexTrace.get() + 1; j++) {
+                ingredients.add(arca.createBean(name.get(j - 1).getText(), amount.get(j - 1).getText()));
             }
             String type = dtype.getText();
 
             if (title.equals("") || type.equals("") || cookingLevel.equals("") || aP.equals("") || cT.equals("") || listOfAllergies.isEmpty() || file == null || ingredients.isEmpty()) {
                 MyException e = new MyException("Field empty");
-                ExceptionAdd ex = new ExceptionAdd("Fields empty", e.getCause());
-                throw ex;
+                throw new ExceptionAdd("Fields empty", e.getCause());
             }
 
-            int cookingTime = convertIntParameter(cT);
+            int cookT = convertIntParameter(cT);
 
             RecipeBean rb = new RecipeBean(title);
             rb.setType(type);
@@ -194,8 +187,8 @@ public class AddRecipeController {
             rb.setCT(cT);
             rb.addAll(listOfAllergies);
             rb.setImage(Files.readAllBytes(file.toPath()));
-            for (int i = 0; i < IndexTrace.get() + 1; i++) {
-                rb.addIngredient(Convert.ConvertBeanToEntity(ingredients.get(i)));
+            for (int j = 0; j < IndexTrace.get() + 1; j++) {
+                rb.addIngredient(Convert.convertBeanToEntity(ingredients.get(j)));
             }
 
             arca.addRecipe(rb);
@@ -208,7 +201,7 @@ public class AddRecipeController {
             anchor.setOpacity(1);
             anchor.setDisable(false);
 
-            System.out.println(title + '\n' + type + '\n' + description + '\n' + aP + '\n' + cookingTime + '\n' + ingredientName + '\n' + ingredientAmount.getText());
+            logger.log(Level.INFO, title + '\n' + type + '\n' + description + '\n' + aP + '\n' + cookT + '\n' + ingredientName + '\n' + ingredientAmount.getText());
         }catch(ExceptionAdd e){
             error.setText("Fields empty");
             error.setOpacity(1);
@@ -219,25 +212,25 @@ public class AddRecipeController {
     }
 
     @FXML
-    public void handleAddIngredient() throws IOException {
-        System.out.println("Clicked");
+    public void handleAddIngredient() {
+        String cent="Century Gothic";
         i=IndexTrace.get();
 
         Text ingr=new Text();
         ingr.setText("Ingredient:");
-        ingr.setFont(Font.font("Century Gothic", 14));
+        ingr.setFont(Font.font(cent, 14));
         ingredient.add(i, ingr);
 
         TextField n=new TextField();
         n.setPromptText("name");
         n.setPrefSize(124, 27.33333332);
-        n.setFont(Font.font("Century Gothic", 14));
+        n.setFont(Font.font(cent, 14));
         name.add(i, n);
 
         TextField am=new TextField();
         am.setPromptText("amount");
         am.setPrefSize(124, 27.33333332);
-        am.setFont(Font.font("Century Gothic", 14));
+        am.setFont(Font.font(cent, 14));
         amount.add(i, am);
 
         ingredient.get(i).setLayoutX(101);
@@ -260,12 +253,12 @@ public class AddRecipeController {
         original.getChildren().add(confirmRecipeButton);
         original.setMinHeight(original.getPrefHeight()+i*35);
 
-        root.getChildren().remove(upper);
+        anch.getChildren().remove(upper);
         upper.setContent(original);
-        root.getChildren().add(upper);
+        anch.getChildren().add(upper);
         IndexTrace.add();
-        window = (Stage) insertTitle.getScene().getWindow();
-        window.setScene(GeneralScene.getAddTemp(root));
+        Stage window = (Stage) insertTitle.getScene().getWindow();
+        window.setScene(GeneralScene.getAddTemp(anch));
     }
 
 
@@ -277,16 +270,8 @@ public class AddRecipeController {
         }
         catch (NumberFormatException ex){
             ex.printStackTrace();
-            MyException e=new MyException("Parametro non valido");
-            throw e;
+            throw new MyException("Parametro non valido");
         }
         return value;
-    }
-
-    @FXML
-    public void goBackHome() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomeChef.fxml")));
-        Stage window = (Stage) goBackButton.getScene().getWindow();
-        window.setScene(new Scene(root, 850, 594));
     }
 }

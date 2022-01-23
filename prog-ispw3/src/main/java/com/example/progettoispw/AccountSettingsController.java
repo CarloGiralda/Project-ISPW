@@ -76,14 +76,12 @@ public class AccountSettingsController {
     }
 
     @FXML
-    public void appear_confirm_U_button(){
-        System.out.println("click");
+    public void appearConfirmUButton(){
         confirm1.setDisable(false);
     }
 
     @FXML
-    public void appear_confirm_Pass_button(){
-        System.out.println("click");
+    public void appearConfirmPassButton(){
         confirm2.setDisable(false);
     }
 
@@ -96,7 +94,7 @@ public class AccountSettingsController {
     }
 
     @FXML
-    public void setConfirm2() throws Exception {
+    public void setConfirm2() throws IOException, ClassNotFoundException {
         String pass=passwordField.getText();
         if(asca.confirmPass(pass)==1){
             error.setText("Password non adeguata");
@@ -109,7 +107,7 @@ public class AccountSettingsController {
     @FXML
     public void logout() throws IOException, ClassNotFoundException {
         asca.deselect();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("enter.fxml")));
         Stage window = (Stage) goBackButton.getScene().getWindow();
         window.setScene(new Scene(root, 850, 594));
     }

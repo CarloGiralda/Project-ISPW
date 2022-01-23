@@ -4,12 +4,11 @@ import java.sql.*;
 
 public class Conn {
     private static Conn instance=null;
-    private String USER = "Progetto";
-    private String PASS = "";
-    private String DB_URL = "jdbc:mysql://localhost:3306/progettoispw-db";
-    private String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
-    private Statement stmt = null;
-    private Connection conn = null;
+    private static String user = "Progetto";
+    private static String pass = "";
+    private static String dbUrl = "jdbc:mysql://localhost:3306/progettoispw-db";
+    private static String driverClassName = "com.mysql.jdbc.Driver";
+    private Connection connection = null;
 
     private Conn(){
     }
@@ -23,13 +22,13 @@ public class Conn {
     public Connection connect() {
         // STEP 2: loading dinamico del driver mysql
         try {
-            Class.forName(DRIVER_CLASS_NAME);
+            Class.forName(driverClassName);
 
             // STEP 3: apertura connessione
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = DriverManager.getConnection(dbUrl, user, pass);
 
             // STEP 4: creazione ed esecuzione della query
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+            connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -38,6 +37,6 @@ public class Conn {
             return null;
         }
 
-        return conn;
+        return connection;
     }
 }

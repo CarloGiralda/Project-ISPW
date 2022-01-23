@@ -2,24 +2,19 @@ package com.example.progettoispw;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class WeeklyPlanControllerA {
     private Login login;
     private WeeklyPlanDAO dao;
     private FileInterDAO filedao;
-    private ArrayList<Recipe> recipesmain;
-    private ArrayList<Recipe> recipesside;
-    private ArrayList<Recipe> recipesdess;
-    private ArrayList<Recipe> recipesm;
-    private ArrayList<Recipe> recipess;
-    private ArrayList<Recipe> recipesd;
     private Factory fact;
     private ArrayList<Meal> meals;
 
     public WeeklyPlanControllerA() throws IOException, ClassNotFoundException {
         filedao=FileInterDAO.getInstance();
-        login=filedao.ReadLog();
+        login=filedao.readLog();
         dao=WeeklyPlanDAO.getInstance();
         fact=new Factory();
         meals=new ArrayList<>();
@@ -44,20 +39,16 @@ public class WeeklyPlanControllerA {
                 MyException e = new MyException("Parametri non validi");
                 throw e;
             }
-            recipesm = dao.getGen("main", login.getCL(), login.getUser(), login.getAP());
-            recipess = dao.getGen("side", login.getCL(), login.getUser(), login.getAP());
-            recipesd = dao.getGen("dess", login.getCL(), login.getUser(), login.getAP());
+            List<Recipe> recipesm = dao.getGen("main", login.getCL(), login.getUser(), login.getAP());
+            List<Recipe> recipess = dao.getGen("side", login.getCL(), login.getUser(), login.getAP());
+            List<Recipe> recipesd = dao.getGen("dess", login.getCL(), login.getUser(), login.getAP());
 
-            recipesmain=this.checkAll(recipesm);
-            recipesside=this.checkAll(recipess);
-            recipesdess=this.checkAll(recipesd);
+            List<Recipe> recipesmain=this.checkAll(recipesm);
+            List<Recipe> recipesside=this.checkAll(recipess);
+            List<Recipe> recipesdess=this.checkAll(recipesd);
 
-            System.out.println(recipesmain.size());
-            System.out.println(recipesside.size());
-            System.out.println(recipesdess.size());
     //        if(recipesmain.size()<4 || recipesside.size()<8 || recipesdess.size()<8){
-    //            MyException e = new MyException("Ricette insufficienti");
-    //            throw e;
+    //            throw new MyException("Ricette insufficienti");
     //        }
 
             Random rand=new Random();
@@ -86,9 +77,6 @@ public class WeeklyPlanControllerA {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
         }
         return true;
     }
@@ -96,23 +84,28 @@ public class WeeklyPlanControllerA {
     public boolean getFiles() throws IOException, ClassNotFoundException {
         if(filedao.readPlan(0)==null){
             return false;
-        }else{
-            return true;
         }
+        return true;
     }
 
-    public ArrayList<Recipe> checkAll(ArrayList<Recipe> recipe){
+    public List<Recipe> checkAll(List<Recipe> recipe){
+        int h=0;
         // controllo delle allergie
-loop:   for(int i=0; i<recipe.size(); i++) {
+        for(int i=0; i<recipe.size(); i++) {
             for(int j=0; j<login.getAll().size(); j++){
                 for(int k=0; k<recipe.get(i).getAll().size(); k++){
                     if(login.getAll().get(j).equalsIgnoreCase(recipe.get(i).getAll().get(k))){
+                        h=1;
                         recipe.remove(i);
-                        i=i-1;
-                        continue loop;
+                        i--;
+                        break;
                     }
                 }
+                if (h == 1) {
+                    break;
+                }
             }
+            h=0;
         }
         return recipe;
     }

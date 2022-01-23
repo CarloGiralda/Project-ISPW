@@ -1,4 +1,4 @@
-package com.example.progettoispw.RecipeModel;
+package com.example.progettoispw.recipeModel;
 
 import java.io.Serializable;
 

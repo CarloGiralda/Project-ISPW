@@ -1,6 +1,5 @@
 package com.example.progettoispw;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,6 +15,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RegisterPageController implements Initializable {
     @FXML
@@ -29,9 +30,9 @@ public class RegisterPageController implements Initializable {
     private TextField usernameField;
 
     @FXML
-    private Label email_inv;
+    private Label emailinv;
     @FXML
-    private Label user_inv;
+    private Label userinv;
 
     @FXML private Button goBack;
 
@@ -42,7 +43,7 @@ public class RegisterPageController implements Initializable {
     private ChoiceBox<String> spec;
 
     private final String[] clStr = {"low","medium","hard"};
-
+    private static Logger logger=Logger.getLogger(RegisterPageController.class.getName());
     private LogBean a;
     private RegisterControllerA reg;
 
@@ -62,8 +63,8 @@ public class RegisterPageController implements Initializable {
     @FXML
     public void gotoHome() throws IOException {
         if(!emailField.getText().contains("@") || !emailField.getText().contains(".")){
-            System.out.println("Inserire una mail valida");
-            email_inv.setOpacity(1);
+            logger.log(Level.INFO, "Inserire una mail valida");
+            emailinv.setOpacity(1);
             emailField.setText("");
             return;
         }
@@ -77,7 +78,7 @@ public class RegisterPageController implements Initializable {
             reg.initFile(a);
         }catch(Exception e){
             e.printStackTrace();
-            user_inv.setOpacity(1);
+            userinv.setOpacity(1);
             usernameField.setText("");
             return;
         }
@@ -88,7 +89,7 @@ public class RegisterPageController implements Initializable {
 
     @FXML
     public void goBackToLogin() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("enter.fxml")));
         Stage window=(Stage) goBack.getScene().getWindow();
         window.setScene(new Scene(root, 850, 594));
     }

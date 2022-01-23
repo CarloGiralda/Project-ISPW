@@ -37,7 +37,7 @@
             <Font name="Century Gothic" size="70.0" />
          </font>
       </Label>
-      <Button fx:id="enter" layoutX="334.0" layoutY="278.0" mnemonicParsing="false" onAction="#Enter" styleClass="button2" stylesheets="@../../../Style/MapsButtonStyle.css" text="Enter Application">
+      <Button fx:id="enter" layoutX="334.0" layoutY="278.0" mnemonicParsing="false" onAction="#enterapp" styleClass="button2" stylesheets="@../../../Style/MapsButtonStyle.css" text="Enter Application">
          <font>
             <Font name="Century Gothic" size="20.0" />
          </font>

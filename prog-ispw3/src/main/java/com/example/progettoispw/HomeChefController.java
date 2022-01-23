@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class HomeChefController {
@@ -74,18 +75,12 @@ public class HomeChefController {
     private final SearchRecipeA sra;
     private final ArrayList<Button> buttons=new ArrayList<>();
     private ArrayList<AnchorPane> aps;
-    private LogBean login;
-    private ArrayList<RecipeBean> recipes;
-    private FileInterDAO filedao;
 
     public HomeChefController() throws IOException, ClassNotFoundException {
         sra=new SearchRecipeA();
         sca=new SavedControllerA();
         aps=new ArrayList<>();
-        filedao=FileInterDAO.getInstance();
-        login=Convert.ConvertEntityToBean(filedao.ReadLog()); //Andrebbe istanziato in un controller applicativo e poi restituito al controller grafico
     }
-
 
     @FXML
     public void gotoSettings() throws IOException {
@@ -95,7 +90,7 @@ public class HomeChefController {
     }
 
     @FXML
-    public void handleSideBar(ActionEvent event) throws Exception {
+    public void handleSideBar(ActionEvent event) throws IOException, ClassNotFoundException {
         Object source = event.getSource();
         if(source.equals(homeButton)) {
             if (checkPaneState(paneHome)) {
@@ -105,46 +100,35 @@ public class HomeChefController {
                 enablePane(paneSaved, false);
                 enablePane(paneSearchRecipe, false);
                 enablePane(paneHome, true);
-            } else {
-                System.out.println("Remain");
             }
         }
 
-        else if(source.equals(savedButton)) {
+        else if(source.equals(savedButton) && checkPaneState(paneSaved)) {
+            manageButtonEffect(1);
 
-            if (checkPaneState(paneSaved)) {
-                manageButtonEffect(1);
+            enablePane(paneSearchRecipe, false);
+            enablePane(paneHome, false);
+            enablePane(paneSaved, true);
 
-                enablePane(paneSearchRecipe, false);
-                enablePane(paneHome, false);
-                enablePane(paneSaved, true);
+            List<RecipeBean> recipes = sca.saved();
+            aps.clear();
+            buttons.clear();
+            savedBox.getChildren().clear();
+            if(recipes!=null && recipes.size()>0){
+                for(int i = 0; i< recipes.size(); i++) {
+                    buttons.add(new Button(recipes.get(i).getName()));
+                    buttons.get(i).setPrefSize(556, 50);
+                    buttons.get(i).setFont(Font.font("Centhury Gothic", 15));
 
-                recipes = sca.saved();
-                aps.clear();
-                buttons.clear();
-                savedBox.getChildren().clear();
-                if(recipes!=null && recipes.size()>0){
-                    for(int i = 0; i< recipes.size(); i++) {
-                        buttons.add(new Button(recipes.get(i).getName()));
-                        buttons.get(i).setPrefSize(556, 50);
-                        buttons.get(i).setFont(Font.font("Centhury Gothic", 15));
+                    aps.add(new AnchorPane());
+                    aps.get(i).getChildren().addAll(buttons.get(i));
+                    aps.get(i).setLeftAnchor(buttons.get(i), 10.0);
+                    aps.get(i).setTopAnchor(buttons.get(i), 10.0);
 
-                        aps.add(new AnchorPane());
-                        aps.get(i).getChildren().addAll(buttons.get(i));
-                        aps.get(i).setLeftAnchor(buttons.get(i), 10.0);
-                        aps.get(i).setTopAnchor(buttons.get(i), 10.0);
-
-                        savedBox.getChildren().add(buttons.get(i));
-                    }
+                    savedBox.getChildren().add(buttons.get(i));
                 }
             }
-            else {
-                System.out.println("Remain");
-            }
-
         }
-
-
     }
 
     @FXML
@@ -194,12 +178,12 @@ public class HomeChefController {
     }
 
     @FXML
-    public void addDynamicElement() throws Exception {
+    public void addDynamicElement() throws IOException, ClassNotFoundException {
         RecipeBean rb;
         ArrayList<Button> bt = new ArrayList<>();
         ArrayList<Label> lb = new ArrayList<>();
         ArrayList<ImageView> iw = new ArrayList<>();
-        ArrayList<RecipeBean> rbs = new ArrayList<>();
+        List<RecipeBean> rbs = new ArrayList<>();
 
         recipeBox.getChildren().clear();
         try {
@@ -220,8 +204,8 @@ public class HomeChefController {
                 rbs=sra.searchRecipeIngr(ingr);
                 type.setSelected(false);
             } else if (type.isSelected()) {
-                String type=searchField.getText();
-                rbs=sra.searchRecipeType(type);
+                String t=searchField.getText();
+                rbs=sra.searchRecipeType(t);
             }
             aps = new ArrayList<>();
             for (int i = 0; i < rbs.size(); i++) {
@@ -281,7 +265,7 @@ public class HomeChefController {
     }
 
     private boolean checkPaneState(AnchorPane pane){
-        return !(pane.getOpacity() == 1);
+        return (pane.getOpacity() != 1);
     }
 
     private void manageButtonEffect(int index) {

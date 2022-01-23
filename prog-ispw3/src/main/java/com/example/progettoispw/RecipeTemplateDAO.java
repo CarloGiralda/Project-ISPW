@@ -6,14 +6,10 @@ import java.util.ArrayList;
 
 public class RecipeTemplateDAO extends ObserverRecipeDAO{
     private static RecipeTemplateDAO instance=null;
-    private Conn con;
-    private Connection conn;
     private ArrayList<Recipe> status;
     private SearchDAO subject;
 
     public RecipeTemplateDAO(){
-        con=Conn.getInstance();
-        conn=con.connect();
         subject=SearchDAO.getInstance();
     }
 

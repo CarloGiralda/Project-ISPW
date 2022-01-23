@@ -7,9 +7,11 @@ public class IndexTrace {
     private static int j=0;
     private static int k=0;
     private static int l=0;
-    private static int m[]= new int[2];
+    private static int[] m= new int[2];
     private static int n=0;
     private static int five;
+
+    private IndexTrace(){}
 
     public static void add() {
         i += 1;

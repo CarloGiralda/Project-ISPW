@@ -113,7 +113,6 @@ public class TutorialChefController {
             prevImageNumber = i-1;
         }
 
-        System.out.println("i: "+i+" prev: "+prevImageNumber);
         return 1;
     }
 
@@ -138,7 +137,6 @@ public class TutorialChefController {
 
         prevImageNumber = prevImageNumber - 1;
 
-        System.out.println("i: "+i+" prev: "+prevImageNumber);
         return 1;
     }
 }

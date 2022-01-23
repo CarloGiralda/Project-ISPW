@@ -58,7 +58,7 @@
                               <Font name="Century Gothic" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="usernameField" editable="false" onAction="#appear_confirm_U_button" prefHeight="29.0" prefWidth="256.0" text="Marco">
+                        <TextField fx:id="usernameField" editable="false" onAction="#appearConfirmUButton" prefHeight="29.0" prefWidth="256.0" text="Marco">
                            <font>
                               <Font name="Century Gothic" size="12.0" />
                            </font></TextField>
@@ -71,7 +71,7 @@
                               <Font name="Century Gothic" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="passwordField" editable="false" onAction="#appear_confirm_Pass_button" prefHeight="29.0" prefWidth="256.0" text="medium">
+                        <TextField fx:id="passwordField" editable="false" onAction="#appearConfirmPassButton" prefHeight="29.0" prefWidth="256.0" text="medium">
                            <font>
                               <Font name="Century Gothic" size="12.0" />
                            </font></TextField>

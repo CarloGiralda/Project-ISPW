@@ -23,12 +23,10 @@ public class ForgotPasswordController {
     @FXML
     private Button submit;
     @FXML
-    private TextField OTP;
+    private TextField otp;
     @FXML
     private Label lab;
 
-    private String email;
-    private String password;
     private ForgotPasswordControllerA fpca;
 
     public ForgotPasswordController(){
@@ -37,7 +35,7 @@ public class ForgotPasswordController {
 
     @FXML
     public void goBack() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("enter.fxml")));
         Stage window=(Stage) back.getScene().getWindow();
         window.setScene(new Scene(root, 850, 594));
     }
@@ -45,11 +43,11 @@ public class ForgotPasswordController {
     @FXML
     public void sendEmail() {
         try {
-            email = mail.getText();
+            String email = mail.getText();
             fpca.checkMail(email);
             fpca.sendMail(email);
-            OTP.setOpacity(1);
-            OTP.setText("");
+            otp.setOpacity(1);
+            otp.setText("");
             send.setOpacity(0);
             submit.setOpacity(1);
         } catch (ExceptionPass e) {
@@ -59,9 +57,10 @@ public class ForgotPasswordController {
     }
 
     @FXML
-    public void Submit(){
+    public void submit(){
         try {
-            if (!(password=fpca.checkOTP(OTP.getText())).equalsIgnoreCase("")){
+            String password=fpca.checkOTP(otp.getText());
+            if (!(password.equalsIgnoreCase(""))){
                 lab.setText("Password: " + password);
             } else {
                 lab.setText("Incorrect OTP");

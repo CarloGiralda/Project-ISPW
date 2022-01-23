@@ -1,6 +1,6 @@
 package com.example.progettoispw;
 
-import com.example.progettoispw.RecipeModel.Ingredient;
+import com.example.progettoispw.recipeModel.Ingredient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ShoppingListController implements Initializable {
     @FXML
@@ -38,8 +40,9 @@ public class ShoppingListController implements Initializable {
     @FXML
     private  TableColumn<Ingredient,String> amountCol;
 
+    private String str="textInvalid";
     private final BackControllerA bca;
-
+    private static Logger logger=Logger.getLogger(ShoppingListController.class.getName());
     ObservableList<Ingredient> observableList = FXCollections.observableArrayList();
 
     public ShoppingListController(){
@@ -55,13 +58,12 @@ public class ShoppingListController implements Initializable {
 
     @FXML
     public void gotoHome() throws IOException, ClassNotFoundException {
+        Stage window = (Stage) gotohomeButton.getScene().getWindow();
         if (bca.getSpecialization().equalsIgnoreCase("User") || bca.getSpecialization().equalsIgnoreCase("Premium")) {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Home.fxml")));
-            Stage window = (Stage) gotohomeButton.getScene().getWindow();
             window.setScene(GeneralScene.getHome(root));
         }else{
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomeChef.fxml")));
-            Stage window = (Stage) gotohomeButton.getScene().getWindow();
             window.setScene(new Scene(root, 850, 594));
         }
     }
@@ -71,15 +73,15 @@ public class ShoppingListController implements Initializable {
         String ingName = nameField.getText();
         String ingAm = amountField.getText();
         if(ingName.isEmpty() && ingAm.isEmpty() || !ingAm.matches("[0-9]+") || !ingName.matches("[a-zA-Z]+")) {
-            nameField.getStyleClass().add("textInvalid");
-            amountField.getStyleClass().add("textInvalid");
+            nameField.getStyleClass().add(str);
+            amountField.getStyleClass().add(str);
         }
         else{
             listTable.getItems().add(new Ingredient(ingName,ingAm));
             nameField.setText("");
             amountField.setText("");
-            nameField.getStyleClass().remove("textInvalid");
-            amountField.getStyleClass().removeAll("textInvalid");
+            nameField.getStyleClass().remove(str);
+            amountField.getStyleClass().removeAll(str);
         }
     }
 
@@ -122,10 +124,9 @@ public class ShoppingListController implements Initializable {
             outWriter.write("----------------  ShoppingList  ----------------"+'\n');
             for(Ingredient i : observableList){
                 outWriter.write(i.getName()+" "+i.getAmount()+"g;");
-                System.out.println(i);
                 outWriter.newLine();
             }
-            System.out.println(observableList);
+            logger.log(Level.INFO, String.valueOf(observableList));
             outWriter.close();
         }
         catch (IOException e) {
@@ -137,5 +138,4 @@ public class ShoppingListController implements Initializable {
             }
         }
     }
-
 }

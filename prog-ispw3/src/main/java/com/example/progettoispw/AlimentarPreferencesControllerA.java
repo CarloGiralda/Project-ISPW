@@ -2,20 +2,20 @@ package com.example.progettoispw;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AlimentarPreferencesControllerA {
     private AlimentarDAO dao;
     private Login login;
-    private ArrayList<String> pref;
     private FileInterDAO filedao;
 
     public AlimentarPreferencesControllerA() throws IOException, ClassNotFoundException {
         dao=AlimentarDAO.getInstance();
         filedao=FileInterDAO.getInstance();
-        login=filedao.ReadLog();
+        login=filedao.readLog();
     }
 
-    public void setPref(String pref, ArrayList<String> all) throws IOException {
+    public void setPref(String pref, List<String> all) throws IOException {
         if(pref.equals("I have no particular preferences")){
             pref="None";
         }
@@ -29,17 +29,15 @@ public class AlimentarPreferencesControllerA {
                 login.addAll(all.get(i));
             }
         }
-        filedao.WriteLog(login);
+        filedao.writeLog(login);
     }
 
     public String getPref(){
-        String pref=dao.getPref(login.getUser());
-        return pref;
+        return dao.getPref(login.getUser());
     }
 
-    public ArrayList<String> getAll(){
-        ArrayList<String> all=dao.getAll(login.getUser());
-        return all;
+    public List<String> getAll(){
+        return dao.getAll(login.getUser());
     }
 
     public void clear(){

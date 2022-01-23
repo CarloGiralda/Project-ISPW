@@ -1,8 +1,9 @@
 package com.example.progettoispw;
 
-import com.example.progettoispw.RecipeModel.Ingredient;
+import com.example.progettoispw.recipeModel.Ingredient;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeBean {
     private String chef=null;
@@ -12,7 +13,7 @@ public class RecipeBean {
     private String description=null;
     private String aP=null;
     private String cT=null;
-    private ArrayList<Ingredient> ingredient;
+    private List<Ingredient> ingredient;
     private byte[] image=null;
     private ArrayList<String> all;
 
@@ -80,9 +81,9 @@ public class RecipeBean {
 
     public void addIngredient(Ingredient ingr){ ingredient.add(ingr); }
 
-    public void addIngredient(ArrayList<Ingredient> ingr){ ingredient.addAll(ingr); }
+    public void addIngredient(List<Ingredient> ingr){ ingredient.addAll(ingr); }
 
-    public ArrayList<Ingredient> getIngredient(){ return ingredient; }
+    public List<Ingredient> getIngredient(){ return ingredient; }
 
     public void setImage(byte[] image){ this.image=image; }
 
@@ -94,7 +95,7 @@ public class RecipeBean {
 
     public void addAll(String all){ this.all.add(all); }
 
-    public void addAll(ArrayList<String> all){ this.all.addAll(all); }
+    public void addAll(List<String> all){ this.all.addAll(all); }
 
-    public ArrayList<String> getAll(){ return all; }
+    public List<String> getAll(){ return all; }
 }

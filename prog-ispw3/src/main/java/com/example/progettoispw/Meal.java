@@ -7,7 +7,7 @@ public abstract class Meal implements Serializable {
     protected Recipe side;
     protected Recipe dess;
 
-    public Meal(){}
+    protected Meal(){}
 
     public abstract Recipe getRecipe();
 }

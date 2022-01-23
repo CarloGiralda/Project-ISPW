@@ -6,10 +6,11 @@ import javafx.scene.Scene;
 public class GeneralScene {
     private static Scene sceneHome;
     private static Scene sceneHomeChef;
-    private static Scene sceneSettings;
     private static Scene sceneAddRecipe;
     private static Scene sceneAddRecipeTemp;
     private static Scene sceneRecipe;
+
+    private GeneralScene(){}
 
     public static Scene getAdd(Parent root){
         if(sceneAddRecipe==null){

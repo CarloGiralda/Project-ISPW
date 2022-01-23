@@ -1,31 +1,21 @@
 package com.example.progettoispw;
 
-import com.example.progettoispw.RecipeModel.Ingredient;
+import com.example.progettoispw.recipeModel.Ingredient;
 
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class WeeklyPlanDAO {
     private ArrayList<Recipe> main;
     private ArrayList<Recipe> side;
     private ArrayList<Recipe> dess;
-    private ArrayList<Recipe> def;
 
     private ArrayList<ArrayList<Ingredient>> ingredients;
-    private String type;
-    private String cT;
-    private String desc;
-    private String ric;
-    private String nome;
-    private byte[] image;
-    private Blob blob;
-    private String allergies;
-    private int cookingLevel;
-    private String ck;
     private ArrayList<String> names;
     private ArrayList<String> ar;
 
@@ -74,13 +64,10 @@ public class WeeklyPlanDAO {
         }
     }
 
-    public ArrayList<Recipe> getGen(String diff, String CL, String username, String AP){
-        int num;
+    public List<Recipe> getGen(String diff, String cl, String username, String ap){
         ResultSet rs = null;
-        ResultSet pq;
 
         try {
-            num=instance.checkCL(CL,username);
             names.clear();
             ar.clear();
             ingredients.clear();
@@ -97,72 +84,10 @@ public class WeeklyPlanDAO {
             }
 
             if (!rs.first()) {
-                MyException e = new MyException("Non si dispone di abbastanza ricette");
-                throw e;
+                throw new MyException("Non si dispone di abbastanza ricette");
             }
 
-            num=0;
-            int z=0;
-
-            do {
-                // lettura delle colonne "by ricetta"
-                ric=rs.getString("Ricetta");
-                nome=rs.getString("Nome");
-                allergies=rs.getString("Allergies");
-                type=rs.getString("Type");
-                desc=rs.getString("Description");
-                cT=rs.getString("Tempo");
-                cookingLevel=rs.getInt("Livello");
-                ck=this.checkCL(cookingLevel);
-
-                do{
-                    ingredients.add(new ArrayList<>());
-                    if(rs.getString("Ricetta").equals(ric)){
-                        ingredients.get(z).add(new Ingredient(rs.getString("Ingrediente"), rs.getString("Ammontare")));
-                    }else{
-                        break;
-                    }
-                }while(rs.next());
-                rs.previous();
-
-                if(num==0 || !names.get(num-1).equals(nome) || !ar.get(num-1).equals(ric)) { //controllo che l'ultimo nome non sia lo stesso che si userà per ricavare l'immagine
-                    pq = SimpleQueries.getImageFromChef(ric, nome, conn);
-                    if (!pq.first()) {
-                        MyException e = new MyException("Immagine non trovata");
-                        throw e;
-                    }
-                    blob = pq.getBlob("IMG");
-
-                    image = blob.getBytes(1, (int) blob.length());
-
-                    if(diff.equalsIgnoreCase("main")) {
-                        main.add(new Recipe(ric, nome, image, type, ck, desc, cT, ingredients.get(z)));
-                        StringTokenizer st = new StringTokenizer(allergies);
-                        while (st.hasMoreTokens()) {
-                            main.get(num).addAll(st.nextToken());
-                        }
-                    }else if(diff.equalsIgnoreCase("side")){
-                        side.add(new Recipe(ric, nome, image, type, ck, desc, cT, ingredients.get(z)));
-                        StringTokenizer st = new StringTokenizer(allergies);
-                        while (st.hasMoreTokens()) {
-                            side.get(num).addAll(st.nextToken());
-                        }
-                    }else if(diff.equalsIgnoreCase("dess")){
-                        dess.add(new Recipe(ric, nome, image, type, ck, desc, cT, ingredients.get(z)));
-                        StringTokenizer st = new StringTokenizer(allergies);
-                        while (st.hasMoreTokens()) {
-                            dess.get(num).addAll(st.nextToken());
-                        }
-                    }
-
-                    num++;
-                    z++;
-
-                    pq.close();
-                    names.add(nome);
-                    ar.add(ric);
-                }
-            } while (rs.next());
+            this.getThese(rs, diff);
             rs.close();
 
         }catch (MyException e) {
@@ -172,6 +97,8 @@ public class WeeklyPlanDAO {
             e.printStackTrace();
             return null;
         }
+
+        ArrayList<Recipe> def;
         if(diff.equalsIgnoreCase("main")) {
             def=main;
         }else if(diff.equalsIgnoreCase("side")){
@@ -184,18 +111,6 @@ public class WeeklyPlanDAO {
         return def;
     }
 
-    private int checkCL(String CL, String username){
-        int i = 0;
-        if(CL.toLowerCase().equals("beginner")){
-            i=1;
-        }else if(CL.toLowerCase().equals("intermediate")){
-            i=2;
-        }else if(CL.toLowerCase().equals("advanced")){
-            i=3;
-        }
-        return i;
-    }
-
     private String checkCL(int i){
         String level = "";
         if(i==1){
@@ -206,5 +121,72 @@ public class WeeklyPlanDAO {
             level="Advanced";
         }
         return level;
+    }
+
+    private void getThese(ResultSet rs, String diff) throws SQLException, MyException {
+        int num = 0;
+        int z = 0;
+        ResultSet pq;
+        do {
+            // lettura delle colonne "by ricetta"
+            String ric = rs.getString("Ricetta");
+            String nome = rs.getString("Nome");
+            String allergies = rs.getString("Allergies");
+            String type = rs.getString("Type");
+            String desc = rs.getString("Description");
+            String cT = rs.getString("Tempo");
+            int cookingLevel = rs.getInt("Livello");
+            String ck = this.checkCL(cookingLevel);
+
+            do {
+                ingredients.add(new ArrayList<>());
+                if (rs.getString("Ricetta").equals(ric)) {
+                    ingredients.get(z).add(new Ingredient(rs.getString("Ingrediente"), rs.getString("Ammontare")));
+                } else {
+                    break;
+                }
+            } while (rs.next());
+            rs.previous();
+
+            if (num == 0 || !names.get(num - 1).equals(nome) || !ar.get(num - 1).equals(ric)) { //controllo che l'ultimo nome non sia lo stesso che si userà per ricavare l'immagine
+                pq = SimpleQueries.getImageFromChef(ric, nome, conn);
+                if (!pq.first()) {
+                    throw new MyException("Immagine non trovata");
+                }
+                Blob blob = pq.getBlob("IMG");
+
+                byte[] image = blob.getBytes(1, (int) blob.length());
+
+                if (diff.equalsIgnoreCase("main")) {
+                    main.add(new Recipe(ric, image, type, ck, desc, cT, ingredients.get(z)));
+                    main.get(num).setChef(nome);
+                    StringTokenizer st = new StringTokenizer(allergies);
+                    while (st.hasMoreTokens()) {
+                        main.get(num).addAll(st.nextToken());
+                    }
+                } else if (diff.equalsIgnoreCase("side")) {
+                    side.add(new Recipe(ric, image, type, ck, desc, cT, ingredients.get(z)));
+                    side.get(num).setChef(nome);
+                    StringTokenizer st = new StringTokenizer(allergies);
+                    while (st.hasMoreTokens()) {
+                        side.get(num).addAll(st.nextToken());
+                    }
+                } else if (diff.equalsIgnoreCase("dess")) {
+                    dess.add(new Recipe(ric, image, type, ck, desc, cT, ingredients.get(z)));
+                    dess.get(num).setChef(nome);
+                    StringTokenizer st = new StringTokenizer(allergies);
+                    while (st.hasMoreTokens()) {
+                        dess.get(num).addAll(st.nextToken());
+                    }
+                }
+
+                num++;
+                z++;
+
+                pq.close();
+                names.add(nome);
+                ar.add(ric);
+            }
+        } while (rs.next());
     }
 }

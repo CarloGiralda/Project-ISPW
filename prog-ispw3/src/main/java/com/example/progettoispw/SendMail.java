@@ -4,8 +4,13 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SendMail {
+    private static Logger logger=Logger.getLogger(SendMail.class.getName());
+
+    private SendMail(){}
 
     public static void send(String string, String email) {
 
@@ -57,10 +62,10 @@ public class SendMail {
             // Now set the actual message
             message.setText("This is you OTP code: "+string);
 
-            System.out.println("sending...");
+            logger.log(Level.INFO, "sending...");
             // Send message
             Transport.send(message);
-            System.out.println("Sent message successfully....");
+            logger.log(Level.INFO, "Sent message successfully....");
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }

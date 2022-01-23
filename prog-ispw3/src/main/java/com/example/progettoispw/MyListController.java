@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MyListController {
@@ -25,8 +26,7 @@ public class MyListController {
 
     private ArrayList<AnchorPane> aps;
     private MyListControllerA mlca;
-    private ArrayList<RecipeBean> rbs;
-    private ArrayList<Button> buttons;
+    private List<Button> buttons;
 
     public MyListController(){
         mlca=new MyListControllerA();
@@ -41,7 +41,7 @@ public class MyListController {
     }
 
     public void initialize() throws IOException, ClassNotFoundException {
-        rbs=mlca.getRecipesChef();
+        List<RecipeBean> rbs=mlca.getRecipesChef();
         aps.clear();
         buttons.clear();
         anchor.getChildren().clear();

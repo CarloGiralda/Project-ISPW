@@ -6,7 +6,6 @@ import java.sql.*;
 
 public class AddRecipeDAO {
     private int num;
-    private String all;
     private Conn con;
     private Connection conn;
     private static AddRecipeDAO instance=null;
@@ -23,6 +22,7 @@ public class AddRecipeDAO {
     }
 
     public void insertRecipe(Recipe rb, String username){
+        StringBuilder str = new StringBuilder();
         try {
             if(rb.getCookingLevel().equals("Beginner")){
                 num=1;
@@ -34,12 +34,12 @@ public class AddRecipeDAO {
 
             for(int i=0; i<rb.getAll().size(); i++){
                 if(i==0){
-                    all=rb.getAll().get(i);
+                    str = new StringBuilder(rb.getAll().get(i));
                 }else {
-                    all = all + " " + rb.getAll().get(i);
+                    str = new StringBuilder(str + " " + rb.getAll().get(i));
                 }
             }
-            System.out.println(all);
+            String all=String.valueOf(str);
 
             for(int i=0; i<IndexTrace.get()+1; i++){
                 SimpleQueries.insertRecipeFromIngredient(username, rb.getName(), rb.getIngredient().get(i).getName(), num, Integer.parseInt(rb.getCT()), rb.getAP(), rb.getType(), rb.getDescription(), rb.getIngredient().get(i).getAmount(), all, conn);

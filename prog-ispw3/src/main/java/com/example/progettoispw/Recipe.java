@@ -1,19 +1,20 @@
 package com.example.progettoispw;
 
-import com.example.progettoispw.RecipeModel.Ingredient;
+import com.example.progettoispw.recipeModel.Ingredient;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Recipe implements Serializable {
     private String chef=null;
     private String name;
     private String type=null;
-    private String CookingLevel=null;
+    private String cookingLevel =null;
     private String description=null;
     private String aP=null;
     private String cT=null;
-    private ArrayList<Ingredient> ingredient;
+    private List<Ingredient> ingredient;
     private byte[] image=null;
     private ArrayList<String> all;
 
@@ -31,13 +32,11 @@ public class Recipe implements Serializable {
         all=new ArrayList<>();
     }
 
-    public Recipe(String name, String chef, byte[] image, String type, String cl, String desc, String ct, ArrayList<Ingredient> ingr){
-        ingredient=new ArrayList<>();
+    public Recipe(String name, byte[] image, String type, String cl, String desc, String ct, List<Ingredient> ingr){
         this.name=name;
-        this.chef=chef;
         this.image=image;
         this.type=type;
-        this.CookingLevel=cl;
+        this.cookingLevel =cl;
         this.description=desc;
         this.cT=ct;
         this.ingredient=ingr;
@@ -61,11 +60,11 @@ public class Recipe implements Serializable {
     }
 
     public void setCookingLevel(String cl){
-        this.CookingLevel=cl;
+        this.cookingLevel =cl;
     }
 
     public String getCookingLevel(){
-        return CookingLevel;
+        return cookingLevel;
     }
 
     public void setDescription(String ds){
@@ -94,9 +93,9 @@ public class Recipe implements Serializable {
 
     public void addIngredient(Ingredient ingr){ ingredient.add(ingr); }
 
-    public void addIngredient(ArrayList<Ingredient> ingr){ ingredient.addAll(ingr); }
+    public void addIngredient(List<Ingredient> ingr){ ingredient.addAll(ingr); }
 
-    public ArrayList<Ingredient> getIngredient(){ return ingredient; }
+    public List<Ingredient> getIngredient(){ return ingredient; }
 
     public void setImage(byte[] image){ this.image=image; }
 
@@ -108,7 +107,7 @@ public class Recipe implements Serializable {
 
     public void addAll(String all){ this.all.add(all); }
 
-    public void addAll(ArrayList<String> all){ this.all.addAll(all); }
+    public void addAll(List<String> all){ this.all.addAll(all); }
 
-    public ArrayList<String> getAll(){ return all; }
+    public List<String> getAll(){ return all; }
 }

@@ -15,9 +15,6 @@ public class StarterController {
     @FXML
     private Button enter;
 
-    private int rem;
-    private LogBean login;
-    private String spec;
     private StarterControllerA sca;
 
     public StarterController(){
@@ -25,12 +22,12 @@ public class StarterController {
     }
 
     @FXML
-    public void Enter() throws IOException {
+    public void enterapp() throws IOException {
         try {
-            login=sca.getSpec();
+            LogBean login=sca.getSpec();
             if (login != null) {
-                rem = login.getCheck();
-                spec=login.getSpec();
+                int rem = login.getCheck();
+                String spec=login.getSpec();
                 if (rem != 0 && (spec.equalsIgnoreCase("User") || spec.equalsIgnoreCase("Premium"))) {
                     Parent root = FXMLLoader.load(Objects.requireNonNull(StarterController.class.getResource("Home.fxml")));
                     Stage window = (Stage) enter.getScene().getWindow();

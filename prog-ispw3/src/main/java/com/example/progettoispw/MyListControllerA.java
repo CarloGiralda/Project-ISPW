@@ -2,25 +2,25 @@ package com.example.progettoispw;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyListControllerA {
     private FileInterDAO filedao;
-    private ArrayList<Recipe> recipes;
-    private ArrayList<RecipeBean> rbs;
+    private List<RecipeBean> rbs;
 
     public MyListControllerA(){
         filedao=FileInterDAO.getInstance();
         rbs=new ArrayList<>();
     }
 
-    public ArrayList<RecipeBean> getRecipesChef() throws IOException, ClassNotFoundException {
-        recipes=filedao.readChef();
+    public List<RecipeBean> getRecipesChef() throws IOException, ClassNotFoundException {
+        List<Recipe> recipes=filedao.readChef();
         if(recipes==null){
             return null;
         }
         rbs.clear();
         for (Recipe recipe : recipes) {
-            rbs.add(Convert.ConvertEntityToBean(recipe));
+            rbs.add(Convert.convertEntityToBean(recipe));
         }
         return rbs;
     }

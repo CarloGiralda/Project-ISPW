@@ -23,17 +23,15 @@ public class ForgotDAO {
         try {
             ResultSet rs = SimpleQueries.getPassFromEmail(email, conn);
             if (!rs.first()) { // rs empty
-                Exception e = new Exception("No Password Found matching with Email: " + email);
-                throw e;
+                throw new MyException("No Password Found matching with Email: " + email);
             }
             rs.first();
             password = rs.getString("Password");
             rs.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } catch (Exception e) {
-            ExceptionPass ex=new ExceptionPass(email, e.getMessage());
-            throw ex;
+        } catch (MyException e) {
+            throw new ExceptionPass(email, e.getMessage());
         }
         return password;
     }
