@@ -1,7 +1,8 @@
 package com.example.progettoispw;
 
+import com.example.progettoispw.recipemodel.Recipe;
+
 import java.io.IOException;
-import java.sql.*;
 import java.util.ArrayList;
 
 public class RecipeTemplateDAO extends ObserverRecipeDAO{

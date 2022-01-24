@@ -1,5 +1,7 @@
 package com.example.progettoispw;
 
+import com.example.progettoispw.recipemodel.Recipe;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +46,9 @@ public class WeeklyPlanControllerA {
             List<Recipe> recipesside=this.checkAll(recipess);
             List<Recipe> recipesdess=this.checkAll(recipesd);
 
-    //        if(recipesmain.size()<4 || recipesside.size()<8 || recipesdess.size()<8){
-    //            throw new MyException("Ricette insufficienti");
-    //        }
+            if(recipesmain.size()<4 || recipesside.size()<4 || recipesdess.size()<2){
+                throw new MyException("Ricette insufficienti");
+            }
 
             Random rand=new Random();
             int selected;

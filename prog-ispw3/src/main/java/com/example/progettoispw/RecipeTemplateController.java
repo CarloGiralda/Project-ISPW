@@ -109,31 +109,13 @@ public class RecipeTemplateController {
 
     @FXML
     public void prev() throws IOException, ClassNotFoundException {
-        if(i==1){
-            rb=rtca.getMeal(3);
-            i=3;
-        }else if(i==2){
-            rb=rtca.getMeal(1);
-            i=1;
-        }else if(i==3) {
-            rb = rtca.getMeal(2);
-            i = 2;
-        }
+        this.change("sub");
         this.refresh(rb);
     }
 
     @FXML
     public void next() throws IOException, ClassNotFoundException {
-        if(i==1){
-            rb=rtca.getMeal(2);
-            i=2;
-        }else if(i==2){
-            rb=rtca.getMeal(3);
-            i=3;
-        }else if(i==3) {
-            rb = rtca.getMeal(1);
-            i = 1;
-        }
+        this.change("plus");
         this.refresh(rb);
     }
 
@@ -147,6 +129,22 @@ public class RecipeTemplateController {
         iw.setImage(new Image(new ByteArrayInputStream(rb.getImage())));
         for(int j=0; j<rb.getIngredient().size(); j++) {
             ingredientBox.getChildren().add(new Text(rb.getIngredient().get(j).getName()+" "+rb.getIngredient().get(j).getAmount()));
+        }
+    }
+
+    private void change(String diff) throws IOException, ClassNotFoundException {
+        if(diff.equalsIgnoreCase("plus")){
+            i++;
+            if(i==4){
+                i=1;
+            }
+            rb=rtca.getMeal(i);
+        }else if(diff.equalsIgnoreCase("sub")){
+            i--;
+            if(i==0){
+                i=3;
+            }
+            rb=rtca.getMeal(i);
         }
     }
 }

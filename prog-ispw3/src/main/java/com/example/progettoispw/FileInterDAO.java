@@ -1,7 +1,10 @@
 package com.example.progettoispw;
 
+import com.example.progettoispw.recipemodel.Recipe;
+
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +58,11 @@ public class FileInterDAO {
     }
 
     public void deleteCurrent() throws IOException {
-        Files.delete(Path.of(fileCurrent));
+        try {
+            Files.delete(Path.of(fileCurrent));
+        }catch(NoSuchFileException e){
+            e.printStackTrace();
+        }
     }
 
     public void writeLog(Login login) throws IOException {
@@ -116,8 +123,12 @@ public class FileInterDAO {
     }
 
     public void deleteRecipes() throws IOException {
-        Files.delete(Path.of(fileRecipe));
-        logger.log(Level.INFO, "Eliminazione completata!");
+        try {
+            Files.delete(Path.of(fileRecipe));
+            logger.log(Level.INFO, "Eliminazione completata!");
+        }catch (NoSuchFileException e){
+            e.printStackTrace();
+        }
     }
 
     public List<Recipe> readSaved() throws IOException, ClassNotFoundException {
@@ -151,8 +162,12 @@ public class FileInterDAO {
     }
 
     public void deleteSaved() throws IOException {
-        Files.delete(Path.of(fileSaved));
-        logger.log(Level.INFO, "Eliminazione completata!");
+        try {
+            Files.delete(Path.of(fileSaved));
+            logger.log(Level.INFO, "Eliminazione completata!");
+        }catch(NoSuchFileException e){
+            e.printStackTrace();
+        }
     }
 
     public void writePlan(int day, List<Meal> meals) throws IOException {

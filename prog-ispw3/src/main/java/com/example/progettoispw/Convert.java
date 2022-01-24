@@ -1,6 +1,7 @@
 package com.example.progettoispw;
 
-import com.example.progettoispw.recipeModel.Ingredient;
+import com.example.progettoispw.recipemodel.Ingredient;
+import com.example.progettoispw.recipemodel.Recipe;
 
 public class Convert {
     private Convert(){}

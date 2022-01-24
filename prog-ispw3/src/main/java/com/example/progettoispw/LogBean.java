@@ -3,6 +3,8 @@ package com.example.progettoispw;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LogBean implements Serializable {
     private String user;
@@ -15,6 +17,8 @@ public class LogBean implements Serializable {
     private ArrayList<String> all=new ArrayList<>();
     private boolean prem=false;
 
+    private static Logger logger=Logger.getLogger(LogBean.class.getName());
+
     public LogBean(){
     }
 
@@ -24,10 +28,14 @@ public class LogBean implements Serializable {
     }
 
     public LogBean(String user, String pass, String spec, String email){
-        this.user=user;
-        this.pass=pass;
-        this.spec=spec;
-        this.email=email;
+        if(!user.equalsIgnoreCase("") && !pass.equalsIgnoreCase("") && !spec.equalsIgnoreCase("") && !email.equalsIgnoreCase("")) {
+            this.user = user;
+            this.pass = pass;
+            this.spec = spec;
+            this.email = email;
+        }else{
+            logger.log(Level.INFO, "Parametri non validi");
+        }
     }
 
     public String getUser(){
@@ -35,7 +43,11 @@ public class LogBean implements Serializable {
     }
 
     public void setUser(String user){
-        this.user= user;
+        if(!user.equalsIgnoreCase("")) {
+            this.user = user;
+        }else{
+            this.user=null;
+        }
     }
 
     public String getPass(){
@@ -43,13 +55,21 @@ public class LogBean implements Serializable {
     }
 
     public void setPass(String pass){
-        this.pass= pass;
+        if(!pass.equalsIgnoreCase("")) {
+            this.pass = pass;
+        }else{
+            this.pass=null;
+        }
     }
 
     public String getCL() { return cl; }
 
     public void setCL(String cl){
-        this.cl= cl;
+        if(!cl.equalsIgnoreCase("")) {
+            this.cl = cl;
+        }else{
+            this.cl=null;
+        }
     }
 
     public String getEmail(){
@@ -57,12 +77,22 @@ public class LogBean implements Serializable {
     }
 
     public void setEmail(String email){
-        this.email= email;
+        if(!email.equalsIgnoreCase("")) {
+            this.email = email;
+        }else{
+            this.email=null;
+        }
     }
 
     public String getSpec() { return spec; }
 
-    public void setSpec(String spec) { this.spec= spec; }
+    public void setSpec(String spec) {
+        if(!spec.equalsIgnoreCase("")) {
+            this.spec = spec;
+        }else{
+            this.spec=null;
+        }
+    }
 
     public int getCheck(){ return check; }
 
@@ -70,11 +100,23 @@ public class LogBean implements Serializable {
 
     public void desetCheck() { check =0; }
 
-    public void setAP(String ap){ this.ap=ap; }
+    public void setAP(String ap){
+        if(!ap.equalsIgnoreCase("")) {
+            this.ap = ap;
+        }else {
+            this.ap = null;
+        }
+    }
 
     public String getAP(){ return ap; }
 
-    public void addAll(String all){ this.all.add(all); }
+    public void addAll(String all){
+        if(!all.equalsIgnoreCase("")) {
+            this.all.add(all);
+        }else{
+            this.all=null;
+        }
+    }
 
     public List<String> getAll(){ return all; }
 

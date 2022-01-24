@@ -107,7 +107,7 @@ public class AccountSettingsController {
     @FXML
     public void logout() throws IOException, ClassNotFoundException {
         asca.deselect();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("enter.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
         Stage window = (Stage) goBackButton.getScene().getWindow();
         window.setScene(new Scene(root, 850, 594));
     }

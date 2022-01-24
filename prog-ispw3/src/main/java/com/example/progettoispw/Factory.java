@@ -1,5 +1,7 @@
 package com.example.progettoispw;
 
+import com.example.progettoispw.recipemodel.Recipe;
+
 public class Factory {
     public Meal createMealBreak(Recipe recipe) {
         return new MealBreak(recipe);

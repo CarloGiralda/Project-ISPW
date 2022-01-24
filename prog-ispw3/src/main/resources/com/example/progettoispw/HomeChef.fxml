@@ -129,7 +129,7 @@
       </HBox>
       <AnchorPane fx:id="paneSearchRecipe" disable="true" layoutX="253.0" layoutY="48.0" opacity="0.0" prefHeight="550.0" prefWidth="597.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="253.0" AnchorPane.rightAnchor="-28.33333333333337" AnchorPane.topAnchor="48.0">
          <children>
-            <TextField fx:id="searchField" layoutX="33.0" layoutY="50.0" prefHeight="48.0" prefWidth="256.0" promptText="Search" style="-fx-background-radius: 10;">
+            <TextField fx:id="searchChefField" layoutX="33.0" layoutY="50.0" prefHeight="48.0" prefWidth="256.0" promptText="Search" style="-fx-background-radius: 10;">
                <font>
                   <Font name="Century Gothic" size="25.0" />
                </font>
@@ -138,12 +138,12 @@
                <children>
                   <VBox alignment="CENTER_LEFT" prefHeight="132.0" prefWidth="116.0" spacing="20.0">
                      <children>
-                        <CheckBox fx:id="recipe" mnemonicParsing="false" text="Recipe">
+                        <CheckBox fx:id="recipeChef" mnemonicParsing="false" text="Recipe">
                            <font>
                               <Font name="Century Gothic" size="13.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox fx:id="ingredient" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Ingredient">
+                        <CheckBox fx:id="ingredientChef" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Ingredient">
                            <font>
                               <Font name="Century Gothic" size="13.0" />
                            </font>
@@ -152,12 +152,12 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
                      <children>
-                        <CheckBox fx:id="time" mnemonicParsing="false" text="Time">
+                        <CheckBox fx:id="timeChef" mnemonicParsing="false" text="Time">
                            <font>
                               <Font name="Century Gothic" size="13.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox fx:id="type" mnemonicParsing="false" text="Dish type">
+                        <CheckBox fx:id="typeChef" mnemonicParsing="false" text="Dish type">
                            <font>
                               <Font name="Century Gothic" size="13.0" />
                            </font>
@@ -166,7 +166,7 @@
                   </VBox>
                </children>
             </HBox>
-            <Label fx:id="labelerr" layoutX="338.0" layoutY="113.0" prefHeight="18.0" prefWidth="242.0" textFill="RED">
+            <Label fx:id="laberr" layoutX="338.0" layoutY="113.0" prefHeight="18.0" prefWidth="242.0" textFill="RED">
                <font>
                   <Font name="Century Gothic" size="12.0" />
                </font>

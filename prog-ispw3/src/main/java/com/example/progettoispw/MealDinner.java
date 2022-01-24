@@ -1,5 +1,7 @@
 package com.example.progettoispw;
 
+import com.example.progettoispw.recipemodel.Recipe;
+
 import java.io.Serializable;
 
 public class MealDinner extends Meal implements Serializable {

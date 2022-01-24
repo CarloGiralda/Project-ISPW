@@ -1,6 +1,7 @@
 package com.example.progettoispw;
 
-import com.example.progettoispw.recipeModel.Ingredient;
+import com.example.progettoispw.recipemodel.Ingredient;
+import com.example.progettoispw.recipemodel.Recipe;
 
 import java.sql.Blob;
 import java.sql.Connection;
@@ -151,14 +152,7 @@ public class WeeklyPlanDAO {
             int cookingLevel = rs.getInt("Livello");
             String ck = this.checkCL(cookingLevel);
 
-            do {
-                ingredients.add(new ArrayList<>());
-                if (rs.getString("Ricetta").equals(ric)) {
-                    ingredients.get(z).add(new Ingredient(rs.getString("Ingrediente"), rs.getString("Ammontare")));
-                } else {
-                    break;
-                }
-            } while (rs.next());
+            this.addIngr(rs, ric, z);
             rs.previous();
 
             if (num == 0 || !names.get(num - 1).equals(nome) || !ar.get(num - 1).equals(ric)) { //controllo che l'ultimo nome non sia lo stesso che si userà per ricavare l'immagine
@@ -198,6 +192,21 @@ public class WeeklyPlanDAO {
         StringTokenizer st = new StringTokenizer(allergies);
         while (st.hasMoreTokens()) {
             m.get(num).addAll(st.nextToken());
+        }
+    }
+
+    private void addIngr(ResultSet rs, String ric, int z){
+        try {
+            do {
+                ingredients.add(new ArrayList<>());
+                if (rs.getString("Ricetta").equals(ric)) {
+                    ingredients.get(z).add(new Ingredient(rs.getString("Ingrediente"), rs.getString("Ammontare")));
+                } else {
+                    break;
+                }
+            } while (rs.next());
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

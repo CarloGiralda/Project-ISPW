@@ -1,5 +1,7 @@
 package com.example.progettoispw;
 
+import com.example.progettoispw.recipemodel.Recipe;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,7 @@ public class SearchRecipeA {
     public List<RecipeBean> searchRecipeTime(String time) throws IOException, ClassNotFoundException, MyException {
         rbs=new ArrayList<>();
         SearchRecipeA sra=new SearchRecipeA();
-        recipes=dao.searchRecipe(time, login.getCL(), login.getAP(), login.getUser());
+        recipes=dao.searchRecipe("time", time, login.getCL(), login.getAP(), login.getUser());
 
         rbs=sra.checkAlle(recipes);
         return rbs;
@@ -39,7 +41,7 @@ public class SearchRecipeA {
     public List<RecipeBean> searchRecipeIngr(String ingr) throws IOException, ClassNotFoundException, MyException {
         rbs=new ArrayList<>();
         SearchRecipeA sra=new SearchRecipeA();
-        recipes=dao.searchRecipeIngr(ingr, login.getCL(), login.getAP(), login.getUser());
+        recipes=dao.searchRecipe("ingr", ingr, login.getCL(), login.getAP(), login.getUser());
 
         rbs=sra.checkAlle(recipes);
         return rbs;
@@ -48,7 +50,7 @@ public class SearchRecipeA {
     public List<RecipeBean> searchRecipeType(String type) throws IOException, ClassNotFoundException, MyException {
         rbs=new ArrayList<>();
         SearchRecipeA sra=new SearchRecipeA();
-        recipes=dao.searchRecipeType(type, login.getCL(), login.getAP(), login.getUser());
+        recipes=dao.searchRecipe("type", type, login.getCL(), login.getAP(), login.getUser());
 
         rbs=sra.checkAlle(recipes);
         return rbs;

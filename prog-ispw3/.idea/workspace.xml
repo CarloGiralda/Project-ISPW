@@ -72,6 +72,7 @@
       <recent name="C:\Users\Carlo\IdeaProjects\ProgettoISPW\lib" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.progettoispw.recipemodel" />
       <recent name="com.example.progettoispw" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -84,7 +85,7 @@
       <module name="ProgettoISPW" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.progettoispw.*" />
+          <option name="PATTERN" value="com.example.progettoispw.recipemodel.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -196,7 +197,8 @@
       <workItem from="1642858116920" duration="20000" />
       <workItem from="1642862729320" duration="8159000" />
       <workItem from="1642873552232" duration="5713000" />
-      <workItem from="1642974201599" duration="1833000" />
+      <workItem from="1642974201599" duration="1846000" />
+      <workItem from="1643034512047" duration="12413000" />
     </task>
     <servers />
   </component>

@@ -1,6 +1,6 @@
 package com.example.progettoispw;
 
-import com.example.progettoispw.recipeModel.Ingredient;
+import com.example.progettoispw.recipemodel.Ingredient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

@@ -1,5 +1,7 @@
 package com.example.progettoispw;
 
+import com.example.progettoispw.recipemodel.Recipe;
+
 import java.io.File;
 import java.io.InputStream;
 import java.sql.*;
@@ -42,7 +44,7 @@ public class AddRecipeDAO {
             String all=String.valueOf(str);
 
             for(int i=0; i<IndexTrace.get()+1; i++){
-                SimpleQueries.insertRecipeFromIngredient(username, rb.getName(), rb.getIngredient().get(i).getName(), num, Integer.parseInt(rb.getCT()), rb.getAP(), rb.getType(), rb.getDescription(), rb.getIngredient().get(i).getAmount(), all, conn);
+                SimpleQueries.insertRecipeFromIngredient(username, rb, rb.getIngredient().get(i).getName(), num, rb.getIngredient().get(i).getAmount(), all, conn);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

@@ -49,17 +49,32 @@ public class TutorialController {
     private File file;
     private final ArrayList<HBox> hb;
     private final ArrayList<Text> text;
+    private final BackControllerA bca;
+    private Image image1;
+    private Image image2;
+    private Image image3;
+    private Image image4=null;
 
+    public TutorialController() throws IOException, ClassNotFoundException {
+        bca = new BackControllerA();
 
-    public TutorialController() {
-        file = new File("images/ImmagineHome.png");
-        Image image1 = new Image(file.toURI().toString());
-        file = new File("images/ImmagineAP.png");
-        Image image2 = new Image(file.toURI().toString());
-        file = new File("images/ImmaginePlan.png");
-        Image image3 = new Image(file.toURI().toString());
-        file = new File("images/ImmagineSearch.png");
-        Image image4 = new Image(file.toURI().toString());
+        if (bca.getSpecialization().equalsIgnoreCase("User") || bca.getSpecialization().equalsIgnoreCase("Premium")) {
+            file = new File("images/ImmagineHome.png");
+            image1 = new Image(file.toURI().toString());
+            file = new File("images/ImmagineAP.png");
+            image2 = new Image(file.toURI().toString());
+            file = new File("images/ImmaginePlan.png");
+            image3 = new Image(file.toURI().toString());
+            file = new File("images/ImmagineSearch.png");
+            image4 = new Image(file.toURI().toString());
+        }else{
+            file = new File("images/ImmagineHomeChef.png");
+            image1 = new Image(file.toURI().toString());
+            file = new File("images/AggiungiRicetta.png");
+            image2 = new Image(file.toURI().toString());
+            file = new File("images/ImmaginePlan.png");
+            image3 = new Image(file.toURI().toString());
+        }
 
         ArrayList<Image> allImages = new ArrayList<>();
         allImages.add(image1);
@@ -79,18 +94,21 @@ public class TutorialController {
         h2.setDisable(true);
         h3.setOpacity(0);
         h3.setDisable(true);
-        h4.setOpacity(0);
-        h4.setDisable(true);
+
         hb.add(h1);
         hb.add(h2);
         hb.add(h3);
-        hb.add(h4);
 
         text.add(t1);
         text.add(t2);
-        text.add(t4);
         text.add(t3);
 
+        if(image4!=null) {
+            h4.setOpacity(0);
+            h4.setDisable(true);
+            hb.add(h4);
+            text.add(t4);
+        }
     }
 
     @FXML
@@ -105,14 +123,18 @@ public class TutorialController {
 
     @FXML
     public int changeNextImage() {
-        if(i==3){
+        if(i==3 && image4!=null || i==2 && image4==null){
             nextImage.setDisable(true);
             return 0;
         }
 
         backImage.setDisable(false);
 
-        i = (i+1)%4;
+        if(image4!=null) {
+            i = (i + 1) % 4;
+        }else{
+            i = (i + 1) % 3;
+        }
 
         text.get(i).setVisible(true);
         text.get(i-1).setVisible(false);
@@ -146,7 +168,11 @@ public class TutorialController {
         hb.get(prevImageNumber+1).setOpacity(0);
         hb.get(prevImageNumber+1).setDisable(true);
 
-        i = (i-1)%4;
+        if(image4!=null) {
+            i = (i - 1) % 4;
+        }else{
+            i = (i - 1) % 3;
+        }
 
         prevImageNumber = prevImageNumber - 1;
 

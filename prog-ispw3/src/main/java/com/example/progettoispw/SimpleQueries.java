@@ -1,5 +1,7 @@
 package com.example.progettoispw;
 
+import com.example.progettoispw.recipemodel.Recipe;
+
 import java.io.File;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -91,17 +93,17 @@ public class SimpleQueries {
         return prep.executeUpdate();
     }
 
-    public static int insertRecipeFromIngredient(String username, String title, String ingredient, int level, int time, String ap, String type, String description, String amount, String all, Connection conn) throws SQLException {
+    public static int insertRecipeFromIngredient(String username, Recipe recipe, String ingredient, int level, String amount, String all, Connection conn) throws SQLException {
         String sql= "INSERT INTO ricetteinserite(Nome, Ricetta, Ingrediente, Livello, Tempo, Intolleranza, Type, Description, Ammontare, Allergies) values(?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement prep=conn.prepareStatement(sql);
         prep.setString(1, username);
-        prep.setString(2, title);
+        prep.setString(2, recipe.getName());
         prep.setString(3, ingredient);
         prep.setInt(4, level);
-        prep.setInt(5, time);
-        prep.setString(6, ap);
-        prep.setString(7, type);
-        prep.setString(8, description);
+        prep.setInt(5, Integer.parseInt(recipe.getCT()));
+        prep.setString(6, recipe.getAP());
+        prep.setString(7, recipe.getType());
+        prep.setString(8, recipe.getDescription());
         prep.setString(9, amount);
         prep.setString(10, all);
         return prep.executeUpdate();

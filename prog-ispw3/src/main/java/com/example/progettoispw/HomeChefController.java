@@ -54,17 +54,17 @@ public class HomeChefController {
     private Button shoppingListButton;
 
     @FXML
-    private CheckBox recipe;
+    private CheckBox recipeChef;
     @FXML
-    private CheckBox time;
+    private CheckBox timeChef;
     @FXML
-    private CheckBox ingredient;
+    private CheckBox ingredientChef;
     @FXML
-    private CheckBox type;
+    private CheckBox typeChef;
     @FXML
-    private TextField searchField;
+    private TextField searchChefField;
     @FXML
-    private Label labelerr;
+    private Label laberr;
     @FXML
     private VBox recipeBox;
     @FXML
@@ -74,12 +74,12 @@ public class HomeChefController {
     private final SavedControllerA sca;
     private final SearchRecipeA sra;
     private final ArrayList<Button> buttons=new ArrayList<>();
-    private ArrayList<AnchorPane> aps;
+    private ArrayList<AnchorPane> apes;
 
     public HomeChefController() throws IOException, ClassNotFoundException {
         sra=new SearchRecipeA();
         sca=new SavedControllerA();
-        aps=new ArrayList<>();
+        apes=new ArrayList<>();
     }
 
     @FXML
@@ -111,7 +111,7 @@ public class HomeChefController {
             enablePane(paneSaved, true);
 
             List<RecipeBean> recipes = sca.saved();
-            aps.clear();
+            apes.clear();
             buttons.clear();
             savedBox.getChildren().clear();
             if(recipes!=null && recipes.size()>0){
@@ -120,10 +120,10 @@ public class HomeChefController {
                     buttons.get(i).setPrefSize(556, 50);
                     buttons.get(i).setFont(Font.font("Centhury Gothic", 15));
 
-                    aps.add(new AnchorPane());
-                    aps.get(i).getChildren().addAll(buttons.get(i));
-                    aps.get(i).setLeftAnchor(buttons.get(i), 10.0);
-                    aps.get(i).setTopAnchor(buttons.get(i), 10.0);
+                    apes.add(new AnchorPane());
+                    apes.get(i).getChildren().addAll(buttons.get(i));
+                    apes.get(i).setLeftAnchor(buttons.get(i), 10.0);
+                    apes.get(i).setTopAnchor(buttons.get(i), 10.0);
 
                     savedBox.getChildren().add(buttons.get(i));
                 }
@@ -187,27 +187,27 @@ public class HomeChefController {
 
         recipeBox.getChildren().clear();
         try {
-            if (recipe.isSelected()) {
-                String rec = searchField.getText();
+            if (recipeChef.isSelected()) {
+                String rec = searchChefField.getText();
                 rb = new RecipeBean(rec);
                 rbs = sra.searchRecipe(rb);
-                time.setSelected(false);
-                ingredient.setSelected(false);
-                type.setSelected(false);
-            } else if (time.isSelected()) {
-                String tm=searchField.getText();
+                timeChef.setSelected(false);
+                ingredientChef.setSelected(false);
+                typeChef.setSelected(false);
+            } else if (timeChef.isSelected()) {
+                String tm= searchChefField.getText();
                 rbs=sra.searchRecipeTime(tm);
-                ingredient.setSelected(false);
-                type.setSelected(false);
-            } else if (ingredient.isSelected()) {
-                String ingr=searchField.getText();
+                ingredientChef.setSelected(false);
+                typeChef.setSelected(false);
+            } else if (ingredientChef.isSelected()) {
+                String ingr= searchChefField.getText();
                 rbs=sra.searchRecipeIngr(ingr);
-                type.setSelected(false);
-            } else if (type.isSelected()) {
-                String t=searchField.getText();
+                typeChef.setSelected(false);
+            } else if (typeChef.isSelected()) {
+                String t= searchChefField.getText();
                 rbs=sra.searchRecipeType(t);
             }
-            aps = new ArrayList<>();
+            apes = new ArrayList<>();
             for (int i = 0; i < rbs.size(); i++) {
                 bt.add(new Button(rbs.get(i).getName()));
                 bt.get(i).setMaxSize(100, 30);
@@ -235,33 +235,29 @@ public class HomeChefController {
                 iw.get(i).setImage(new Image(new ByteArrayInputStream(rbs.get(i).getImage())));
                 iw.get(i).setFitHeight(75);
                 iw.get(i).setFitWidth(100);
-                aps.add(new AnchorPane());
-                aps.get(i).getChildren().addAll(bt.get(i), lb.get(i), iw.get(i));
-                aps.get(i).setMaxSize(564,75);
-                aps.get(i).setLeftAnchor(bt.get(i), 10.0);
-                aps.get(i).setTopAnchor(bt.get(i), 10.0);
-                aps.get(i).setLeftAnchor(lb.get(i), 15.0);
-                aps.get(i).setTopAnchor(lb.get(i), 40.0);
-                aps.get(i).setRightAnchor(iw.get(i), 110.0);
-                aps.get(i).setTopAnchor(iw.get(i), 0.0);
-                recipeBox.getChildren().add(aps.get(i));
+                apes.add(new AnchorPane());
+                if ((i % 2) == 0) {
+                    apes.get(i).setStyle("-fx-background-color: #FFFFFF");
+                } else {
+                    apes.get(i).setStyle("-fx-background-color: #16b229");
+                }
+                apes.get(i).getChildren().addAll(bt.get(i), lb.get(i), iw.get(i));
+                apes.get(i).setMaxSize(564,75);
+                apes.get(i).setLeftAnchor(bt.get(i), 10.0);
+                apes.get(i).setTopAnchor(bt.get(i), 10.0);
+                apes.get(i).setLeftAnchor(lb.get(i), 15.0);
+                apes.get(i).setTopAnchor(lb.get(i), 40.0);
+                apes.get(i).setRightAnchor(iw.get(i), 110.0);
+                apes.get(i).setTopAnchor(iw.get(i), 0.0);
+                recipeBox.getChildren().add(apes.get(i));
             }
         }catch(MyException e){
-            labelerr.setText("Ricetta o immagine relativa non trovata");
+            laberr.setText("Ricetta o immagine relativa non trovata");
         }
     }
 
     private void enablePane(AnchorPane pane,boolean able) {
-        if (!able) {
-            pane.toBack();
-            pane.setOpacity(0);
-            pane.setDisable(true);
-        }
-        else{
-            pane.toFront();
-            pane.setOpacity(1);
-            pane.setDisable(false);
-        }
+        EnablePane.enablePane(pane, able);
     }
 
     private boolean checkPaneState(AnchorPane pane){
@@ -280,6 +276,4 @@ public class HomeChefController {
             }
         }
     }
-
-
 }

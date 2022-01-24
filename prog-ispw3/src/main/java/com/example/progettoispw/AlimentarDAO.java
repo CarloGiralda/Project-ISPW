@@ -105,18 +105,19 @@ public class AlimentarDAO {
 
     private void insertAll(String username, List<String> all, Connection conn, String pref){
         int j=0;
-        for (int i = 0; i < all.size(); i++) {
-            Logger logger=Logger.getLogger(AlimentarDAO.class.getName());
-            try {
+        Logger logger = Logger.getLogger(AlimentarDAO.class.getName());
+
+        try {
+            for (int i = 0; i < all.size(); i++) {
                 SimpleQueries.insertAllergies(username, all.get(i), conn);
-            } catch (SQLIntegrityConstraintViolationException e) {
-                //per far sì che non si aggiunga due volte la stessa AP
-                all.remove(j);
-                logger.log(Level.INFO, "Alimentar Preference already inserted");
-                instance.insertAP(username, pref, all);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
             }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            //per far sì che non si aggiunga due volte la stessa AP
+            all.remove(j);
+            logger.log(Level.INFO, "Alimentar Preference already inserted");
+            instance.insertAP(username, pref, all);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.progettoispw;
 
+import com.example.progettoispw.recipemodel.Recipe;
 import javafx.stage.FileChooser;
 
 import java.io.File;

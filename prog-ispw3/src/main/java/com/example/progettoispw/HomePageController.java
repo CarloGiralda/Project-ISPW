@@ -267,16 +267,7 @@ public class HomePageController {
 
 
     private void enablePane(AnchorPane pane,boolean able) {
-        if (!able) {
-            pane.toBack();
-            pane.setOpacity(0);
-            pane.setDisable(true);
-        }
-        else{
-            pane.toFront();
-            pane.setOpacity(1);
-            pane.setDisable(false);
-        }
+        EnablePane.enablePane(pane, able);
     }
 
     private boolean checkPaneState(AnchorPane pane){
@@ -382,21 +373,19 @@ public class HomePageController {
     public void handlePlan(ActionEvent e) throws IOException {
         IndexTrace.setFive(3);
         Object source=e.getSource();
-        if(source.toString().contains("mon")) {
-            IndexTrace.dayset(1);
-        }else if(source.toString().contains("tue")){
-            IndexTrace.dayset(2);
-        }else if(source.toString().contains("wed")){
-            IndexTrace.dayset(3);
-        }else if(source.toString().contains("thu")){
-            IndexTrace.dayset(4);
-        }else if(source.toString().contains("fri")){
-            IndexTrace.dayset(5);
-        }else if(source.toString().contains("sat")){
-            IndexTrace.dayset(6);
-        } else if(source.toString().contains("sun")){
-            IndexTrace.dayset(7);
+        String sou=source.toString();
+
+        String[] days={"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
+
+        int index=0;
+        for(int i=0; i<days.length; i++){
+            if(sou.contains(days[i])){
+                index=i+1;
+                break;
+            }
         }
+
+        IndexTrace.dayset(index);
         if(source.toString().contains("Break")){
             IndexTrace.timeset(1);
         }else if(source.toString().contains("Lunch")){
