@@ -33,15 +33,12 @@ public class WeeklyPlanControllerA {
 
     public boolean calc(){
         try {
-            System.out.println(login.getAP());
-            System.out.println(login.getCL());
             if (login.getAP() == null || login.getCL() == null) {
-                MyException e = new MyException("Parametri non validi");
-                throw e;
+                throw new MyException("Parametri non validi");
             }
-            List<Recipe> recipesm = dao.getGen("main", login.getCL(), login.getUser(), login.getAP());
-            List<Recipe> recipess = dao.getGen("side", login.getCL(), login.getUser(), login.getAP());
-            List<Recipe> recipesd = dao.getGen("dess", login.getCL(), login.getUser(), login.getAP());
+            List<Recipe> recipesm = dao.getGen("main", login.getCL(), login.getAP());
+            List<Recipe> recipess = dao.getGen("side", login.getCL(), login.getAP());
+            List<Recipe> recipesd = dao.getGen("dess", login.getCL(), login.getAP());
 
             List<Recipe> recipesmain=this.checkAll(recipesm);
             List<Recipe> recipesside=this.checkAll(recipess);
@@ -82,22 +79,20 @@ public class WeeklyPlanControllerA {
     }
 
     public boolean getFiles() throws IOException, ClassNotFoundException {
-        if(filedao.readPlan(0)==null){
-            return false;
-        }
-        return true;
+        return filedao.readPlan(0)!=null;
     }
 
     public List<Recipe> checkAll(List<Recipe> recipe){
         int h=0;
+        int s=0;
         // controllo delle allergie
         for(int i=0; i<recipe.size(); i++) {
             for(int j=0; j<login.getAll().size(); j++){
-                for(int k=0; k<recipe.get(i).getAll().size(); k++){
-                    if(login.getAll().get(j).equalsIgnoreCase(recipe.get(i).getAll().get(k))){
+                for(int k=0; k<recipe.get(i-s).getAll().size(); k++){
+                    if(login.getAll().get(j).equalsIgnoreCase(recipe.get(i-s).getAll().get(k))){
                         h=1;
                         recipe.remove(i);
-                        i--;
+                        s++;
                         break;
                     }
                 }

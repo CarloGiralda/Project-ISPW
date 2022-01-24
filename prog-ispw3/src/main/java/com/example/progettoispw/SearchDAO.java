@@ -59,8 +59,7 @@ public class SearchDAO extends SubjectSearchDAO{
             ResultSet rs=SimpleQueries.getRecipeFromNameCLAPAll(name, num, AP, conn);
             ResultSet pq=SimpleQueries.getImage(name, conn);
             if(!rs.first() || !pq.first()){
-                MyException e = new MyException("Ricetta o immagine non trovata");
-                throw e;
+                throw new MyException("Ricetta o immagine non trovata");
             }
             rs.first();
             num=0;

@@ -45,8 +45,7 @@ public class WeeklyPlanDAO {
         try {
             ResultSet rs = SimpleQueries.getSpecFromName(username, conn);
             if (!rs.first()) {
-                MyException e = new MyException("Non si dispone di nessuna specializzazione");
-                throw e;
+                throw new MyException("Non si dispone di nessuna specializzazione");
             }
             String spec = rs.getString("Specializzazione");
             if (spec.equals("Premium")) {
@@ -64,7 +63,7 @@ public class WeeklyPlanDAO {
         }
     }
 
-    public List<Recipe> getGen(String diff, String cl, String username, String ap){
+    public List<Recipe> getGen(String diff, String cl, String ap){
         ResultSet rs = null;
 
         try {
@@ -72,15 +71,17 @@ public class WeeklyPlanDAO {
             ar.clear();
             ingredients.clear();
 
+            int cL=this.checkCL(cl);
+
             if(diff.equalsIgnoreCase("main")) {
                 main.clear();
-                rs = SimpleQueries.getFromType("Main dish", conn);
+                rs = SimpleQueries.getRecipeFromTypeCLAPAll("Main dish", cL, ap, conn);
             }else if(diff.equalsIgnoreCase("side")){
                 side.clear();
-                rs = SimpleQueries.getFromType("Side dish", conn);
+                rs = SimpleQueries.getRecipeFromTypeCLAPAll("Side dish", cL, ap, conn);
             }else if(diff.equalsIgnoreCase("dess")){
                 dess.clear();
-                rs = SimpleQueries.getFromType("Dessert", conn);
+                rs = SimpleQueries.getRecipeFromTypeCLAPAll("Dessert", cL, ap, conn);
             }
 
             if (!rs.first()) {
@@ -123,6 +124,18 @@ public class WeeklyPlanDAO {
         return level;
     }
 
+    private int checkCL(String lv){
+        int level = 0;
+        if(lv.equalsIgnoreCase("Beginner")){
+            level=1;
+        }else if(lv.equalsIgnoreCase("Intermediate")){
+            level=2;
+        }else if(lv.equalsIgnoreCase("Advanced")){
+            level=3;
+        }
+        return level;
+    }
+
     private void getThese(ResultSet rs, String diff) throws SQLException, MyException {
         int num = 0;
         int z = 0;
@@ -160,24 +173,15 @@ public class WeeklyPlanDAO {
                 if (diff.equalsIgnoreCase("main")) {
                     main.add(new Recipe(ric, image, type, ck, desc, cT, ingredients.get(z)));
                     main.get(num).setChef(nome);
-                    StringTokenizer st = new StringTokenizer(allergies);
-                    while (st.hasMoreTokens()) {
-                        main.get(num).addAll(st.nextToken());
-                    }
+                    this.all(main, num, allergies);
                 } else if (diff.equalsIgnoreCase("side")) {
                     side.add(new Recipe(ric, image, type, ck, desc, cT, ingredients.get(z)));
                     side.get(num).setChef(nome);
-                    StringTokenizer st = new StringTokenizer(allergies);
-                    while (st.hasMoreTokens()) {
-                        side.get(num).addAll(st.nextToken());
-                    }
+                    this.all(side, num, allergies);
                 } else if (diff.equalsIgnoreCase("dess")) {
                     dess.add(new Recipe(ric, image, type, ck, desc, cT, ingredients.get(z)));
                     dess.get(num).setChef(nome);
-                    StringTokenizer st = new StringTokenizer(allergies);
-                    while (st.hasMoreTokens()) {
-                        dess.get(num).addAll(st.nextToken());
-                    }
+                    this.all(dess, num, allergies);
                 }
 
                 num++;
@@ -188,5 +192,12 @@ public class WeeklyPlanDAO {
                 ar.add(ric);
             }
         } while (rs.next());
+    }
+
+    private void all(List<Recipe> m, int num, String allergies){
+        StringTokenizer st = new StringTokenizer(allergies);
+        while (st.hasMoreTokens()) {
+            m.get(num).addAll(st.nextToken());
+        }
     }
 }

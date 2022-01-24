@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SimpleQueries {
+    private static String veg="Vegetarian";
+    private static String v="Vegan";
+
     private SimpleQueries(){}
 
     public static ResultSet selectUserFromName(String username, Connection conn) throws SQLException {
@@ -31,28 +34,28 @@ public class SimpleQueries {
     public static ResultSet getRecipeFromNameCLAPAll(String name, int cl, String ap, Connection conn) throws SQLException{
         String sql;
         PreparedStatement prep;
-        if(ap.equalsIgnoreCase("Vegan")) {
+        if(ap.equalsIgnoreCase(v)) {
             sql = "SELECT * FROM ricetteinserite where Ricetta = ? AND Livello <= ? AND Intolleranza = ?";
             prep = conn.prepareStatement(sql);
             prep.setString(1, name);
             prep.setInt(2, cl);
             prep.setString(3, ap);
             return prep.executeQuery();
-        }else if(ap.equalsIgnoreCase("Vegetarian")){
+        }else if(ap.equalsIgnoreCase(veg)){
             sql = "SELECT * FROM ricetteinserite where Ricetta = ? AND Livello <= ? AND (Intolleranza = ? OR Intolleranza = ?)";
             prep = conn.prepareStatement(sql);
             prep.setString(1, name);
             prep.setInt(2, cl);
             prep.setString(3, ap);
-            prep.setString(4, "Vegan");
+            prep.setString(4, v);
         }else{
             sql = "SELECT * FROM ricetteinserite where Ricetta = ? AND Livello <= ? AND (Intolleranza = ? OR Intolleranza = ? OR Intolleranza = ?)";
             prep = conn.prepareStatement(sql);
             prep.setString(1, name);
             prep.setInt(2, cl);
             prep.setString(3, ap);
-            prep.setString(4, "Vegetarian");
-            prep.setString(5, "Vegan");
+            prep.setString(4, veg);
+            prep.setString(5, v);
         }
         return prep.executeQuery();
     }
@@ -153,28 +156,28 @@ public class SimpleQueries {
     public static ResultSet getRecipeFromTimeCLAPAll(int time, int cl, String ap, Connection conn) throws SQLException{
         String sql;
         PreparedStatement prep;
-        if(ap.equalsIgnoreCase("Vegan")) {
+        if(ap.equalsIgnoreCase(v)) {
             sql = "SELECT * FROM ricetteinserite where Tempo <= ? AND Livello <= ? AND Intolleranza = ?";
             prep = conn.prepareStatement(sql);
             prep.setInt(1, time);
             prep.setInt(2, cl);
             prep.setString(3, ap);
             return prep.executeQuery();
-        }else if(ap.equalsIgnoreCase("Vegetarian")){
+        }else if(ap.equalsIgnoreCase(veg)){
             sql = "SELECT * FROM ricetteinserite where Tempo <= ? AND Livello <= ? AND (Intolleranza = ? OR Intolleranza = ?)";
             prep = conn.prepareStatement(sql);
             prep.setInt(1, time);
             prep.setInt(2, cl);
             prep.setString(3, ap);
-            prep.setString(4, "Vegan");
+            prep.setString(4, v);
         }else{
             sql = "SELECT * FROM ricetteinserite where Tempo <= ? AND Livello <= ? AND (Intolleranza = ? OR Intolleranza = ? OR Intolleranza = ?)";
             prep = conn.prepareStatement(sql);
             prep.setInt(1, time);
             prep.setInt(2, cl);
             prep.setString(3, ap);
-            prep.setString(4, "Vegetarian");
-            prep.setString(5, "Vegan");
+            prep.setString(4, veg);
+            prep.setString(5, v);
         }
         return prep.executeQuery();
     }
@@ -190,28 +193,28 @@ public class SimpleQueries {
     public static ResultSet getRecipeFromIngrCLAPAll(String ingr, int cl, String ap, Connection conn) throws SQLException{
         String sql;
         PreparedStatement prep;
-        if(ap.equalsIgnoreCase("Vegan")) {
+        if(ap.equalsIgnoreCase(v)) {
             sql = "SELECT * FROM ricetteinserite where Ingrediente = ? AND Livello <= ? AND Intolleranza = ?";
             prep = conn.prepareStatement(sql);
             prep.setString(1, ingr);
             prep.setInt(2, cl);
             prep.setString(3, ap);
             return prep.executeQuery();
-        }else if(ap.equalsIgnoreCase("Vegetarian")){
+        }else if(ap.equalsIgnoreCase(veg)){
             sql = "SELECT * FROM ricetteinserite where Ingrediente = ? AND Livello <= ? AND (Intolleranza = ? OR Intolleranza = ?)";
             prep = conn.prepareStatement(sql);
             prep.setString(1, ingr);
             prep.setInt(2, cl);
             prep.setString(3, ap);
-            prep.setString(4, "Vegan");
+            prep.setString(4, v);
         }else{
             sql = "SELECT * FROM ricetteinserite where Ingrediente = ? AND Livello <= ? AND (Intolleranza = ? OR Intolleranza = ? OR Intolleranza = ?)";
             prep = conn.prepareStatement(sql);
             prep.setString(1, ingr);
             prep.setInt(2, cl);
             prep.setString(3, ap);
-            prep.setString(4, "Vegetarian");
-            prep.setString(5, "Vegan");
+            prep.setString(4, veg);
+            prep.setString(5, v);
         }
         return prep.executeQuery();
     }
@@ -219,27 +222,27 @@ public class SimpleQueries {
     public static ResultSet getRecipeFromTypeCLAPAll(String type, int cl, String ap, Connection conn) throws SQLException{
         String sql;
         PreparedStatement prep;
-        if(ap.equalsIgnoreCase("Vegan")) {
+        if(ap.equalsIgnoreCase(v)) {
             sql = "SELECT * FROM ricetteinserite where Type = ? AND Livello <= ? AND Intolleranza = ?";
             prep = conn.prepareStatement(sql);
             prep.setString(1, type);
             prep.setInt(2, cl);
             prep.setString(3, ap);
-        }else if(ap.equalsIgnoreCase("Vegetarian")){
+        }else if(ap.equalsIgnoreCase(veg)){
             sql = "SELECT * FROM ricetteinserite where Type = ? AND Livello <= ? AND (Intolleranza = ? OR Intolleranza = ?)";
             prep = conn.prepareStatement(sql);
             prep.setString(1, type);
             prep.setInt(2, cl);
             prep.setString(3, ap);
-            prep.setString(4, "Vegan");
+            prep.setString(4, v);
         }else{
             sql = "SELECT * FROM ricetteinserite where Type = ? AND Livello <= ? AND (Intolleranza = ? OR Intolleranza = ? OR Intolleranza = ?)";
             prep = conn.prepareStatement(sql);
             prep.setString(1, type);
             prep.setInt(2, cl);
             prep.setString(3, ap);
-            prep.setString(4, "Vegetarian");
-            prep.setString(5, "Vegan");
+            prep.setString(4, veg);
+            prep.setString(5, v);
         }
         return prep.executeQuery();
     }
@@ -256,13 +259,6 @@ public class SimpleQueries {
         String sql= "SELECT * FROM utenti where Username=?";
         PreparedStatement prep=conn.prepareStatement(sql);
         prep.setString(1, username);
-        return prep.executeQuery();
-    }
-
-    public static ResultSet getFromType(String type, Connection conn) throws SQLException {
-        String sql= "SELECT * FROM ricetteinserite where Type=?";
-        PreparedStatement prep=conn.prepareStatement(sql);
-        prep.setString(1, type);
         return prep.executeQuery();
     }
 }

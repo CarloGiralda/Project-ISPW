@@ -54,7 +54,7 @@ public class SearchRecipeA {
         return rbs;
     }
 
-    public List<RecipeBean> checkAlle(ArrayList<Recipe> recipe){
+    public List<RecipeBean> checkAlle(List<Recipe> recipe){
         List<RecipeBean> rb=new ArrayList<>();
         int h=0;
 
@@ -73,9 +73,8 @@ public class SearchRecipeA {
             }
             if (h == 0) {
                 rb.add(new RecipeBean(recipe.get(i).getName(), recipe.get(i).getChef(), recipe.get(i).getImage()));
-            }else {
-                h=0;
             }
+            h=0;
         }
         return rb;
     }
