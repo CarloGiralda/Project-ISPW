@@ -196,16 +196,16 @@ public class HomeChefController {
                 typeChef.setSelected(false);
             } else if (timeChef.isSelected()) {
                 String tm= searchChefField.getText();
-                rbs=sra.searchRecipeTime(tm);
+                rbs=sra.searchRecipeGen(tm, "time");
                 ingredientChef.setSelected(false);
                 typeChef.setSelected(false);
             } else if (ingredientChef.isSelected()) {
                 String ingr= searchChefField.getText();
-                rbs=sra.searchRecipeIngr(ingr);
+                rbs=sra.searchRecipeGen(ingr, "ingr");
                 typeChef.setSelected(false);
             } else if (typeChef.isSelected()) {
                 String t= searchChefField.getText();
-                rbs=sra.searchRecipeType(t);
+                rbs=sra.searchRecipeGen(t, "type");
             }
             apes = new ArrayList<>();
             for (int i = 0; i < rbs.size(); i++) {

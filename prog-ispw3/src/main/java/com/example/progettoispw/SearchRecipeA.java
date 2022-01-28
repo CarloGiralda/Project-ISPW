@@ -29,28 +29,10 @@ public class SearchRecipeA {
         return rbs;
     }
 
-    public List<RecipeBean> searchRecipeTime(String time) throws IOException, ClassNotFoundException, MyException {
+    public List<RecipeBean> searchRecipeGen(String general, String diff) throws IOException, ClassNotFoundException, MyException {
         rbs=new ArrayList<>();
         SearchRecipeA sra=new SearchRecipeA();
-        recipes=dao.searchRecipe("time", time, login.getCL(), login.getAP(), login.getUser());
-
-        rbs=sra.checkAlle(recipes);
-        return rbs;
-    }
-
-    public List<RecipeBean> searchRecipeIngr(String ingr) throws IOException, ClassNotFoundException, MyException {
-        rbs=new ArrayList<>();
-        SearchRecipeA sra=new SearchRecipeA();
-        recipes=dao.searchRecipe("ingr", ingr, login.getCL(), login.getAP(), login.getUser());
-
-        rbs=sra.checkAlle(recipes);
-        return rbs;
-    }
-
-    public List<RecipeBean> searchRecipeType(String type) throws IOException, ClassNotFoundException, MyException {
-        rbs=new ArrayList<>();
-        SearchRecipeA sra=new SearchRecipeA();
-        recipes=dao.searchRecipe("type", type, login.getCL(), login.getAP(), login.getUser());
+        recipes = dao.searchRecipe(diff, general, login.getCL(), login.getAP(), login.getUser());
 
         rbs=sra.checkAlle(recipes);
         return rbs;

@@ -4,8 +4,8 @@ import java.sql.*;
 
 public class Conn {
     private static Conn instance=null;
-    private static String user = "Progetto";
-    private static String pass = "";
+    private static String user = "carlo";
+    private static String pass = "carlo";
     private static String dbUrl = "jdbc:mysql://localhost:3306/progettoispw-db";
     private static String driverClassName = "com.mysql.jdbc.Driver";
     private Connection connection = null;

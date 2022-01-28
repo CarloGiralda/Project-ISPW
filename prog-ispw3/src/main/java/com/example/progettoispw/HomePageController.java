@@ -306,16 +306,16 @@ public class HomePageController {
                 type.setSelected(false);
             } else if (time.isSelected()) {
                 String tm = searchField.getText();
-                rbs = sra.searchRecipeTime(tm);
+                rbs = sra.searchRecipeGen(tm, "time");
                 ingredient.setSelected(false);
                 type.setSelected(false);
             } else if (ingredient.isSelected()) {
                 String ingr = searchField.getText();
-                rbs = sra.searchRecipeIngr(ingr);
+                rbs = sra.searchRecipeGen(ingr, "ingr");
                 type.setSelected(false);
             } else if (type.isSelected()) {
                 String t = searchField.getText();
-                rbs = sra.searchRecipeType(t);
+                rbs = sra.searchRecipeGen(t, "type");
             }
             aps = new ArrayList<>();
             for (int i = 0; i < rbs.size(); i++) {
