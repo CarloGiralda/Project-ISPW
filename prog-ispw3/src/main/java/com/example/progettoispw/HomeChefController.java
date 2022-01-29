@@ -143,6 +143,8 @@ public class HomeChefController {
         Object source = event.getSource();
 
         if (searchRecipeButton.equals(source)) {
+
+            manageButtonEffect(3);
             enablePane(paneSearchRecipe,true);
             enablePane(paneHome,false);
             enablePane(paneSaved,false);
@@ -170,12 +172,6 @@ public class HomeChefController {
         window.setScene(new Scene(root, 850, 594));
     }
 
-    @FXML
-    public void gobackFromSearchRecipe(){
-        enablePane(paneSaved, false);
-        enablePane(paneSearchRecipe, true);
-        enablePane(paneHome, false);
-    }
 
     @FXML
     public void addDynamicElement() throws IOException, ClassNotFoundException {
@@ -265,7 +261,7 @@ public class HomeChefController {
     }
 
     private void manageButtonEffect(int index) {
-        final Button[] sideBarButtons = {homeButton, savedButton};
+        final Button[] sideBarButtons = {homeButton, savedButton,searchRecipeButton};
         for (int elem = 0; elem < sideBarButtons.length; elem++) {
             if (elem == index) {
                 sideBarButtons[elem].getStyleClass().remove("button, focus");

@@ -56,8 +56,6 @@ public class HomePageController {
     @FXML
     private Button recipesHistoryButton;
     @FXML
-    private Button supermarketButton;
-    @FXML
     private Button shoppingListButton;
     @FXML
     private Button alimentarPreferencesButton;
@@ -142,13 +140,6 @@ public class HomePageController {
     public void showAlimentarPreferences() throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AlimentarPreferences.fxml")));
         Stage window=(Stage) alimentarPreferencesButton.getScene().getWindow();
-        window.setScene(new Scene(root, 850, 594));
-    }
-
-    @FXML
-    public void showSupermarkets() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Maps.fxml")));
-        Stage window=(Stage) supermarketButton.getScene().getWindow();
         window.setScene(new Scene(root, 850, 594));
     }
 

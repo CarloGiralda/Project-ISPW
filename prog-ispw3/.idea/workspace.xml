@@ -49,7 +49,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Project-ISPW.git/trunk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Project-ISPW.git/trunk" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
@@ -205,6 +205,8 @@
       <workItem from="1643388670024" duration="127000" />
       <workItem from="1643394035058" duration="524000" />
       <workItem from="1643394623805" duration="1106000" />
+      <workItem from="1643401644476" duration="799000" />
+      <workItem from="1643402826205" duration="424000" />
     </task>
     <servers />
   </component>
