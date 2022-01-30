@@ -72,7 +72,11 @@ public class RegisterPageController implements Initializable {
         a.setEmail(emailField.getText());
         a.setUser(usernameField.getText());
         a.setPass(passwordField.getText());
-        a.setCL(cl.getSelectionModel().getSelectedItem());
+        if(a.getSpec().equalsIgnoreCase("Chef")){
+            a.setCL("Advanced");
+        }else {
+            a.setCL(cl.getSelectionModel().getSelectedItem());
+        }
         a.setAP("None");
         a.addAll("No Allergies");
         try {

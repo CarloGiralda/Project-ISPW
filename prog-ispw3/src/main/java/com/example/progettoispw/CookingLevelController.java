@@ -42,11 +42,11 @@ public class CookingLevelController {
         if(bca.getSpecialization().equalsIgnoreCase("User") || bca.getSpecialization().equalsIgnoreCase("Premium")) {
             if (login != null && login.getCL() != null) {
                 String cl = login.getCL();
-                if(cl.toLowerCase().equalsIgnoreCase("beginner")) {
+                if(cl.equalsIgnoreCase("beginner")) {
                     r1.setSelected(true);
-                }else if(cl.toLowerCase().equalsIgnoreCase("intermediate")) {
+                }else if(cl.equalsIgnoreCase("intermediate")) {
                     r2.setSelected(true);
-                }else if(cl.toLowerCase().equalsIgnoreCase("advanced")){
+                }else if(cl.equalsIgnoreCase("advanced")){
                     r3.setSelected(true);
                 }
             }
