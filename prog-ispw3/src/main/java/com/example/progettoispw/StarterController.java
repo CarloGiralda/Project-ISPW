@@ -28,7 +28,7 @@ public class StarterController {
             if (login != null) {
                 int rem = login.getCheck();
                 String spec=login.getSpec();
-                if (rem != 0 && (spec.equalsIgnoreCase("User") || spec.equalsIgnoreCase("Premium"))) {
+                if (rem == 1 && (spec.equalsIgnoreCase("User") || spec.equalsIgnoreCase("Premium"))) {
                     Parent root = FXMLLoader.load(Objects.requireNonNull(StarterController.class.getResource("Home.fxml")));
                     Stage window = (Stage) enter.getScene().getWindow();
                     window.setScene(GeneralScene.getHome(root));

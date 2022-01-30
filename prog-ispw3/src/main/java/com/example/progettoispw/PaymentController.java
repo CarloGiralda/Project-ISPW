@@ -53,7 +53,7 @@ public class PaymentController {
     }
 
     @FXML
-    public void handleData() throws IOException {
+    public void handleData() throws IOException, ClassNotFoundException {
         Random rand = new Random();
         int upperbound = 10;
         int intrandom = rand.nextInt(upperbound);

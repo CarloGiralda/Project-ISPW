@@ -13,7 +13,7 @@ public class LoginControllerA {
         filedao=FileInterDAO.getInstance();
     }
 
-    public int checkUserAndPass(LogBean a) throws IOException {
+    public int checkUserAndPass(LogBean a) throws IOException, ClassNotFoundException {
         LoginDAO dao=LoginDAO.getInstance();
         Login save= dao.enter(a.getUser());
         if(a.getUser().equals(save.getUser()) && a.getPass().equals(save.getPass())){

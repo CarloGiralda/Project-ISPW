@@ -105,7 +105,7 @@ public class AlimentarPreferencesController {
     }
 
     @FXML
-    public void confirm() throws IOException {
+    public void confirm() throws IOException, ClassNotFoundException {
         final RadioButton[] allRB = {rb1,rb2,rb3,rb4,rb5,rb6};
         String preferences = selectedButtonLabel1.getText();
         ArrayList<String> listOfAllergies = new ArrayList<>() ;

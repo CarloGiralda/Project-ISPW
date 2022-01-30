@@ -66,9 +66,6 @@ public class SettingsController {
         }
     }
 
-
-
-
     @FXML
     public void gotoHome() throws IOException, ClassNotFoundException {
         if(bca.getSpecialization().equalsIgnoreCase("User") || bca.getSpecialization().equalsIgnoreCase("Premium")) {

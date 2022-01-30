@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 public class FileInterDAO {
     private static String fileCurrent="UtenteCorrente.dat";
     private static String fileRecipe="Recipes.dat";
@@ -38,31 +39,22 @@ public class FileInterDAO {
     }
 
     private void writeCurrent(String username) throws IOException {
-        f = new File(fileCurrent);
-        try (
-                FileOutputStream fileOut = new FileOutputStream(f);
-                ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)
-        ) {
-            objectOut.writeObject(username);
-
-        }
-        catch (IOException e){
-            logger.log(Level.INFO,"Errore di scrittura");
-        }
+        f=new File(fileCurrent);
+        FileOutputStream fileOut = new FileOutputStream(f);
+        ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+        objectOut.writeObject(username);
+        objectOut.close();
+        fileOut.close();
     }
 
-    private String readCurrent() throws IOException {
+    private String readCurrent() throws IOException, ClassNotFoundException {
         f = new File(fileCurrent);
-        try(
-                FileInputStream fileIn = new FileInputStream(f);
-                ObjectInputStream objectIn = new ObjectInputStream(fileIn)
-        ) {
-
-            return (String) objectIn.readObject();
-        }
-        catch (ClassNotFoundException e){
-            return null;
-        }
+        FileInputStream fileIn = new FileInputStream(f);
+        ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+        String username = (String) objectIn.readObject();
+        objectIn.close();
+        fileIn.close();
+        return username;
     }
 
     public void deleteCurrent() throws IOException {
@@ -73,58 +65,71 @@ public class FileInterDAO {
         }
     }
 
-    public void writeLog(Login login) throws IOException {
-        file=new File("Utente"+login.getUser()+".dat");
-
-        try(
-                FileOutputStream fileOut = new FileOutputStream(file);
-                ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)
-        ){
-            objectOut.writeObject(login);
-            this.writeCurrent(login.getUser());
+    public void writeLog(Login login) throws IOException, ClassNotFoundException {
+        this.writeCurrent(login.getUser());
+        try {
+            Login log = this.readLog();
+            if (log != null) {
+                log = Convert.inv(log, login);
+            } else {
+                log = login;
+            }
+            file = new File("Utente" + log.getUser() + ".dat");
+            FileOutputStream fileOut = new FileOutputStream(file);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(log);
+            objectOut.close();
+            fileOut.close();
             logger.log(Level.INFO, scrittura);
+        } catch(IOException e){
+            this.deleteCurrent();
         }
     }
 
     public Login readLog() throws IOException, ClassNotFoundException {
-
-        String user=this.readCurrent();
-        file = new File("Utente"+user+".dat");
-        FileInputStream fileIn = new FileInputStream(file);
-        try (fileIn; ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
+        try {
+            String user=this.readCurrent();
+            file = new File("Utente"+user+".dat");
+            FileInputStream fileIn = new FileInputStream(file);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
             Login login = (Login) objectIn.readObject();
+            objectIn.close();
+            fileIn.close();
             logger.log(Level.INFO, lettura);
             return login;
-        } catch (FileNotFoundException e) {
+        }catch(FileNotFoundException e) {
             return null;
         }
     }
 
     public List<Recipe> readRecipe() throws IOException, ClassNotFoundException {
-        file = new File(fileRecipe);
-        FileInputStream fileIn = new FileInputStream(file);
-        try (fileIn;ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
+        try {
+            file = new File(fileRecipe);
+            FileInputStream fileIn = new FileInputStream(file);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
             ArrayList<Recipe> recipe = (ArrayList<Recipe>) objectIn.readObject();
+            objectIn.close();
+            fileIn.close();
             logger.log(Level.INFO, lettura);
             return recipe;
-        } catch (FileNotFoundException e) {
+        }catch(FileNotFoundException e) {
             return null;
         }
     }
 
     public void writeRecipe(Recipe recipe) throws IOException, ClassNotFoundException {
-        filee = new File(fileRecipe);
-        List<Recipe> recipes = this.readRecipe();
-        if (recipes == null) {
-            recipes = new ArrayList<>();
+        filee=new File(fileRecipe);
+        List<Recipe> recipes= this.readRecipe();
+        if(recipes==null){
+            recipes=new ArrayList<>();
         }
         recipes.add(recipe);
-        try (FileOutputStream fileOut = new FileOutputStream(filee);
-             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
-
-            objectOut.writeObject(recipes);
-            logger.log(Level.INFO, scrittura);
-        }
+        FileOutputStream fileOut = new FileOutputStream(filee);
+        ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+        objectOut.writeObject(recipes);
+        objectOut.close();
+        fileOut.close();
+        logger.log(Level.INFO, scrittura);
     }
 
     public void deleteRecipes() throws IOException {
@@ -137,16 +142,18 @@ public class FileInterDAO {
     }
 
     public List<Recipe> readSaved() throws IOException, ClassNotFoundException {
-        file = new File(fileSaved);
-        try(FileInputStream fileIn = new FileInputStream(file);
-            ObjectInputStream objectIn = new ObjectInputStream(fileIn);) {
+        try {
+            file = new File(fileSaved);
+            FileInputStream fileIn = new FileInputStream(file);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
             ArrayList<Recipe> recipe = (ArrayList<Recipe>) objectIn.readObject();
+            objectIn.close();
+            fileIn.close();
             logger.log(Level.INFO, lettura);
             return recipe;
         }catch(FileNotFoundException e) {
             return null;
         }
-
     }
 
     public void writeSaved(Recipe recipe) throws IOException, ClassNotFoundException {
@@ -155,13 +162,13 @@ public class FileInterDAO {
         if(recipes==null){
             recipes=new ArrayList<>();
         }
-        try (FileOutputStream fileOut = new FileOutputStream(filee);
-             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)){
-            recipes.add(recipe);
-            objectOut.writeObject(recipes);
-            logger.log(Level.INFO, scrittura);
-        }
-
+        recipes.add(recipe);
+        FileOutputStream fileOut = new FileOutputStream(filee);
+        ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+        objectOut.writeObject(recipes);
+        objectOut.close();
+        fileOut.close();
+        logger.log(Level.INFO, scrittura);
     }
 
     public void deleteSaved() throws IOException {
@@ -175,25 +182,27 @@ public class FileInterDAO {
 
     public void writePlan(int day, List<Meal> meals) throws IOException {
         plan.add(day, new File("Day"+day+".dat"));
-        try(FileOutputStream fileOut = new FileOutputStream(plan.get(day));
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
-            objectOut.writeObject(meals);
-            logger.log(Level.INFO, scrittura);
-        }
+        FileOutputStream fileOut = new FileOutputStream(plan.get(day));
+        ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+        objectOut.writeObject(meals);
+        objectOut.close();
+        fileOut.close();
+        logger.log(Level.INFO, scrittura);
     }
 
     public List<Meal> readPlan(int day) throws IOException, ClassNotFoundException {
-        File temp = new File("Day"+day+".dat");
-        plan.set(day, temp);
-        File read = plan.get(day);
-        try (FileInputStream fileIn = new FileInputStream(read);
-             ObjectInputStream objectIn = new ObjectInputStream(fileIn)){
-
+        try {
+            File temp=new File("Day"+day+".dat");
             if(!temp.exists()){
                 throw new MyException("File non ancora creato");
             }
-
+            plan.set(day, temp);
+            File read = plan.get(day);
+            FileInputStream fileIn = new FileInputStream(read);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
             List<Meal> meals = (List<Meal>) objectIn.readObject();
+            objectIn.close();
+            fileIn.close();
             logger.log(Level.INFO, lettura);
             return meals;
         }catch(FileNotFoundException e){
@@ -212,20 +221,22 @@ public class FileInterDAO {
             recipes=new ArrayList<>();
         }
         recipes.add(recipe);
-        try(   FileOutputStream fileOut = new FileOutputStream(foo);
-               ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
-            objectOut.writeObject(recipes);
-            logger.log(Level.INFO, scrittura);
-        }
-
+        FileOutputStream fileOut = new FileOutputStream(foo);
+        ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+        objectOut.writeObject(recipes);
+        objectOut.close();
+        fileOut.close();
+        logger.log(Level.INFO, scrittura);
     }
 
     public List<Recipe> readChef() throws IOException, ClassNotFoundException {
-        foo = new File("MyList.dat");
-        try( FileInputStream fileIn = new FileInputStream(foo);
-             ObjectInputStream objectIn = new ObjectInputStream(fileIn))
-        {
+        try {
+            foo=new File("MyList.dat");
+            FileInputStream fileIn = new FileInputStream(foo);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
             ArrayList<Recipe> recipes = (ArrayList<Recipe>) objectIn.readObject();
+            objectIn.close();
+            fileIn.close();
             logger.log(Level.INFO, lettura);
             return recipes;
         }catch(FileNotFoundException e){

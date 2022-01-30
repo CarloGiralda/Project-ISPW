@@ -42,7 +42,7 @@ public class RegisterPageController implements Initializable {
     @FXML
     private ChoiceBox<String> spec;
 
-    private final String[] clStr = {"low","medium","hard"};
+    private final String[] clStr = {"Beginner","Intermediate","Advanced"};
     private static Logger logger=Logger.getLogger(RegisterPageController.class.getName());
     private LogBean a;
     private RegisterControllerA reg;
@@ -55,8 +55,8 @@ public class RegisterPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cl.getItems().addAll(clStr);
-        spec.getItems().add("chef");
-        spec.getItems().add("user");
+        spec.getItems().add("Chef");
+        spec.getItems().add("User");
 
     }
 
@@ -73,6 +73,8 @@ public class RegisterPageController implements Initializable {
         a.setUser(usernameField.getText());
         a.setPass(passwordField.getText());
         a.setCL(cl.getSelectionModel().getSelectedItem());
+        a.setAP("None");
+        a.addAll("No Allergies");
         try {
             reg.register(a);
             reg.initFile(a);

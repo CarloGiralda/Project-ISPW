@@ -11,13 +11,8 @@ public class RegisterControllerA {
         filedao=FileInterDAO.getInstance();
     }
 
-    public void initFile(LogBean log) throws IOException {
-        Login login=new Login();
-        login.setUser(log.getUser());
-        login.setPass(log.getPass());
-        login.setSpec(log.getCL());
-        login.setCL(log.getCL());
-        login.setEmail(log.getEmail());
+    public void initFile(LogBean log) throws IOException, ClassNotFoundException {
+        Login login=Convert.convertBeanToEntity(log);
         filedao.writeLog(login);
     }
 }

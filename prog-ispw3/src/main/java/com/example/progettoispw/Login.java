@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Login implements Serializable {
-    private String user;
-    private String pass;
-    private String spec;
-    private String email;
-    private String cl;
-    private int check=0;
-    private String ap;
+    private String user=null;
+    private String pass=null;
+    private String spec=null;
+    private String email=null;
+    private String cl=null;
+    private int check=-1;
+    private String ap=null;
     private ArrayList<String> all=new ArrayList<>();
     private boolean prem=false;
 

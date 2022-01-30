@@ -49,7 +49,6 @@ public class LoginController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ForgotPassword.fxml")));
         Stage window=(Stage) forgotPasswordButton.getScene().getWindow();
         window.setScene(new Scene(root, 850, 594));
-
     }
 
     @FXML
@@ -102,6 +101,4 @@ public class LoginController {
         Stage window=(Stage) registerlink.getScene().getWindow();
         window.setScene(new Scene(root, 850, 594));
     }
-
-
 }

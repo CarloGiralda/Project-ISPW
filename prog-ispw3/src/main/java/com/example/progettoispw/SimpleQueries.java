@@ -17,22 +17,20 @@ public class SimpleQueries {
 
     public static ResultSet selectUserFromName(String username, Connection conn) throws SQLException {
         String sql = "SELECT * FROM Utenti where Username = ?";
-        try (PreparedStatement prep = conn.prepareStatement(sql)) {
-            prep.setString(1, username);
-            return prep.executeQuery();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, username);
+        return prep.executeQuery();
     }
 
     public static int insertUser(String username, String password, int cl, String email, String spec, Connection conn) throws SQLException {
         String sql = "INSERT INTO Utenti(Username, Password, Specializzazione, CookingLevel, Email) values (?,?,?,?,?)";
-        try (PreparedStatement prep = conn.prepareStatement(sql)) {
-            prep.setString(1, username);
-            prep.setString(2, password);
-            prep.setString(3, spec);
-            prep.setInt(4, cl);
-            prep.setString(5, email);
-            return prep.executeUpdate();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, username);
+        prep.setString(2, password);
+        prep.setString(3, spec);
+        prep.setInt(4, cl);
+        prep.setString(5, email);
+        return prep.executeUpdate();
     }
 
     public static ResultSet getRecipeFromNameCLAPAll(String name, int cl, String ap, Connection conn) throws SQLException{
@@ -45,7 +43,6 @@ public class SimpleQueries {
             prep.setInt(2, cl);
             prep.setString(3, ap);
             return prep.executeQuery();
-
         }else if(ap.equalsIgnoreCase(veg)){
             sql = "SELECT * FROM ricetteinserite where Ricetta = ? AND Livello <= ? AND (Intolleranza = ? OR Intolleranza = ?)";
             prep = conn.prepareStatement(sql);
@@ -67,106 +64,95 @@ public class SimpleQueries {
 
     public static int insertCookingLevel(int cook, String username, Connection conn) throws SQLException {
         String sql= "UPDATE utenti SET CookingLevel=? WHERE Username=?";
-        try(PreparedStatement prep=conn.prepareStatement(sql)){
-            prep.setInt(1, cook);
-            prep.setString(2, username);
-            return prep.executeUpdate();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setInt(1, cook);
+        prep.setString(2, username);
+        return prep.executeUpdate();
     }
 
     public static ResultSet getPassFromEmail(String email, Connection conn) throws SQLException {
         String sql= "SELECT Password FROM utenti where Email = ?";
-        try(PreparedStatement prep=conn.prepareStatement(sql)){
-            prep.setString(1, email);
-            return prep.executeQuery();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, email);
+        return prep.executeQuery();
     }
 
     public static int setUserFromName(String nameSet, String oldName, Connection conn) throws SQLException {
         String sql= "UPDATE utenti SET Username=? WHERE Username=?";
-        try(PreparedStatement prep=conn.prepareStatement(sql)){
-            prep.setString(1, nameSet);
-            prep.setString(2, oldName);
-            return prep.executeUpdate();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, nameSet);
+        prep.setString(2, oldName);
+        return prep.executeUpdate();
     }
 
     public static int setPassFromName(String password, String username, Connection conn) throws SQLException {
         String sql= "UPDATE utenti SET Password=? WHERE Username=?";
-        try(PreparedStatement prep=conn.prepareStatement(sql)){
-            prep.setString(1, password);
-            prep.setString(2, username);
-            return prep.executeUpdate();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, password);
+        prep.setString(2, username);
+        return prep.executeUpdate();
     }
 
     public static int insertRecipeFromIngredient(String username, Recipe recipe, String ingredient, int level, String amount, String all, Connection conn) throws SQLException {
         String sql= "INSERT INTO ricetteinserite(Nome, Ricetta, Ingrediente, Livello, Tempo, Intolleranza, Type, Description, Ammontare, Allergies) values(?,?,?,?,?,?,?,?,?,?)";
-        try(PreparedStatement prep=conn.prepareStatement(sql)){
-            prep.setString(1, username);
-            prep.setString(2, recipe.getName());
-            prep.setString(3, ingredient);
-            prep.setInt(4, level);
-            prep.setInt(5, Integer.parseInt(recipe.getCT()));
-            prep.setString(6, recipe.getAP());
-            prep.setString(7, recipe.getType());
-            prep.setString(8, recipe.getDescription());
-            prep.setString(9, amount);
-            prep.setString(10, all);
-            return prep.executeUpdate();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, username);
+        prep.setString(2, recipe.getName());
+        prep.setString(3, ingredient);
+        prep.setInt(4, level);
+        prep.setInt(5, Integer.parseInt(recipe.getCT()));
+        prep.setString(6, recipe.getAP());
+        prep.setString(7, recipe.getType());
+        prep.setString(8, recipe.getDescription());
+        prep.setString(9, amount);
+        prep.setString(10, all);
+        return prep.executeUpdate();
     }
 
     public static int insertImages(String name, String chef, File file, InputStream fin, Connection conn) throws SQLException {
         String sql= "INSERT INTO images(Nome, Chef, IMG) values (?, ?, ?)";
-        try(PreparedStatement prep=conn.prepareStatement(sql)){
-            prep.setString(1, name);
-            prep.setString(2, chef);
-            prep.setBinaryStream(3, fin, file.length());
-            return prep.executeUpdate();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, name);
+        prep.setString(2, chef);
+        prep.setBinaryStream(3, fin, file.length());
+        return prep.executeUpdate();
     }
 
     public static int insertAlimentarPreferences(String username, String pref, Connection conn) throws SQLException {
         String sql= "UPDATE utenti SET AlimentarPreferences=? WHERE Username=?";
-        try(PreparedStatement prep=conn.prepareStatement(sql)){
-            prep.setString(1, pref);
-            prep.setString(2, username);
-            return prep.executeUpdate();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, pref);
+        prep.setString(2, username);
+        return prep.executeUpdate();
     }
 
     public static int insertAllergies(String username, String all, Connection conn) throws SQLException {
         String sql= "INSERT INTO allergies(Name, Allergy) values (?, ?)";
-        try(PreparedStatement prep=conn.prepareStatement(sql)){
-            prep.setString(1, username);
-            prep.setString(2, all);
-            return prep.executeUpdate();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, username);
+        prep.setString(2, all);
+        return prep.executeUpdate();
     }
 
     public static ResultSet getAllergies(String username, Connection conn) throws SQLException {
         String sql= "SELECT * FROM allergies where Name = ?";
-        try(PreparedStatement prep=conn.prepareStatement(sql)){
-            prep.setString(1, username);
-            return prep.executeQuery();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, username);
+        return prep.executeQuery();
     }
 
     public static int deleteAllergies(String username, Connection conn) throws SQLException {
         String sql= "DELETE FROM allergies WHERE Name = ?";
-        try(PreparedStatement prep=conn.prepareStatement(sql)){
-            prep.setString(1, username);
-            return prep.executeUpdate();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, username);
+        return prep.executeUpdate();
     }
 
     public static ResultSet getImage(String name, Connection conn) throws SQLException {
         String sql= "SELECT * FROM images where Nome = ?";
-        try(PreparedStatement prep=conn.prepareStatement(sql)){
-            prep.setString(1, name);
-            return prep.executeQuery();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, name);
+        return prep.executeQuery();
     }
 
     public static ResultSet getRecipeFromTimeCLAPAll(int time, int cl, String ap, Connection conn) throws SQLException{
@@ -200,11 +186,10 @@ public class SimpleQueries {
 
     public static ResultSet getImageFromChef(String name, String chef, Connection conn) throws SQLException {
         String sql= "SELECT * FROM images where Nome = ? AND Chef=?";
-        try(PreparedStatement prep=conn.prepareStatement(sql)){
-            prep.setString(1, name);
-            prep.setString(2, chef);
-            return prep.executeQuery();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, name);
+        prep.setString(2, chef);
+        return prep.executeQuery();
     }
 
     public static ResultSet getRecipeFromIngrCLAPAll(String ingr, int cl, String ap, Connection conn) throws SQLException{
@@ -266,18 +251,16 @@ public class SimpleQueries {
 
     public static int upgradePremium(String username, Connection conn) throws SQLException {
         String sql= "UPDATE utenti SET Specializzazione=? WHERE Username=?";
-        try(PreparedStatement prep=conn.prepareStatement(sql)){
-            prep.setString(1, "Premium");
-            prep.setString(2, username);
-            return prep.executeUpdate();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, "Premium");
+        prep.setString(2, username);
+        return prep.executeUpdate();
     }
 
     public static ResultSet getSpecFromName(String username, Connection conn) throws SQLException {
         String sql= "SELECT * FROM utenti where Username=?";
-        try(PreparedStatement prep=conn.prepareStatement(sql)){
-            prep.setString(1, username);
-            return prep.executeQuery();
-        }
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, username);
+        return prep.executeQuery();
     }
 }

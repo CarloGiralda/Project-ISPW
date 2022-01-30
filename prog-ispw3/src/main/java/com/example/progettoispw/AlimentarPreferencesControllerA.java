@@ -15,7 +15,7 @@ public class AlimentarPreferencesControllerA {
         login=filedao.readLog();
     }
 
-    public void setPref(String pref, List<String> all) throws IOException {
+    public void setPref(String pref, List<String> all) throws IOException, ClassNotFoundException {
         if(pref.equals("I have no particular preferences")){
             pref="None";
         }

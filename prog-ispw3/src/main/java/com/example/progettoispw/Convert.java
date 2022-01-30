@@ -83,12 +83,6 @@ public class Convert {
             return null;
         }
         Login login = new Login(lb.getUser(), lb.getPass());
-        if(lb.getUser()!=null) {
-            login.setUser(lb.getUser());
-        }
-        if(lb.getPass()!=null){
-            login.setPass(lb.getPass());
-        }
         if(lb.getEmail()!=null){
             login.setEmail(lb.getEmail());
         }
@@ -112,7 +106,6 @@ public class Convert {
                 login.addAll(lb.getAll().get(i));
             }
         }
-
         return login;
     }
 
@@ -150,7 +143,6 @@ public class Convert {
                 logb.addAll(login.getAll().get(i));
             }
         }
-
         return logb;
     }
 
@@ -182,5 +174,60 @@ public class Convert {
         return ib;
     }
 
+    public static Login inv(Login log, Login login){
+        if(login==null){
+            return log;
+        }
+        Login in=new Login();
+        if(login.getUser()!=null && !login.getUser().equalsIgnoreCase("")) {
+            in.setUser(login.getUser());
+        }else{
+            in.setUser(log.getUser());
+        }
+        if(login.getPass()!=null && !login.getPass().equalsIgnoreCase("")){
+            in.setPass(login.getPass());
+        }else{
+            in.setPass(log.getPass());
+        }
+        if(login.getEmail()!=null && !login.getEmail().equalsIgnoreCase("")){
+            in.setEmail(login.getEmail());
+        }else{
+            in.setEmail(log.getEmail());
+        }
+        if(login.getSpec()!=null && !login.getSpec().equalsIgnoreCase("")){
+            in.setSpec(login.getSpec());
+        }else{
+            in.setSpec(log.getSpec());
+        }
+        if(login.getPremium() || log.getPremium() ){
+            in.setPremium();
+        }
+        return Convert.other(log, login, in);
+    }
 
+    private static Login other(Login log, Login login, Login in){
+        if(login.getCL()!=null && !login.getCL().equalsIgnoreCase("")){
+            in.setCL(login.getCL());
+        }else{
+            in.setCL(log.getCL());
+        }
+        if(login.getCheck()>0 || (login.getCheck()<0 && log.getCheck()>0)){
+            in.setCheck();
+        }
+        if(login.getAP()!=null && !login.getAP().equalsIgnoreCase("")){
+            in.setAP(login.getAP());
+        }else{
+            in.setAP(log.getAP());
+        }
+        if(!login.getAll().isEmpty()){
+            for(int i=0; i<login.getAll().size(); i++){
+                in.addAll(login.getAll().get(i));
+            }
+        }else if(!log.getAll().isEmpty()){
+            for(int i=0; i<log.getAll().size(); i++){
+                in.addAll(log.getAll().get(i));
+            }
+        }
+        return in;
+    }
 }

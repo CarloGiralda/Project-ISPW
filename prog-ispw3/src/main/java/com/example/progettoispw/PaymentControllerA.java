@@ -11,7 +11,7 @@ public class PaymentControllerA {
         login=filedao.readLog();
     }
 
-    public void setPremiumUser() throws IOException {
+    public void setPremiumUser() throws IOException, ClassNotFoundException {
         PaymentDAO paydao = PaymentDAO.getInstance();
         paydao.insertPremiumUser(login.getUser());
         login.setPremium();

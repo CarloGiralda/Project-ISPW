@@ -35,7 +35,7 @@ public class ForgotPasswordController {
 
     @FXML
     public void goBack() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("enter.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
         Stage window=(Stage) back.getScene().getWindow();
         window.setScene(new Scene(root, 850, 594));
     }

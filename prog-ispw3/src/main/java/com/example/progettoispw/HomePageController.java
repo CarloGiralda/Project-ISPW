@@ -59,14 +59,12 @@ public class HomePageController {
     private Button shoppingListButton;
     @FXML
     private Button alimentarPreferencesButton;
-
     @FXML
     private Button confirmSearchButton;
     @FXML
     private Button premiumButton;
     @FXML
     private Button tutorialButton;
-
     @FXML
     private Label nameUser;
     @FXML
@@ -143,7 +141,6 @@ public class HomePageController {
         window.setScene(new Scene(root, 850, 594));
     }
 
-
     @FXML
     public void showShoppingList() throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ShoppingList.fxml")));
@@ -184,9 +181,7 @@ public class HomePageController {
                 general=paneHome.getParent();
                 GeneralScene.refreshHome(general);
             }
-        }
-
-        else if(source.equals(savedButton)) {
+        }else if(source.equals(savedButton)) {
 
             if (checkPaneState(paneSaved)) {
                 manageButtonEffect(1);
@@ -210,15 +205,11 @@ public class HomePageController {
                     this.createButton(recipes);
                 }
             }
-        }
-
-        else if(source.equals(planButton)) {
+        }else if(source.equals(planButton)) {
             this.weekPlan();
             general=paneHome.getParent();
             GeneralScene.refreshHome(general);
-        }
-
-        else if(source.equals(recipeButton) && checkPaneState(paneSearchRecipe)) {
+        }else if(source.equals(recipeButton) && checkPaneState(paneSearchRecipe)) {
             manageButtonEffect(3);
 
             enablePane(paneSearchRecipe,true);
