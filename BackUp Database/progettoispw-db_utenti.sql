@@ -39,7 +39,7 @@ CREATE TABLE `utenti` (
 
 LOCK TABLES `utenti` WRITE;
 /*!40000 ALTER TABLE `utenti` DISABLE KEYS */;
-INSERT INTO `utenti` VALUES ('1','1','Premium',1,'.@','None'),('admin','admin','Premium',3,'.@','None'),('chef','chef','Chef',3,'.@','None'),('ciao','ciao','Premium',2,'gabriele.lerani2000@gmail.com','None'),('hi','hi','Chef',3,'gettopro17@gmail.com','None');
+INSERT INTO `utenti` VALUES ('admin','admin','Premium',3,'.@','None'),('chef','chef','Chef',3,'.@','None'),('ciao','ciao','Premium',2,'gabriele.lerani2000@gmail.com','None'),('hi','hi','Chef',3,'gettopro17@gmail.com','None');
 /*!40000 ALTER TABLE `utenti` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-31 13:15:46
+-- Dump completed on 2022-01-31 19:05:13
