@@ -21,11 +21,11 @@ public class CookingLevelDAO {
     public void insertCL(String cl, String username){
         int num=0;
         try {
-            if (cl.toLowerCase().equalsIgnoreCase("beginner")) {
+            if (cl.equalsIgnoreCase("beginner")) {
                 num = 1;
-            } else if (cl.toLowerCase().equalsIgnoreCase("intermediate")) {
+            } else if (cl.equalsIgnoreCase("intermediate")) {
                 num = 2;
-            }else if(cl.toLowerCase().equalsIgnoreCase("advanced")){
+            }else if(cl.equalsIgnoreCase("advanced")){
                 num = 3;
             }
 
