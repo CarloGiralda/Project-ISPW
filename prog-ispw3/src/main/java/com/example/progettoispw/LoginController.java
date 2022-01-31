@@ -17,8 +17,7 @@ public class LoginController {
     private TextField username;
     @FXML
     private TextField password;
-    @FXML
-    private Button secondInterface;
+
     @FXML
     private Button registerlink;
     @FXML
@@ -51,15 +50,7 @@ public class LoginController {
         window.setScene(new Scene(root, 850, 594));
     }
 
-    @FXML
-    private Button developAccess;
 
-    @FXML
-    public void develop() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Home.fxml")));
-        Stage window=(Stage) developAccess.getScene().getWindow();
-        window.setScene(GeneralScene.getHome(root));
-    }
 
     @FXML
     public void checkUsernameAndPassword() throws IOException, ClassNotFoundException {

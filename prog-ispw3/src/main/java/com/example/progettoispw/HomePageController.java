@@ -79,6 +79,8 @@ public class HomePageController {
     private TextField searchField;
     @FXML
     private Label labelerr;
+    @FXML
+    private Label errwp;
 
     @FXML private Button monBreak;
     @FXML private Button tueBreak;
@@ -165,6 +167,7 @@ public class HomePageController {
 
     @FXML
     public void handleSideBar(ActionEvent event) throws IOException, ClassNotFoundException {
+        errwp.setOpacity(0);
         Object source = event.getSource();
         if(source.equals(homeButton)) {
             if (checkPaneState(paneHome)) {
@@ -237,6 +240,8 @@ public class HomePageController {
 
             general=paneHome.getParent();
             GeneralScene.refreshHome(general);
+        }else{
+            errwp.setOpacity(1);
         }
     }
 
@@ -276,7 +281,7 @@ public class HomePageController {
         ArrayList<Label> lb = new ArrayList<>();
         ArrayList<ImageView> iw = new ArrayList<>();
         List<RecipeBean> rbs = new ArrayList<>();
-
+        labelerr.setOpacity(0);
         recipeBox.getChildren().clear();
         try {
             if (recipe.isSelected()) {
@@ -346,8 +351,13 @@ public class HomePageController {
                 aps.get(i).setTopAnchor(iw.get(i), 0.0);
                 recipeBox.getChildren().add(aps.get(i));
             }
+            if(rbs.size()==0){
+                labelerr.setText("Ricetta o immagine relativa non trovata");
+                labelerr.setOpacity(1);
+            }
         } catch (MyException e) {
             labelerr.setText("Ricetta o immagine relativa non trovata");
+            labelerr.setOpacity(1);
         }
     }
 

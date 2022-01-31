@@ -95,7 +95,7 @@ public class RegisterPageController implements Initializable {
 
     @FXML
     public void goBackToLogin() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("enter.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
         Stage window=(Stage) goBack.getScene().getWindow();
         window.setScene(new Scene(root, 850, 594));
     }

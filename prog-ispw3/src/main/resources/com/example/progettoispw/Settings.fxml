@@ -31,14 +31,6 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="privacyButton" layoutX="10.0" layoutY="95.0" mnemonicParsing="false" onAction="#gotoPrivacy" prefHeight="65.0" prefWidth="271.0" stylesheets="@../../../Style/AllSettingsStyle/SettingsStyle.css" text="Privacy">
-               <font>
-                  <Font name="Century Gothic" size="24.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
             <Button fx:id="tutorialButton" layoutX="10.0" layoutY="181.0" mnemonicParsing="false" onAction="#gotoTutorial" prefHeight="65.0" prefWidth="271.0" stylesheets="@../../../Style/AllSettingsStyle/SettingsStyle.css" text="Tutorial">
                <font>
                   <Font name="Century Gothic" size="24.0" />

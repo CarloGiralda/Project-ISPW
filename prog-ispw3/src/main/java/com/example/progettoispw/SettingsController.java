@@ -19,8 +19,6 @@ public class SettingsController {
     @FXML
     private Button cookingLevelButton;
 
-    @FXML
-    private Button privacyButton;
 
     @FXML
     private Button accountButton;
@@ -40,12 +38,7 @@ public class SettingsController {
         Stage window=(Stage) cookingLevelButton.getScene().getWindow();
         window.setScene(new Scene(root, 850, 594));
     }
-    @FXML
-    public void gotoPrivacy() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("PrivacySettings.fxml")));
-        Stage window=(Stage) privacyButton.getScene().getWindow();
-        window.setScene(new Scene(root, 850, 594));
-    }
+
     @FXML
     public void gotoAccount() throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AccountSettings.fxml")));

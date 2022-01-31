@@ -110,10 +110,5 @@
             <Image url="@../../../images/icons8_food_100px_2.png" />
          </image>
       </ImageView>
-      <Button fx:id="developAccess" alignment="CENTER" contentDisplay="CENTER" layoutX="752.0" layoutY="519.0" mnemonicParsing="false" onAction="#develop" prefHeight="35.0" prefWidth="77.0" style="-fx-background-color: #2A52BE;" text="access" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Century Gothic" size="18.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
