@@ -36,4 +36,27 @@ public class CookingLevelDAO {
             e.printStackTrace();
         }
     }
+
+    public String getCL(String username){
+        String lv=null;
+        try {
+            ResultSet rs = SimpleQueries.getSpecFromName(username, conn);
+            if(!rs.first()){
+                return null;
+            }
+            rs.first();
+            int cl=rs.getInt("CookingLevel");
+            if(cl==1){
+                lv="Beginner";
+            }else if(cl==2){
+                lv="Intermediate";
+            }else if(cl==3){
+                lv="Advanced";
+            }
+            return lv;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

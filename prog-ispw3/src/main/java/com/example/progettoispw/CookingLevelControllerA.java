@@ -11,6 +11,10 @@ public class CookingLevelControllerA {
         filedao=FileInterDAO.getInstance();
     }
 
+    public String getCL(String username){
+        return dao.getCL(username);
+    }
+
     public void setCL(String cl) throws IOException, ClassNotFoundException {
         Login login=filedao.readLog();
         String username=login.getUser();

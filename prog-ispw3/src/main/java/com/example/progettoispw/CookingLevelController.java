@@ -38,17 +38,20 @@ public class CookingLevelController {
     }
 
     public void initialize() throws IOException, ClassNotFoundException {
+        String cl;
         LogBean login=fl.getLog();
         if(bca.getSpecialization().equalsIgnoreCase("User") || bca.getSpecialization().equalsIgnoreCase("Premium")) {
             if (login != null && login.getCL() != null) {
-                String cl = login.getCL();
-                if(cl.equalsIgnoreCase("beginner")) {
-                    r1.setSelected(true);
-                }else if(cl.equalsIgnoreCase("intermediate")) {
-                    r2.setSelected(true);
-                }else if(cl.equalsIgnoreCase("advanced")){
-                    r3.setSelected(true);
-                }
+                cl = login.getCL();
+            }else{
+                cl=clca.getCL(login.getUser());
+            }
+            if(cl.equalsIgnoreCase("beginner")) {
+                r1.setSelected(true);
+            }else if(cl.equalsIgnoreCase("intermediate")) {
+                r2.setSelected(true);
+            }else if(cl.equalsIgnoreCase("advanced")){
+                r3.setSelected(true);
             }
         }else{
             clca.setCL("Advanced");
