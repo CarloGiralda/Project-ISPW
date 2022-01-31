@@ -168,7 +168,7 @@ public class SearchDAO extends SubjectSearchDAO{
 
                 do {
                     ingredients.add(new ArrayList<>());
-                    if (rs.getString(r).equals(ric)) {
+                    if (rs.getString(r).equalsIgnoreCase(ric) && rs.getString("Nome").equalsIgnoreCase(nome)) {
                         ingredients.get(z).add(new Ingredient(rs.getString("Ingrediente"), rs.getString("Ammontare")));
                     } else {
                         break;

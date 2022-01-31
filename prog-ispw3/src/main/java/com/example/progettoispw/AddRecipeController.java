@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -146,9 +147,8 @@ public class AddRecipeController {
             String title = insertTitle.getText();
             String description = addDescription.getText();
 
-            if (!selectedButtonLabel1.getText().equals("No particular preferences")) {
-                aP = selectedButtonLabel1.getText();
-            } else {
+            aP = selectedButtonLabel1.getText();
+            if (selectedButtonLabel1.getText().equals("No particular preferences")) {
                 aP = "None";
             }
             String cT = cookingTime.getText();
@@ -208,6 +208,9 @@ public class AddRecipeController {
         } catch (MyException e) {
             error.setText("Insert a integer into CT");
             error.setOpacity(1);
+        } catch (SQLException e) {
+            error.setText("Recipe already inserted");
+            error.setOpacity(1);
         }
     }
 
@@ -260,8 +263,6 @@ public class AddRecipeController {
         Stage window = (Stage) insertTitle.getScene().getWindow();
         window.setScene(GeneralScene.getAddTemp(anch));
     }
-
-
 
     public int convertIntParameter(String str) throws MyException {
         int value = 0;

@@ -40,10 +40,12 @@ public class AccountSettingsController {
     private LogBean login;
     private AccountSettingsControllerA asca;
     private FileController fl;
+    private BackControllerA bca;
 
     public AccountSettingsController(){
         fl=new FileController();
         asca=new AccountSettingsControllerA();
+        bca=new BackControllerA();
     }
 
     public void initialize() throws IOException, ClassNotFoundException {
@@ -62,10 +64,14 @@ public class AccountSettingsController {
     }
 
     @FXML
-    public void changeU(){
-        usernameLabel.setOpacity(1);
-        usernameField.setEditable(true);
-        usernameField.setText("");
+    public void changeU() throws IOException, ClassNotFoundException {
+        if(!bca.getSpecialization().equalsIgnoreCase("Chef")) {
+            usernameLabel.setOpacity(1);
+            usernameField.setEditable(true);
+            usernameField.setText("");
+        }else{
+            error.setText("Name not editable for chef");
+        }
     }
 
     @FXML

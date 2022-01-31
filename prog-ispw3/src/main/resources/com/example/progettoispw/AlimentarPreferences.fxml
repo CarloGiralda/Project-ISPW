@@ -168,5 +168,20 @@
          </cursor>
       </Button>
       <Label fx:id="selectedButtonLabel1" disable="true" opacity="0.0" />
+      <Label layoutX="571.0" layoutY="534.0" prefHeight="17.0" prefWidth="315.0" text="If you want to change your allergies, follow:">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="571.0" layoutY="550.0" prefHeight="17.0" prefWidth="293.0" text="1. Clear   2. Select your allergies   3. Save">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="succeed" layoutX="125.0" layoutY="516.0" opacity="0.0" prefHeight="48.0" prefWidth="157.0" text="Changes applied" textFill="#09ff00">
+         <font>
+            <Font name="Century Gothic Bold" size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

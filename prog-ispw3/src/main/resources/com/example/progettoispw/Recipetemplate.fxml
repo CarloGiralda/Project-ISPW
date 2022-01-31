@@ -195,7 +195,7 @@
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../SmartFood/prog-ispw/src/main/resources/images/icons8_facebook_like_64px_1.png" />
+                              <Image url="@../../../images/icons8_facebook_like_64px_1.png" />
                            </image>
                         </ImageView>
                      </graphic>

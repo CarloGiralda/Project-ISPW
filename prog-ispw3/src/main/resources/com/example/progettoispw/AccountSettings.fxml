@@ -75,7 +75,6 @@
                            <font>
                               <Font name="Century Gothic" size="12.0" />
                            </font></TextField>
-                        <Label fx:id="error" textFill="RED" />
                      </children>
                   </VBox>
                   <TextField fx:id="spchange" editable="false" layoutX="10.0" layoutY="195.0" prefHeight="29.0" prefWidth="256.0">
@@ -175,5 +174,6 @@
             <Separator prefHeight="0.0" prefWidth="165.0" />
          </children>
       </HBox>
+      <Label fx:id="error" layoutX="361.0" layoutY="187.0" prefHeight="17.0" prefWidth="270.0" textFill="RED" />
     </children>
 </Pane>

@@ -217,7 +217,7 @@ public class HomeChefController {
                 bt.get(i).setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        IndexTrace.raset(finalI);
+                        IndexTrace.tempset(finalI);
                         IndexTrace.setFive(0);
                         Parent root = null;
                         try {

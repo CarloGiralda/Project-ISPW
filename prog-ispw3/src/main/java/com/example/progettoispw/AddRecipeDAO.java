@@ -23,33 +23,32 @@ public class AddRecipeDAO {
         return instance;
     }
 
-    public void insertRecipe(Recipe rb, String username){
+    public void insertRecipe(Recipe rb, String username) throws SQLException {
         StringBuilder str = new StringBuilder();
-        try {
-            if(rb.getCookingLevel().equals("Beginner")){
-                num=1;
-            }else if(rb.getCookingLevel().equals("Intermediate")){
-                num=2;
-            }else if(rb.getCookingLevel().equals("Advanced")){
-                num=3;
-            }
+        if(rb.getCookingLevel().equals("Beginner")){
+            num=1;
+        }else if(rb.getCookingLevel().equals("Intermediate")){
+            num=2;
+        }else if(rb.getCookingLevel().equals("Advanced")){
+            num=3;
+        }
 
-            for(int i=0; i<rb.getAll().size(); i++){
-                if(i==0){
-                    str = new StringBuilder(rb.getAll().get(i));
-                }else {
-                    str = new StringBuilder(str + " " + rb.getAll().get(i));
-                }
+        for(int i=0; i<rb.getAll().size(); i++){
+            if(i==0){
+                str = new StringBuilder(rb.getAll().get(i));
+            }else {
+                str = new StringBuilder(str + " " + rb.getAll().get(i));
             }
-            String all=String.valueOf(str);
+        }
+        String all=String.valueOf(str);
 
-            for(int i=0; i<IndexTrace.get()+1; i++){
-                SimpleQueries.insertRecipeFromIngredient(username, rb, rb.getIngredient().get(i).getName(), num, rb.getIngredient().get(i).getAmount(), all, conn);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+        ResultSet rs=SimpleQueries.getRecipeFromName(username, rb.getName(), conn);
+        if(rs.first()){
+            throw new SQLIntegrityConstraintViolationException("Ricetta già esistente");
+        }
+
+        for(int i=0; i<IndexTrace.get()+1; i++){
+            SimpleQueries.insertRecipeFromIngredient(username, rb, rb.getIngredient().get(i).getName(), num, rb.getIngredient().get(i).getAmount(), all, conn);
         }
     }
 

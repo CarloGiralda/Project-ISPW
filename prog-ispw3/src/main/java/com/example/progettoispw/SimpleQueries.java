@@ -263,4 +263,12 @@ public class SimpleQueries {
         prep.setString(1, username);
         return prep.executeQuery();
     }
+
+    public static ResultSet getRecipeFromName(String username, String name, Connection conn) throws SQLException {
+        String sql= "SELECT * FROM ricetteinserite where Nome=? AND Ricetta=?";
+        PreparedStatement prep=conn.prepareStatement(sql);
+        prep.setString(1, username);
+        prep.setString(2, name);
+        return prep.executeQuery();
+    }
 }

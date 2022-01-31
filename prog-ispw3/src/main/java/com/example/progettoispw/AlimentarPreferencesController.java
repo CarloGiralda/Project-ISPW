@@ -32,6 +32,7 @@ public class AlimentarPreferencesController {
     @FXML private RadioButton fd2;
     @FXML private RadioButton fd3;
     @FXML private Button clear;
+    @FXML private Label succeed;
 
     private String no="No allergies";
     private final String[] allergies ={"Dried fruit","Fish","Eggs","Milk","Meat",no};
@@ -119,6 +120,7 @@ public class AlimentarPreferencesController {
             }
         }
         apca.setPref(selectedButtonLabel1.getText(), listOfAllergies);
+        succeed.setOpacity(1);
         logger.log(Level.INFO, preferences, listOfAllergies);
     }
 }

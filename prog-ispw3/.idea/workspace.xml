@@ -51,7 +51,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Project-ISPW.git/trunk" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -211,7 +211,12 @@
       <workItem from="1643548985652" duration="1163000" />
       <workItem from="1643559947911" duration="282000" />
       <workItem from="1643560379671" duration="84000" />
-      <workItem from="1643561219133" duration="234000" />
+      <workItem from="1643561219133" duration="364000" />
+      <workItem from="1643570058032" duration="10000" />
+      <workItem from="1643619899779" duration="3169000" />
+      <workItem from="1643623196932" duration="136000" />
+      <workItem from="1643623710844" duration="1922000" />
+      <workItem from="1643626547763" duration="2541000" />
     </task>
     <servers />
   </component>

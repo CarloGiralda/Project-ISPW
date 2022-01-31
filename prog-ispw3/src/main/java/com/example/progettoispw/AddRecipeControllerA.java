@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 
 public class AddRecipeControllerA {
     private AddRecipeDAO dao;
@@ -20,7 +21,7 @@ public class AddRecipeControllerA {
         login=filedao.readLog();
     }
 
-    public void addRecipe(RecipeBean rb) throws IOException, ClassNotFoundException {
+    public void addRecipe(RecipeBean rb) throws IOException, ClassNotFoundException, SQLException {
         Recipe recipe=Convert.convertBeanToEntity(rb);
         dao.insertRecipe(recipe, login.getUser());
         filedao.writeChef(recipe);

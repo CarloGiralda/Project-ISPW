@@ -46,7 +46,7 @@ public class WeeklyPlanControllerA {
             List<Recipe> recipesside=this.checkAll(recipess);
             List<Recipe> recipesdess=this.checkAll(recipesd);
 
-            if(recipesmain.size()<4 || recipesside.size()<4 || recipesdess.size()<2){
+            if(recipesmain.size()<7 || recipesside.size()<5 || recipesdess.size()<4){
                 throw new MyException("Ricette insufficienti");
             }
 
